@@ -1,0 +1,68 @@
+{
+    "displayinformation": {
+        "zugbezeichnung": "ICE+201",
+        "abfahrtsbahnhof": "Göttingen",
+        "ankunftsbahnhof": "Freiburg(Breisgau)+Hbf"
+    },
+    "buchungskontext": {
+        "quellSystem": "SIMA",
+        "buchungsKontextDaten": {
+            "zugnummer": "201",
+            "zugfahrtKey": "EPA%23201_2023-12-30",
+            "abfahrtHalt": {
+                "locationId": "8002549",
+                "abfahrtZeit": "2023-12-30T00:00:00"
+            },
+            "ankunftHalt": {
+                "locationId": "8000107",
+                "ankunftZeit": "2023-12-30T00:00:00"
+            },
+            "servicekategorieCode": "KLASSE_2",
+            "serviceKategorie": "SITZPLATZ_KLASSE_2",
+            "anzahlReisende": 1,
+            "inventarsystem": "EPA",
+            "inklusiveLastMinuteReservierung": true,
+            "gruppenReservierung": false,
+            "leerReservierungsfaehig": true
+        }
+    },
+    "correlationID": "5b05142c-4bf8-43ed-9417-0504698b15b2_8a712530-8849-4381-9c58-27d2cbe45c8d",
+    "lang": "de",
+    "theme": "web"
+}
+
+
+
+{
+    "displayinformation": {
+        "zugbezeichnung": "ICE+203",
+        "abfahrtsbahnhof": "Hamburg+Hbf",
+        "ankunftsbahnhof": "Freiburg(Breisgau)+Hbf"
+    },
+    "buchungskontext": {
+        "quellSystem": "SIMA",
+        "buchungsKontextDaten": {
+            "zugnummer": "203",
+            "zugfahrtKey": "EPA%23203_2023-12-30",
+            "abfahrtHalt": {
+                "locationId": "8002549",
+                "abfahrtZeit": "2023-12-30T14:44:00"
+            },
+            "ankunftHalt": {
+                "locationId": "8000107",
+                "ankunftZeit": "2023-12-30T22:07:00"
+            },
+            "servicekategorieCode": "KLASSE_2",
+            "serviceKategorie": "SITZPLATZ_KLASSE_2",
+            "anzahlReisende": 1,
+            "inventarsystem": "EPA",
+            "inklusiveLastMinuteReservierung": false,
+            "gruppenReservierung": false,
+            "leerReservierungsfaehig": false,
+            "kombinationsId": "810e6308-edb3-4fa1-abac-b3bdb1b86709"
+        }
+    },
+    "correlationID": "dd48119f-6cf6-4c06-a4a9-eaffcd860e42_8a712530-8849-4381-9c58-27d2cbe45c8d",
+    "lang": "de",
+    "theme": "web"
+}
