@@ -1,39 +1,36 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+Elbe is a Flutter UI toolkit and collection of tools that runs on all platforms.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+## Description
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+Elbe is designed to provide a collection of reusable UI components and utilities for building beautiful and responsive Flutter applications. It is based on Flutter, a popular cross-platform framework for building mobile, web, and desktop applications.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+an online demo/documentation can be accessed here: [**DEMO**](https://robbb.in/elbe)
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Reusable UI components (minimalist and customizable)
+- Responsive design
+- Cross-platform compatibility
+- state management `bit`
+- theming
+- routing
+- logging
+- Open source and free to use
 
-## Getting started
+## Installation
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+To use Elbe in your Flutter project, follow these steps:
+
+1. Open your project's `pubspec.yaml` file.
+2. Add the following line to the `dependencies` section:
+
+    ```yaml
+    dependencies:
+      elbe: ^<latest version>
+    ```
+
+3. Run `flutter pub get` to fetch the package.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Import the Elbe package in your Dart file
