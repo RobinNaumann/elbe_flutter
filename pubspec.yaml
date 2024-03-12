@@ -1,7 +1,8 @@
 name: elbe
-description: a simple package for simplifying frontend development
-version: 0.1.29
+description: a toolkit for simplifying frontend development
+version: 0.1.30
 homepage: https://robbb.in
+repository: https://github.com/RobinNaumann/elbe_flutter
 
 environment:
   sdk: '>=3.1.4 <4.0.0'
