@@ -1,6 +1,5 @@
 import '../../../elbe.dart';
 import 'inherited_theme.dart';
-import 'package:flutter/material.dart' as m;
 
 class ThemeData {
   final ColorThemeData color;

@@ -10,6 +10,7 @@ class Button extends ThemedWidget {
   final VoidCallback? onTap;
   final bool? border;
   final MainAxisAlignment alignment;
+  final bool splash;
 
   const Button(
       {super.key,
@@ -19,7 +20,8 @@ class Button extends ThemedWidget {
       this.constraints,
       this.border,
       required this.style,
-      this.alignment = MainAxisAlignment.center});
+      this.alignment = MainAxisAlignment.center,
+      this.splash = true});
 
   const Button.major(
       {super.key,
@@ -28,7 +30,8 @@ class Button extends ThemedWidget {
       this.onTap,
       this.constraints,
       this.border,
-      this.alignment = MainAxisAlignment.center})
+      this.alignment = MainAxisAlignment.center,
+      this.splash = true})
       : style = ColorStyles.majorAccent;
 
   const Button.minor(
@@ -38,7 +41,8 @@ class Button extends ThemedWidget {
       this.onTap,
       this.constraints,
       this.border,
-      this.alignment = MainAxisAlignment.center})
+      this.alignment = MainAxisAlignment.center,
+      this.splash = true})
       : style = ColorStyles.minorAccent;
 
   const Button.action(
@@ -48,7 +52,8 @@ class Button extends ThemedWidget {
       this.onTap,
       this.constraints,
       this.border = false,
-      this.alignment = MainAxisAlignment.center})
+      this.alignment = MainAxisAlignment.center,
+      this.splash = true})
       : style = ColorStyles.action;
 
   const Button.integrated(
@@ -58,7 +63,8 @@ class Button extends ThemedWidget {
       this.onTap,
       this.constraints,
       this.border = false,
-      this.alignment = MainAxisAlignment.center})
+      this.alignment = MainAxisAlignment.center,
+      this.splash = true})
       : style = ColorStyles.actionIntegrated;
 
   @override
@@ -70,6 +76,7 @@ class Button extends ThemedWidget {
         style: style,
         state: onTap != null ? ColorStates.neutral : ColorStates.disabled,
         child: _Inkwell(
+          splash: splash,
           onPressed: onTap,
           child: Padded.symmetric(
             horizontal: 0.75,
@@ -86,8 +93,9 @@ class Button extends ThemedWidget {
 
 class _Inkwell extends StatelessWidget {
   final VoidCallback? onPressed;
+  final bool splash;
   final Widget child;
-  const _Inkwell({this.onPressed, required this.child});
+  const _Inkwell({this.onPressed, required this.splash, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +104,12 @@ class _Inkwell extends StatelessWidget {
         color: Colors.transparent,
         child: onPressed == null
             ? child
-            : InkWell(splashColor: m, onTap: onPressed, child: child));
+            : InkWell(
+                hoverColor: splash ? null : Colors.transparent,
+                focusColor: splash ? null : Colors.transparent,
+                highlightColor: splash ? null : Colors.transparent,
+                splashColor: splash ? m : Colors.transparent,
+                onTap: onPressed,
+                child: child));
   }
 }

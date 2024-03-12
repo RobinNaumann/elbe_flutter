@@ -1,0 +1,20 @@
+name: example
+description: example package for the elbe framework
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.4 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  elbe: 
+    path: '../'
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+
+flutter:
+#  uses-material-design: true

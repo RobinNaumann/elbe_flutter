@@ -14,6 +14,7 @@ dependencies:
     sdk: flutter
   lucide_icons: ^0.257.0
   package_info_plus: ^4.2.0
+  go_router: ^13.2.0
 
 dev_dependencies:
   flutter_test:
@@ -26,6 +27,16 @@ flutter:
     - family: Calistoga
       fonts:
         - asset: assets/font/Calistoga-Regular.ttf
+    - family: SpaceMono
+      fonts:
+        - asset: assets/font/space_mono/SpaceMono-Regular.ttf
+        - asset: assets/font/space_mono/SpaceMono-Bold.ttf
+          weight: 700
+        - asset: assets/font/space_mono/SpaceMono-Italic.ttf
+          style: italic
+        - asset: assets/font/space_mono/SpaceMono-BoldItalic.ttf
+          weight: 700
+          style: italic
 
   # To add assets to your package, add an assets section, like this:
   # assets:

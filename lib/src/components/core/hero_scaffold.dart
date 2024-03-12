@@ -8,6 +8,7 @@ class HeroScaffold extends ThemedWidget {
   final Widget hero;
   final List<Widget>? actions;
   final LeadingIcon? leadingIcon;
+  final rem heroHeight;
   final Widget? customTitle;
   final bool centerTitle;
   final Widget? body;
@@ -19,6 +20,7 @@ class HeroScaffold extends ThemedWidget {
       required this.title,
       this.actions,
       this.leadingIcon,
+      this.heroHeight = 18,
       this.body,
       this.bodyList,
       this.customTitle,
@@ -42,7 +44,7 @@ class HeroScaffold extends ThemedWidget {
         backgroundColor: prim.plain.neutral,
         body: CustomScrollView(slivers: [
           SliverAppBar(
-              leading: leadingIcon != null
+              leading: leadingIcon?.icon != null
                   ? Center(
                       child: _heroBase(
                           IconButton.integrated(
@@ -68,7 +70,7 @@ class HeroScaffold extends ThemedWidget {
                   InvisibleExpandedHeader(
                     child: Text.h4(title, textAlign: TextAlign.center),
                   ),
-              expandedHeight: 300.0,
+              expandedHeight: context.rem(heroHeight),
               centerTitle: centerTitle,
               flexibleSpace: Stack(
                 fit: StackFit.expand,

@@ -6,6 +6,7 @@ class IconButton extends ThemedWidget {
   final String? hint;
   final RemConstraints? constraints;
   final VoidCallback? onTap;
+  final bool splash;
 
   const IconButton(
       {super.key,
@@ -13,37 +14,60 @@ class IconButton extends ThemedWidget {
       this.hint,
       this.onTap,
       this.constraints,
-      required this.style});
+      required this.style,
+      this.splash = true});
 
   const IconButton.major(
-      {super.key, required this.icon, this.hint, this.onTap, this.constraints})
+      {super.key,
+      required this.icon,
+      this.hint,
+      this.onTap,
+      this.constraints,
+      this.splash = true})
       : style = ColorStyles.majorAccent;
 
   const IconButton.minor(
-      {super.key, required this.icon, this.hint, this.onTap, this.constraints})
+      {super.key,
+      required this.icon,
+      this.hint,
+      this.onTap,
+      this.constraints,
+      this.splash = true})
       : style = ColorStyles.minorAccent;
 
   const IconButton.action(
-      {super.key, required this.icon, this.hint, this.onTap, this.constraints})
+      {super.key,
+      required this.icon,
+      this.hint,
+      this.onTap,
+      this.constraints,
+      this.splash = true})
       : style = ColorStyles.action;
 
   const IconButton.integrated(
-      {super.key, required this.icon, this.hint, this.onTap, this.constraints})
+      {super.key,
+      required this.icon,
+      this.hint,
+      this.onTap,
+      this.constraints,
+      this.splash = true})
       : style = ColorStyles.actionIntegrated;
 
-  Widget _maybeTooltip(ThemeData theme, Widget child) => hint != null
-      ? Tooltip(
-          textStyle: theme.type.bodyM.toTextStyle(),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: theme.color.activeMode..withOpacity(0.8)),
-          message: hint,
-          child: child)
-      : child;
+  Widget _maybeTooltip(BuildContext context, ThemeData theme, Widget child) =>
+      hint != null
+          ? Tooltip(
+              textStyle: theme.type.bodyM.toTextStyle(context),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: theme.color.activeMode..withOpacity(0.8)),
+              message: hint,
+              child: child)
+          : child;
 
   @override
   Widget make(context, theme) {
     return _maybeTooltip(
+        context,
         theme,
         Card(
             padding: null,
@@ -54,6 +78,7 @@ class IconButton extends ThemedWidget {
             style: style,
             state: onTap != null ? ColorStates.neutral : ColorStates.disabled,
             child: _Inkwell(
+              splash: splash,
               onPressed: onTap,
               child: Icon(icon),
             )));

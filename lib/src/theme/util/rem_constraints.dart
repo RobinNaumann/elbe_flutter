@@ -1,4 +1,9 @@
 import '../../../elbe.dart';
+import '../../../elbe.dart' as elbe;
+
+extension RemContext on BuildContext {
+  double rem([elbe.rem size = 1]) => GeometryTheme.of(this).rem(size);
+}
 
 class RemConstraints {
   final double minWidth;
@@ -25,7 +30,7 @@ class RemConstraints {
         maxHeight = size.height;
 
   BoxConstraints toPixel(BuildContext context) {
-    final rem = GeometryTheme.of(context).rem;
+    final rem = context.rem;
     return BoxConstraints(
         minWidth: rem(minWidth),
         minHeight: rem(minHeight),

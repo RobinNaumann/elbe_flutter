@@ -94,7 +94,7 @@ class ConsoleLoggerService extends LoggerService {
 
   @override
   void log(level, referer, message, [error, stackTrace]) {
-    if (minLevel != null && level.index < minLevel!.index) return;
+    if (level.index < minLevel.index) return;
 
     final msg = [
       level.name.toString().toUpperCase().add(":").padRight(10),

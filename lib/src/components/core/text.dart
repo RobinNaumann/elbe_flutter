@@ -67,6 +67,19 @@ class Text extends ThemedWidget {
       this.textAlign = TextAlign.start})
       : style = TypeStyles.bodyL;
 
+  const Text.code(this.value,
+      {super.key,
+      this.color,
+      this.resolvedStyle,
+      this.colorState,
+      this.colorStyle,
+      this.variant,
+      this.semanticLabel,
+      this.maxLines,
+      this.overflow,
+      this.textAlign = TextAlign.start})
+      : style = TypeStyles.code;
+
   const Text.h6(this.value,
       {super.key,
       this.color,
@@ -161,6 +174,6 @@ class Text extends ThemedWidget {
         semanticsLabel: semanticLabel,
         maxLines: maxLines,
         softWrap: true,
-        style: appliedType.toTextStyle(appliedColor));
+        style: appliedType.toTextStyle(context, appliedColor));
   }
 }

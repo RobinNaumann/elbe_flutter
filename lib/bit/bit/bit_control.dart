@@ -1,8 +1,5 @@
 import 'dart:async';
 import 'dart:core';
-import 'dart:math';
-
-import 'package:flutter/scheduler.dart';
 
 import '../../elbe.dart';
 import '../../util/json_tools.dart';

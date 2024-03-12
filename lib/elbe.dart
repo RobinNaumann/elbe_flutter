@@ -4,6 +4,8 @@ import 'package:lucide_icons/lucide_icons.dart' as l;
 
 // EXPORTS
 
+export 'package:go_router/go_router.dart';
+
 export 'package:flutter/material.dart'
     hide
         Icon,
@@ -38,6 +40,7 @@ export 'src/theme/themes/color/alert_type.dart';
 
 //utils
 
+export 'src/util/unix_date.dart';
 export 'src/theme/util/definitions.dart';
 export 'src/theme/util/rem_insets.dart';
 export 'src/theme/util/rem_constraints.dart';

@@ -2,8 +2,9 @@ import '../../../../elbe.dart';
 import '../../util/inherited_theme.dart';
 
 const calistoga = 'Calistoga';
+const spaceMono = 'SpaceMono';
 
-enum TypeStyles { bodyS, bodyM, bodyL, h6, h5, h4, h3, h2, h1 }
+enum TypeStyles { bodyS, bodyM, bodyL, h6, h5, h4, h3, h2, h1, code }
 
 class TypeThemeData extends ElbeInheritedThemeData {
   final TypeStyle bodyS;
@@ -15,6 +16,7 @@ class TypeThemeData extends ElbeInheritedThemeData {
   final TypeStyle h3;
   final TypeStyle h2;
   final TypeStyle h1;
+  final TypeStyle code;
 
   final TypeStyle? _selected;
 
@@ -29,6 +31,7 @@ class TypeThemeData extends ElbeInheritedThemeData {
       required this.h3,
       required this.h2,
       required this.h1,
+      required this.code,
       TypeStyle? selected})
       : _selected = selected;
 
@@ -37,15 +40,16 @@ class TypeThemeData extends ElbeInheritedThemeData {
   factory TypeThemeData.preset({String titleFont = calistoga}) {
     final pkg = titleFont == calistoga ? "elbe" : null;
     return TypeThemeData(
-        bodyS: const TypeStyle(fontSize: 12),
-        bodyM: const TypeStyle(fontSize: 15),
-        bodyL: const TypeStyle(fontSize: 18),
-        h6: TypeStyle(fontSize: 16, fontFamily: titleFont, package: pkg),
-        h5: TypeStyle(fontSize: 19, fontFamily: titleFont, package: pkg),
-        h4: TypeStyle(fontSize: 20, fontFamily: titleFont, package: pkg),
-        h3: TypeStyle(fontSize: 23, fontFamily: titleFont, package: pkg),
-        h2: TypeStyle(fontSize: 25, fontFamily: titleFont, package: pkg),
-        h1: TypeStyle(fontSize: 27, fontFamily: titleFont, package: pkg));
+        bodyS: const TypeStyle(fontSize: 0.75),
+        bodyM: const TypeStyle(fontSize: 0.94),
+        bodyL: const TypeStyle(fontSize: 1.125),
+        h6: TypeStyle(fontSize: 1, fontFamily: titleFont, package: pkg),
+        h5: TypeStyle(fontSize: 1.19, fontFamily: titleFont, package: pkg),
+        h4: TypeStyle(fontSize: 1.25, fontFamily: titleFont, package: pkg),
+        h3: TypeStyle(fontSize: 1.44, fontFamily: titleFont, package: pkg),
+        h2: TypeStyle(fontSize: 1.56, fontFamily: titleFont, package: pkg),
+        h1: TypeStyle(fontSize: 1.69, fontFamily: titleFont, package: pkg),
+        code: TypeStyle(fontSize: 0.875, fontFamily: spaceMono, package: pkg));
   }
 
   TypeThemeData copyWith(
@@ -58,6 +62,7 @@ class TypeThemeData extends ElbeInheritedThemeData {
           TypeStyle? h3,
           TypeStyle? h2,
           TypeStyle? h1,
+          TypeStyle? code,
           TypeStyle? selected}) =>
       TypeThemeData(
           bodyS: bodyS ?? this.bodyS,
@@ -69,6 +74,7 @@ class TypeThemeData extends ElbeInheritedThemeData {
           h3: h3 ?? this.h3,
           h2: h2 ?? this.h2,
           h1: h1 ?? this.h1,
+          code: code ?? this.code,
           selected: selected ?? this.selected);
 
   TypeThemeData select(TypeStyle Function(TypeThemeData) select) =>
@@ -79,7 +85,7 @@ class TypeThemeData extends ElbeInheritedThemeData {
   TypeStyle get bodyLBold => bodyL.bold;
 
   TypeStyle get(TypeStyles style) =>
-      [bodyS, bodyM, bodyL, h6, h5, h4, h3, h2, h1][style.index];
+      [bodyS, bodyM, bodyL, h6, h5, h4, h3, h2, h1, code][style.index];
 
   @override
   List getProps() => [bodyS, bodyM, bodyL, h6, h5, h4, h3, h2, h1];

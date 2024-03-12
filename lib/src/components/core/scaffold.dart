@@ -5,7 +5,11 @@ import 'package:flutter/material.dart' as m;
 import '../../../elbe.dart';
 import 'maybe_hero.dart';
 
-_popPage(BuildContext context) => Navigator.maybePop(context);
+_popPage(BuildContext context) {
+  final r = GoRouter.maybeOf(context);
+  if (!(r?.canPop() ?? false)) return;
+  r?.pop();
+}
 
 class LeadingIcon {
   static _noFn(c) {}
@@ -50,7 +54,7 @@ class Scaffold extends ThemedWidget {
 
   @override
   Widget make(context, theme) {
-    bool implyLeading = Navigator.canPop(context);
+    bool implyLeading = GoRouter.of(context).canPop();
     var leading = leadingIcon;
     if (implyLeading && leading == null) {
       leading = const LeadingIcon.back();
@@ -88,12 +92,12 @@ class Scaffold extends ThemedWidget {
             automaticallyImplyLeading: false,
             centerTitle: true,
             leading: leading != null
-                ? leading!.icon != null
+                ? leading.icon != null
                     ? IconButton.integrated(
-                        onTap: leading!.onTap != null
+                        onTap: leading.onTap != null
                             ? () => leading!.onTap?.call(context)
                             : null,
-                        icon: leading!.icon!)
+                        icon: leading.icon!)
                     : null
                 : null,
             actions: actions?.isEmpty ?? true

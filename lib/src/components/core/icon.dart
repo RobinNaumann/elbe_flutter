@@ -20,8 +20,8 @@ class Icon extends ThemedWidget {
     this.badge,
   });
 
-  Widget _icon(TypeStyle type, Color color) => w.Icon(icon,
-      size: type.iconSize,
+  Widget _icon(BuildContext c, TypeStyle type, Color color) => w.Icon(icon,
+      size: c.rem(type.iconSize ?? 1),
       color: color,
       semanticLabel: semanticLabel,
       textDirection: TextDirection.ltr);
@@ -34,9 +34,9 @@ class Icon extends ThemedWidget {
     final appliedColor = color ?? theme.color.activeLayer.front;
     final appliedSize = appliedType.iconSize ?? 24;
 
-    if (badge == null) return _icon(appliedType, appliedColor);
+    if (badge == null) return _icon(context, appliedType, appliedColor);
     return Stack(alignment: Alignment.centerLeft, children: [
-      _icon(appliedType, appliedColor),
+      _icon(context, appliedType, appliedColor),
       Padding(
           padding: EdgeInsets.only(
               left: appliedSize / 2,

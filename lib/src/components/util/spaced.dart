@@ -2,6 +2,24 @@
 
 import '../../../elbe.dart';
 
+/// a type for spacing information
+// ignore: camel_case_types
+typedef rem = double;
+
+extension ExpandedWidget on Widget {
+  /// wraps the widget in an Expanded
+  Expanded get expanded => Expanded(child: this);
+
+  /// wraps the widget in a Flexible
+  Flexible get flexible => Flexible(child: this);
+
+  /// wraps the widget in a IntrinsicHeight
+  IntrinsicHeight get fitHeight => IntrinsicHeight(child: this);
+
+  /// wraps the widget in a IntrinsicWidth
+  IntrinsicWidth get fitWidth => IntrinsicWidth(child: this);
+}
+
 /// a visual spacer that can be placed between objects to ensure consistent margins
 class Spaced extends ThemedWidget {
   static const zero = Spaced(height: 0, width: 0);

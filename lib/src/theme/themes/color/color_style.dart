@@ -177,15 +177,15 @@ enum ColorStyles {
   majorAlertError,
   minorAlertWarning,
   majorAlertWarning,
-  majorAlertSuccess,
   minorAlertSuccess,
+  majorAlertSuccess,
   minorAlertInfo,
   majorAlertInfo
 }
 
 class ColorStyle extends StateColor {
   static const colorError = Color(0xFFF34343);
-  static const colorWarning = Color(0xFFF6C821);
+  static const colorWarning = Color.fromARGB(255, 240, 221, 23);
   static const colorSuccess = Color(0xFF29AC5E);
   static const colorInfo = Color(0xFF2463AA);
 
@@ -198,8 +198,8 @@ class ColorStyle extends StateColor {
   final StateColor majorAlertError;
   final StateColor minorAlertWarning;
   final StateColor majorAlertWarning;
-  final StateColor majorAlertSuccess;
   final StateColor minorAlertSuccess;
+  final StateColor majorAlertSuccess;
   final StateColor minorAlertInfo;
   final StateColor majorAlertInfo;
 
@@ -214,8 +214,8 @@ class ColorStyle extends StateColor {
             majorAlertError: c.majorAlertError,
             minorAlertWarning: c.minorAlertWarning,
             majorAlertWarning: c.majorAlertWarning,
-            majorAlertSuccess: c.majorAlertSuccess,
             minorAlertSuccess: c.minorAlertSuccess,
+            majorAlertSuccess: c.majorAlertSuccess,
             minorAlertInfo: c.minorAlertInfo,
             majorAlertInfo: c.majorAlertInfo);
 
@@ -229,8 +229,8 @@ class ColorStyle extends StateColor {
       required this.majorAlertError,
       required this.minorAlertWarning,
       required this.majorAlertWarning,
-      required this.majorAlertSuccess,
       required this.minorAlertSuccess,
+      required this.majorAlertSuccess,
       required this.minorAlertInfo,
       required this.majorAlertInfo})
       : super.from(plain);
@@ -303,8 +303,8 @@ class ColorStyle extends StateColor {
         majorAlertError,
         minorAlertWarning,
         majorAlertWarning,
-        majorAlertSuccess,
         minorAlertSuccess,
+        majorAlertSuccess,
         minorAlertInfo,
         majorAlertInfo
       ][s.index];

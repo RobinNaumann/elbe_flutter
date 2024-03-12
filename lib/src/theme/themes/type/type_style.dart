@@ -8,8 +8,8 @@ class TypeStyle {
   final String? fontFamily;
 
   final TypeVariants variant;
-  final double? fontSize;
-  final double? iconSize;
+  final rem? fontSize;
+  final rem? iconSize;
   final TextDecoration? decoration;
 
   final List<FontFeature>? fontFeatures;
@@ -17,12 +17,12 @@ class TypeStyle {
   const TypeStyle(
       {this.variant = TypeVariants.regular,
       this.fontSize,
-      double? iconSize,
+      rem? iconSize,
       this.fontFeatures,
       this.decoration,
       this.fontFamily,
       this.package})
-      : iconSize = iconSize ?? ((fontSize ?? 16) * 1.6);
+      : iconSize = iconSize ?? ((fontSize ?? 1) * 1.6);
 
   TypeStyle merge(TypeStyle? style) => TypeStyle(
       variant: style?.variant ?? variant,
@@ -55,9 +55,9 @@ class TypeStyle {
           fontFamily: fontFamily ?? this.fontFamily,
           package: fontFamily != null ? (package) : this.package);
 
-  TextStyle toTextStyle([Color? color]) => TextStyle(
+  TextStyle toTextStyle(BuildContext context, [Color? color]) => TextStyle(
       color: color,
-      fontSize: fontSize,
+      fontSize: context.rem(fontSize ?? 1),
       fontFamily: fontFamily,
       package: package,
       fontStyle:
