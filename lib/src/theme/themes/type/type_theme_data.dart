@@ -37,19 +37,48 @@ class TypeThemeData extends ElbeInheritedThemeData {
 
   TypeStyle get selected => _selected ?? bodyM;
 
-  factory TypeThemeData.preset({String titleFont = calistoga}) {
+  factory TypeThemeData.preset({String? titleFont, double? iconFactor}) {
+    titleFont ??= calistoga;
     final pkg = titleFont == calistoga ? "elbe" : null;
     return TypeThemeData(
-        bodyS: const TypeStyle(fontSize: 0.75),
-        bodyM: const TypeStyle(fontSize: 0.94),
-        bodyL: const TypeStyle(fontSize: 1.125),
-        h6: TypeStyle(fontSize: 1, fontFamily: titleFont, package: pkg),
-        h5: TypeStyle(fontSize: 1.19, fontFamily: titleFont, package: pkg),
-        h4: TypeStyle(fontSize: 1.25, fontFamily: titleFont, package: pkg),
-        h3: TypeStyle(fontSize: 1.44, fontFamily: titleFont, package: pkg),
-        h2: TypeStyle(fontSize: 1.56, fontFamily: titleFont, package: pkg),
-        h1: TypeStyle(fontSize: 1.69, fontFamily: titleFont, package: pkg),
-        code: TypeStyle(fontSize: 0.875, fontFamily: spaceMono, package: pkg));
+        bodyS: TypeStyle(fontSize: 0.75, iconFactor: iconFactor),
+        bodyM: TypeStyle(fontSize: 0.94, iconFactor: iconFactor),
+        bodyL: TypeStyle(fontSize: 1.125, iconFactor: iconFactor),
+        h6: TypeStyle(
+            fontSize: 1,
+            iconFactor: iconFactor,
+            fontFamily: titleFont,
+            package: pkg),
+        h5: TypeStyle(
+            fontSize: 1.19,
+            iconFactor: iconFactor,
+            fontFamily: titleFont,
+            package: pkg),
+        h4: TypeStyle(
+            fontSize: 1.25,
+            iconFactor: iconFactor,
+            fontFamily: titleFont,
+            package: pkg),
+        h3: TypeStyle(
+            fontSize: 1.44,
+            iconFactor: iconFactor,
+            fontFamily: titleFont,
+            package: pkg),
+        h2: TypeStyle(
+            fontSize: 1.56,
+            iconFactor: iconFactor,
+            fontFamily: titleFont,
+            package: pkg),
+        h1: TypeStyle(
+            fontSize: 1.69,
+            iconFactor: iconFactor,
+            fontFamily: titleFont,
+            package: pkg),
+        code: TypeStyle(
+            fontSize: 0.875,
+            iconFactor: iconFactor,
+            fontFamily: spaceMono,
+            package: pkg));
   }
 
   TypeThemeData copyWith(

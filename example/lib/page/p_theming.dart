@@ -155,13 +155,20 @@ Text("hello",
       child: (get, _) =>
           Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             for (final s in TypeStyles.values)
-              Text("${s.name} text",
-                  style: s,
-                  variant: get("bold")
-                      ? (get("italic")
-                          ? TypeVariants.boldItalic
-                          : TypeVariants.bold)
-                      : (get("italic") ? TypeVariants.italic : null)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("${s.name} text",
+                      style: s,
+                      variant: get("bold")
+                          ? (get("italic")
+                              ? TypeVariants.boldItalic
+                              : TypeVariants.bold)
+                          : (get("italic") ? TypeVariants.italic : null)),
+                  Icon(Icons.leaf, style: s),
+                  Icon(Icons.leaf),
+                ],
+              ),
           ]));
 }
 

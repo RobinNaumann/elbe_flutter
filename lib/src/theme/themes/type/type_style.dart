@@ -8,28 +8,31 @@ class TypeStyle {
   final String? fontFamily;
 
   final TypeVariants variant;
-  final rem? fontSize;
-  final rem? iconSize;
+  final rem fontSize;
+  final double iconFactor;
+
+  rem get iconSize => fontSize * iconFactor;
+
   final TextDecoration? decoration;
 
   final List<FontFeature>? fontFeatures;
 
   const TypeStyle(
       {this.variant = TypeVariants.regular,
-      this.fontSize,
-      rem? iconSize,
+      this.fontSize = 1,
+      double? iconFactor,
       this.fontFeatures,
       this.decoration,
       this.fontFamily,
       this.package})
-      : iconSize = iconSize ?? ((fontSize ?? 1) * 1.6);
+      : iconFactor = iconFactor ?? 1.4;
 
   TypeStyle merge(TypeStyle? style) => TypeStyle(
       variant: style?.variant ?? variant,
       fontSize: style?.fontSize ?? fontSize,
       fontFamily: style?.fontFamily ?? fontFamily,
       package: style?.package ?? package,
-      iconSize: style?.iconSize ?? iconSize,
+      iconFactor: style?.iconFactor ?? iconFactor,
       decoration: style?.decoration ?? decoration,
       fontFeatures: style?.fontFeatures ?? fontFeatures);
 
@@ -41,7 +44,7 @@ class TypeStyle {
   TypeStyle copyWith(
           {TypeVariants? variant,
           double? fontSize,
-          double? iconSize,
+          double? iconFactor,
           TextDecoration? decoration,
           List<FontFeature>? fontFeatures,
           String? fontFamily,
@@ -49,7 +52,7 @@ class TypeStyle {
       TypeStyle(
           variant: variant ?? this.variant,
           fontSize: fontSize ?? this.fontSize,
-          iconSize: iconSize ?? this.iconSize,
+          iconFactor: iconFactor ?? this.iconFactor,
           decoration: decoration ?? this.decoration,
           fontFeatures: fontFeatures ?? this.fontFeatures,
           fontFamily: fontFamily ?? this.fontFamily,
@@ -57,7 +60,7 @@ class TypeStyle {
 
   TextStyle toTextStyle(BuildContext context, [Color? color]) => TextStyle(
       color: color,
-      fontSize: context.rem(fontSize ?? 1),
+      fontSize: context.rem(fontSize),
       fontFamily: fontFamily,
       package: package,
       fontStyle:

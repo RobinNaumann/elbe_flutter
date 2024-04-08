@@ -9,11 +9,16 @@ class ThemeData {
   const ThemeData(
       {required this.color, required this.type, required this.geometry});
 
-  ThemeData.preset({Color color = Colors.purple})
+  ThemeData.preset(
+      {Color color = Colors.purple,
+      double? remSize,
+      String? titleFont,
+      double? iconFactor})
       : this(
             color: ColorThemeData.fromColor(accent: color),
-            type: TypeThemeData.preset(),
-            geometry: GeometryThemeData.preset());
+            type: TypeThemeData.preset(
+                titleFont: titleFont, iconFactor: iconFactor),
+            geometry: GeometryThemeData.preset(remSize: remSize ?? 16));
 
   factory ThemeData.fromContext(BuildContext context) => ThemeData(
       color: ColorTheme.of(context),
@@ -24,6 +29,15 @@ class ThemeData {
   double? rem(double? dim) => geometry.maybeRem(dim);
 
   List<ElbeInheritedThemeData> get data => [color, type, geometry];
+
+  ThemeData copyWith(
+          {ColorThemeData? color,
+          TypeThemeData? type,
+          GeometryThemeData? geometry}) =>
+      ThemeData(
+          color: color ?? this.color,
+          type: type ?? this.type,
+          geometry: geometry ?? this.geometry);
 }
 
 class Theme extends StatelessWidget {
