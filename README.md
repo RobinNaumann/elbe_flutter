@@ -112,7 +112,7 @@ class CounterBit extends MapMsgBitControl<int> {
   /// and thus updates the UI
   addOne() =>
     state.whenOrNull(
-      onError: (_) => 0 //reset on error,
+      onError: (_) => this.emit(0) //reset on error,
       onData: (v) => this.emit(v + 1));
 }
 ```
