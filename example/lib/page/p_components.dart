@@ -23,6 +23,7 @@ class ComponentsPage extends StatelessWidget {
         _IconButtonsView(),
         _ToggleBtnView(),
         _AlertsView(),
+        _ToastView()
       ],
     );
   }
@@ -255,5 +256,32 @@ Badge(
 """,
           children: [
             for (final s in _types) Badge(text: s.name, type: s),
+          ]);
+}
+
+class _ToastView extends StatelessWidget {
+  const _ToastView({super.key});
+
+  @override
+  Widget build(BuildContext context) => SectionView.stateless(
+          title: "Toast",
+          about: "show a temporary message at the bottom of the screen",
+          code: """
+context.showToast("hello world");
+
+context.showToast(
+  "hello world", 
+  icon: Icons.leaf, 
+  color: context.theme.color.activeScheme.minorAlertSuccess
+);""",
+          children: [
+            Button.minor(
+                label: "show basic toast",
+                onTap: () => context.showToast("hello world")),
+            Button.minor(
+                label: "show custom toast",
+                onTap: () => context.showToast("hello world",
+                    icon: Icons.leaf,
+                    color: context.theme.color.activeScheme.minorAlertSuccess)),
           ]);
 }

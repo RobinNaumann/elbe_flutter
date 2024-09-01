@@ -1,6 +1,10 @@
 import '../../../elbe.dart';
 import 'inherited_theme.dart';
 
+extension ThemeContext on BuildContext {
+  ThemeData get theme => ThemeData.fromContext(this);
+}
+
 class ThemeData {
   final ColorThemeData color;
   final TypeThemeData type;

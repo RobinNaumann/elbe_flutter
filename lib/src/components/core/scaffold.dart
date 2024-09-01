@@ -135,3 +135,27 @@ class CircleClip extends CustomClipper<Rect> {
   @override
   bool shouldReclip(oldClipper) => false;
 }
+
+extension Toast on BuildContext {
+  void showToast(String message,
+      {IconData? icon, LayerColor? color, Duration? duration}) {
+    final c = color ?? (this).theme.color.activeMode.inverse;
+    ScaffoldMessenger.of(this).showSnackBar(SnackBar(
+        duration: duration ?? const Duration(seconds: 2),
+        backgroundColor: c.back,
+        content: Row(
+            children: [
+          if (icon != null)
+            Icon(
+              icon,
+              color: c.front,
+            ),
+          Expanded(
+            child: Text(
+              message,
+              color: c.front,
+            ),
+          )
+        ].spaced(amount: 0.75))));
+  }
+}
