@@ -95,6 +95,24 @@ class BitControl<M, V, L> {
     _emitState(BitState.data(_history!.removeLast()), false);
   }
 
+  /// this method allows you to easily mutate the state of the bit
+  /// it is a shorthand for the [state.whenOrNull] method.
+  /// It will call the [onData] function
+  /// and emit the result of the function if it does not throw an error
+  /// otherwise it will emit an error state.
+  ///
+  /// If [silent] is set to false, it will emit a loading state before calling the [onData] function.
+  void act(FutureOr<M> Function(M data) onData, {bool silent = true}) {
+    state.whenOrNull(onData: (data) async {
+      emitLoading();
+      try {
+        emit(await onData(data));
+      } catch (e) {
+        emitError(e);
+      }
+    });
+  }
+
   static B? maybeOf<B extends BitControl>(BuildContext context) => context
       .dependOnInheritedWidgetOfExactType<_TriInherited<B>>()
       ?.provider

@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart' as w;
 
 import '../../../elbe.dart';
 
+/// use *WText* to use the default Flutter Text widget
 class Text extends ThemedWidget {
   final String value;
   final Color? color;

@@ -37,7 +37,10 @@ class TypeThemeData extends ElbeInheritedThemeData {
 
   TypeStyle get selected => _selected ?? bodyM;
 
-  factory TypeThemeData.preset({String? titleFont, double? iconFactor}) {
+  factory TypeThemeData.preset(
+      {String? titleFont,
+      TypeVariants titleVariant = TypeVariants.regular,
+      double? iconFactor}) {
     titleFont ??= calistoga;
     final pkg = titleFont == calistoga ? "elbe" : null;
     return TypeThemeData(
@@ -46,31 +49,37 @@ class TypeThemeData extends ElbeInheritedThemeData {
         bodyL: TypeStyle(fontSize: 1.125, iconFactor: iconFactor),
         h6: TypeStyle(
             fontSize: 1,
+            variant: titleVariant,
             iconFactor: iconFactor,
             fontFamily: titleFont,
             package: pkg),
         h5: TypeStyle(
             fontSize: 1.19,
+            variant: titleVariant,
             iconFactor: iconFactor,
             fontFamily: titleFont,
             package: pkg),
         h4: TypeStyle(
             fontSize: 1.25,
+            variant: titleVariant,
             iconFactor: iconFactor,
             fontFamily: titleFont,
             package: pkg),
         h3: TypeStyle(
             fontSize: 1.44,
+            variant: titleVariant,
             iconFactor: iconFactor,
             fontFamily: titleFont,
             package: pkg),
         h2: TypeStyle(
             fontSize: 1.56,
+            variant: titleVariant,
             iconFactor: iconFactor,
             fontFamily: titleFont,
             package: pkg),
         h1: TypeStyle(
             fontSize: 1.69,
+            variant: titleVariant,
             iconFactor: iconFactor,
             fontFamily: titleFont,
             package: pkg),
@@ -78,7 +87,7 @@ class TypeThemeData extends ElbeInheritedThemeData {
             fontSize: 0.875,
             iconFactor: iconFactor,
             fontFamily: spaceMono,
-            package: pkg));
+            package: "elbe"));
   }
 
   TypeThemeData copyWith(

@@ -66,12 +66,14 @@ class _ErrorTechView extends StatelessWidget {
       padding: Platform.isMacOS
           ? const EdgeInsets.only(top: 53)
           : const EdgeInsets.all(0),
-      child: Scaffold(
-          title: "Error Details",
-          leadingIcon: const LeadingIcon.close(),
-          child: Padded.all(
-              child: SingleChildScrollView(
-                  clipBehavior: Clip.none, child: Text(error.toString())))),
+      child: ClipRect(
+        child: Scaffold(
+            title: "Error Details",
+            leadingIcon: const LeadingIcon.close(),
+            child: Padded.all(
+                child: SingleChildScrollView(
+                    clipBehavior: Clip.none, child: Text(error.toString())))),
+      ),
     );
   }
 }

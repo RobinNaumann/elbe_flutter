@@ -17,11 +17,14 @@ class ThemeData {
       {Color color = Colors.purple,
       double? remSize,
       String? titleFont,
+      TypeVariants titleVariant = TypeVariants.regular,
       double? iconFactor})
       : this(
             color: ColorThemeData.fromColor(accent: color),
             type: TypeThemeData.preset(
-                titleFont: titleFont, iconFactor: iconFactor),
+                titleFont: titleFont,
+                titleVariant: titleVariant,
+                iconFactor: iconFactor),
             geometry: GeometryThemeData.preset(remSize: remSize ?? 16));
 
   factory ThemeData.fromContext(BuildContext context) => ThemeData(

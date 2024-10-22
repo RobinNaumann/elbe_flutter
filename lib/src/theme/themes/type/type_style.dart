@@ -1,7 +1,22 @@
 import 'dart:ui';
+
 import '../../../../elbe.dart';
 
-enum TypeVariants { regular, bold, italic, boldItalic }
+enum TypeVariants {
+  light._(FontWeight.w200, FontStyle.normal),
+  regular._(FontWeight.normal, FontStyle.normal),
+  bold._(FontWeight.bold, FontStyle.normal),
+  black._(FontWeight.w900, FontStyle.normal),
+  lightItalic._(FontWeight.w200, FontStyle.italic),
+  italic._(FontWeight.normal, FontStyle.italic),
+  boldItalic._(FontWeight.bold, FontStyle.italic),
+  blackItalic._(FontWeight.w900, FontStyle.italic);
+
+  const TypeVariants._(this.fontWeight, this.fontStyle);
+
+  final FontStyle fontStyle;
+  final FontWeight fontWeight;
+}
 
 class TypeStyle {
   final String? package;
@@ -63,14 +78,8 @@ class TypeStyle {
       fontSize: context.rem(fontSize),
       fontFamily: fontFamily,
       package: package,
-      fontStyle:
-          (variant == TypeVariants.italic || variant == TypeVariants.boldItalic)
-              ? FontStyle.italic
-              : FontStyle.normal,
-      fontWeight:
-          (variant == TypeVariants.bold || variant == TypeVariants.boldItalic)
-              ? FontWeight.bold
-              : FontWeight.normal,
+      fontStyle: variant.fontStyle,
+      fontWeight: variant.fontWeight,
       fontFeatures: fontFeatures,
       decoration: decoration);
 }

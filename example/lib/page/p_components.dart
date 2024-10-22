@@ -23,7 +23,8 @@ class ComponentsPage extends StatelessWidget {
         _IconButtonsView(),
         _ToggleBtnView(),
         _AlertsView(),
-        _ToastView()
+        _ToastView(),
+        _PageView()
       ],
     );
   }
@@ -283,5 +284,32 @@ context.showToast(
                 onTap: () => context.showToast("hello world",
                     icon: Icons.leaf,
                     color: context.theme.color.activeScheme.minorAlertSuccess)),
+          ]);
+}
+
+class _PageView extends StatelessWidget {
+  const _PageView({super.key});
+
+  @override
+  Widget build(BuildContext context) => SectionView.stateless(
+          title: "Page",
+          about: "a component that represents a single screen",
+          code: """
+Scaffold(
+  title: "title",
+  actions: [IconButton.integrated(icon: Icons.leaf, onTap: () {})],
+  child: Text("this is some content")
+);""",
+          children: [
+            Card(
+              child: SizedBox(
+                  height: 300,
+                  child: Scaffold(
+                      title: "title",
+                      actions: [
+                        IconButton.integrated(icon: Icons.leaf, onTap: () {})
+                      ],
+                      child: Text("this is some content"))),
+            )
           ]);
 }

@@ -7,8 +7,8 @@ import 'maybe_hero.dart';
 
 _popPage(BuildContext context) {
   final r = GoRouter.maybeOf(context);
-  if (!(r?.canPop() ?? false)) return;
-  r?.pop();
+  if (r == null) return m.Navigator.maybeOf(context)?.maybePop();
+  if (r.canPop()) r.pop();
 }
 
 class LeadingIcon {
@@ -34,6 +34,7 @@ class Scaffold extends ThemedWidget {
   final String title;
   final List<Widget>? actions;
   final LeadingIcon? leadingIcon;
+  final bool resizeOnKeyboard;
   final String? heroTag;
   final Widget? customTitle;
   final Widget? child;
@@ -46,6 +47,7 @@ class Scaffold extends ThemedWidget {
       this.customTitle,
       this.actions,
       this.leadingIcon,
+      this.resizeOnKeyboard = true,
       this.heroTag,
       this.child,
       this.children})
@@ -54,7 +56,7 @@ class Scaffold extends ThemedWidget {
 
   @override
   Widget make(context, theme) {
-    bool implyLeading = GoRouter.of(context).canPop();
+    bool implyLeading = GoRouter.maybeOf(context)?.canPop() ?? false;
     var leading = leadingIcon;
     if (implyLeading && leading == null) {
       leading = const LeadingIcon.back();
@@ -82,6 +84,7 @@ class Scaffold extends ThemedWidget {
                                 child: child))),
         child: m.Scaffold(
           key: ValueKey(theme.color.mode),
+          resizeToAvoidBottomInset: resizeOnKeyboard,
           backgroundColor: s.plain.neutral,
           appBar: AppBar(
             //toolbarHeight: 50,

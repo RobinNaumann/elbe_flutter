@@ -77,4 +77,5 @@ typedef WText = m.Text;
 /// A shorthand for using the regular [Icon] widget instead of the one provided by Elbe.
 typedef WIcon = m.Icon;
 
+/// A shorthand for using the regular [Border] widget instead of the one provided by Elbe.
 typedef WBorder = m.Border;
