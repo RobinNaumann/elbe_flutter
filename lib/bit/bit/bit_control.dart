@@ -70,7 +70,8 @@ class BitControl<M, V, L> {
       _history?.add((this.state as _DataBitState<M, L>).data);
     }
     _streamController.add(state);
-    onStateChange();
+    tryOr(() => onStateChange(), null);
+    tryOr(() => effect(state), null);
   }
 
   void dispose() {
@@ -94,6 +95,9 @@ class BitControl<M, V, L> {
     if (_history?.isEmpty ?? true) return;
     _emitState(BitState.data(_history!.removeLast()), false);
   }
+
+  /// Gets called whenever the state of the bit changes.
+  void effect(BitState<M, L> state) {}
 
   /// this method allows you to easily mutate the state of the bit
   /// it is a shorthand for the [state.whenOrNull] method.
@@ -122,5 +126,7 @@ class BitControl<M, V, L> {
       maybeOf<B>(context) ??
       (throw Exception("cannot find a TriBit of type $B in the context"));
 
+  @Deprecated("use the `effect(state)` function instead. "
+      "This makes the API more similar to other frameworks.")
   void onStateChange() {}
 }

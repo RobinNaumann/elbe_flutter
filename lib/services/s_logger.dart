@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
+import 'package:elbe/src/errors/elbe_error.dart';
 import 'package:elbe/src/extensions/maybe_map.dart';
 
 import '../elbe.dart';
@@ -24,7 +25,7 @@ enum LogLevel {
 
 final log = LoggerService.i;
 
-T serviceInst<T>(T? i) => i ?? (throw BitError.serviceNotInitialized("$T"));
+T serviceInst<T>(T? i) => i ?? (throw ElbeError.serviceNotInitialized("$T"));
 
 abstract class LoggerService {
   static LoggerService? _i;

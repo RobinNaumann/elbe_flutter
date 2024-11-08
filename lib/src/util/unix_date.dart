@@ -1,5 +1,7 @@
+typedef UnixMs = int;
+
 extension UnixDate on DateTime {
-  int get asUnixMs => millisecondsSinceEpoch;
-  static DateTime parse(int unixMs) =>
+  UnixMs get asUnixMs => millisecondsSinceEpoch;
+  static DateTime fromUnixMs(int unixMs) =>
       DateTime.fromMillisecondsSinceEpoch(unixMs);
 }

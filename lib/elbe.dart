@@ -46,13 +46,17 @@ export 'src/components/core/toggle_buttons.dart';
 export 'src/components/util/elbe_stateless_widget.dart';
 export 'src/components/util/spaced.dart';
 export 'src/components/util/spaced_list.dart';
+// errors
+export 'src/errors/elbe_error.dart';
+export 'src/errors/elbe_errors.dart';
+export 'src/errors/p_elbe_error.dart';
+export 'src/errors/v_elbe_error.dart';
 export 'src/theme/themes/color/alert_type.dart';
 export 'src/theme/themes/color/color_style.dart';
 export 'src/theme/themes/color/color_theme.dart';
 export 'src/theme/themes/color/color_theme_data.dart';
 export 'src/theme/themes/geometry/geometry_theme.dart';
 //themes
-
 export 'src/theme/themes/geometry/geometry_theme_data.dart';
 export 'src/theme/themes/type/type_style.dart';
 export 'src/theme/themes/type/type_theme.dart';
@@ -61,11 +65,12 @@ export 'src/theme/util/definitions.dart';
 export 'src/theme/util/rem_constraints.dart';
 export 'src/theme/util/rem_insets.dart';
 export 'src/theme/util/theme.dart';
+export 'src/util/opt.dart';
 //utils
-
 export 'src/util/unix_date.dart';
 export 'util/lorem.dart';
 export 'util/math.dart';
+export 'util/try.dart';
 
 typedef MaterialIcons = m.Icons;
 typedef ApfelIcons = c.CupertinoIcons;

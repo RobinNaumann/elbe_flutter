@@ -51,8 +51,11 @@ class BitBuilder<M, V, L, B extends BitControl<M, V, L>>
 Widget bitEmptyView() => const SizedBox.shrink();
 Widget bitEmpty(dynamic _, dynamic __) => const SizedBox.shrink();
 
-Widget bitErrorView(BitControl bit, dynamic error) =>
-    Center(child: BitErrorView(bit: bit, error: error));
+Widget bitErrorView(BitControl bit, dynamic error) => Center(
+        child: ElbeErrorView(
+      error: error,
+      reload: () => bit.reload(),
+    ));
 
 Widget bitLoadingView(BitControl bit) => Padding(
     padding: const EdgeInsets.all(10),

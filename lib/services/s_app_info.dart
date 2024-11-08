@@ -1,5 +1,5 @@
-import 'package:device_info_plus/device_info_plus.dart';
 import 'dart:io' show Platform;
+
 import '../elbe.dart';
 
 enum RunPlatform {
@@ -28,7 +28,8 @@ abstract class AppInfoService {
   static AppInfoService get i => serviceInst(_i);
 
   /// provide a custom app info service. For basic console logging, use BasicAppInfoService.
-  static void init(AppInfoService i) => _i = _i ?? i;
+  static Future<void> init([AppInfoService? s]) async =>
+      _i = s ?? await BasicAppInfoService.make();
 
   /// the app's name
   String get appName;
@@ -46,22 +47,16 @@ abstract class AppInfoService {
 
   /// the current platform
   RunPlatform get platform;
-
-  /// whether the app is running on a real device (not in the simulator)
-  Future<bool> get deviceIsPhysical;
 }
 
 class BasicAppInfoService extends AppInfoService {
   final PackageInfo packageInfo;
-  final DeviceInfoPlugin deviceInfo;
 
-  BasicAppInfoService._({required this.packageInfo, required this.deviceInfo});
+  BasicAppInfoService._({required this.packageInfo});
 
   static Future<BasicAppInfoService> make() async {
     final packageInfo = await PackageInfo.fromPlatform();
-    final deviceInfo = DeviceInfoPlugin();
-    return BasicAppInfoService._(
-        packageInfo: packageInfo, deviceInfo: deviceInfo);
+    return BasicAppInfoService._(packageInfo: packageInfo);
   }
 
   @override
@@ -86,11 +81,4 @@ class BasicAppInfoService extends AppInfoService {
     if (Platform.isFuchsia) return RunPlatform.fuchsia;
     return RunPlatform.web;
   }
-
-  @override
-  get deviceIsPhysical async => platform.isIos
-      ? (await deviceInfo.iosInfo).isPhysicalDevice
-      : (platform.isAndroid
-          ? (await deviceInfo.androidInfo).isPhysicalDevice
-          : true);
 }
