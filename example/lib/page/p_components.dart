@@ -1,20 +1,22 @@
 import 'package:elbe/elbe.dart';
-import 'package:example/main.dart';
+import 'package:example/bit/b_theme_seed.dart';
 import 'package:example/view/v_section.dart';
 
 class ComponentsPage extends StatelessWidget {
-  const ComponentsPage();
+  const ComponentsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       title: "components",
       actions: [
-        ColorModeBit.builder(
+        ThemeSeedBit.builder(
             onData: (bit, data) => IconButton.flatPlain(
-                icon: data.isDark ? Icons.moon : Icons.sun, onTap: bit.toggle))
+                icon: data.mode.isDark ? Icons.moon : Icons.sun,
+                onTap: bit.toggle))
       ],
       //leadingIcon: LeadingIcon.back(),
+      childrenMaxWidth: 40,
       children: const [
         _BoxView(),
         _CardView(),
@@ -29,7 +31,8 @@ class ComponentsPage extends StatelessWidget {
         _SpinnerView(),
         _AlertsView(),
         _ToastView(),
-        _PageView()
+        _PageView(),
+        _ExtendView(),
       ],
     );
   }
@@ -162,6 +165,27 @@ class _SpinnerView extends StatelessWidget {
 Spinner()
 """,
         children: (get, _) => const [Spinner()]);
+  }
+}
+
+class _ExtendView extends StatelessWidget {
+  const _ExtendView();
+
+  @override
+  Widget build(BuildContext context) {
+    return SectionView(
+        initial: const {},
+        title: "Easily Extendable",
+        about:
+            "elbe is designed to be easily extended. You can create your own components by accessing the defined themes",
+        code: (s) => """
+Spinner()
+""",
+        children: (get, _) => const [
+              Text.code("ColorTheme.of(context)"),
+              Text.code("GeometryTheme.of(context)"),
+              Text.code("TypeTheme.of(context)"),
+            ]);
   }
 }
 
@@ -354,7 +378,7 @@ class _ToggleViewState extends State<_ToggleView> {
   @override
   Widget build(BuildContext context) {
     return SectionView(
-        initial: const {},
+        initial: const {"show_check": true},
         childrenGap: 2,
         title: "Toggle Button",
         about:
@@ -370,6 +394,7 @@ Icon(Icons.leaf,
               ToggleButton(
                   icon: Icons.leaf,
                   label: "foliage",
+                  showCheck: get("show_check"),
                   value: selected,
                   onChanged: (v) => setState(() => selected = v)),
             ]);

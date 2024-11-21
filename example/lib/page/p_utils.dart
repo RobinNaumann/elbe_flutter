@@ -1,5 +1,6 @@
 import 'package:elbe/elbe.dart';
-import 'package:example/main.dart';
+
+import '../bit/b_theme_seed.dart';
 
 class UtilsPage extends StatelessWidget {
   const UtilsPage({super.key});
@@ -7,15 +8,17 @@ class UtilsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      childrenMaxWidth: 40,
       title: "utilities",
       actions: [
-        ColorModeBit.builder(
+        ThemeSeedBit.builder(
             onData: (bit, data) => IconButton.flatPlain(
-                icon: data.isDark ? Icons.moon : Icons.sun, onTap: bit.toggle))
+                icon: data.mode.isDark ? Icons.moon : Icons.sun,
+                onTap: bit.toggle))
       ],
       //leadingIcon: LeadingIcon.back(),
       children: [
-        Title.h6("logger"),
+        const Title.h6("logger"),
         Card(
             scheme: ColorSchemes.inverse,
             child: Text.code("""

@@ -1,6 +1,8 @@
 import 'package:elbe/elbe.dart';
 import 'package:example/routes.dart';
 
+import 'bit/b_theme_seed.dart';
+
 void main() => runApp(_App());
 
 class _App extends StatelessWidget {
@@ -8,26 +10,22 @@ class _App extends StatelessWidget {
 
   final GoRouter _appRouter = GoRouter(routes: appRoutes);
 
-  final t = ThemeData.preset();
-
   @override
-  Widget build(BuildContext context) =>
-      BitBuildProvider<ColorModes, ColorModes, String, ColorModeBit>(
-          create: (_) => ColorModeBit(),
-          onData: (_, d) => ElbeApp(
+  Widget build(BuildContext context) => BitProvider(
+      create: (_) => ThemeSeedBit(),
+      child: ThemeSeedBit.builder(
+          onData: (bit, data) => ElbeApp(
                 router: _appRouter,
-                mode: d,
+                mode: data.mode,
                 debugShowCheckedModeBanner: false,
-                theme: t,
-              ));
-}
-
-class ColorModeBit extends MapMsgBitControl<ColorModes> {
-  static const builder = MapMsgBitBuilder<ColorModes, ColorModeBit>.make;
-  ColorModeBit()
-      : super.worker((w) => ColorModes.light, initial: ColorModes.light);
-
-  void toggle() => state.whenOrNull(onData: (d) {
-        emit(d == ColorModes.light ? ColorModes.dark : ColorModes.light);
-      });
+                theme: ThemeData.preset(
+                    titleVariant: TypeVariants.bold,
+                    titleFont: data.font,
+                    border: Border(
+                      borderRadius: BorderRadius.circular(data.borderRadius),
+                      pixelWidth: data.borderWidth,
+                    ),
+                    colorSeed: ColorSeed.make(
+                        accent: LayerColor.fromBack(data.accent))),
+              )));
 }

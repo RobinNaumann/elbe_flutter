@@ -1,17 +1,17 @@
 name: example
 description: example package for the elbe framework
-publish_to: 'none' 
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.1.4 <4.0.0'
+  sdk: ">=3.1.4 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  elbe: 
-    path: '../'
+  elbe:
+    path: "../"
   url_launcher: ^6.2.4
 
 dev_dependencies:
@@ -36,3 +36,25 @@ flutter_launcher_icons:
   macos:
     generate: true
     image_path: "../assets/logo_elbe.png"
+
+  fonts:
+    - family: Calistoga
+      fonts:
+        - asset: assets/font/calistoga.ttf
+          weight: 700
+    - family: Space Grotesk
+      fonts:
+        - asset: assets/font/space.ttf
+          weight: 700
+    - family: Astlock
+      fonts:
+        - asset: assets/font/astloch.ttf
+          weight: 700
+    - family: Delius
+      fonts:
+        - asset: assets/font/delius.ttf
+          weight: 700
+    - family: Atkinson Hyperlegible
+      fonts:
+        - asset: assets/font/atkinson.ttf
+          weight: 700

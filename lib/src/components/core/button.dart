@@ -10,6 +10,7 @@ class Button extends ThemedWidget {
   final RemConstraints? constraints;
   final VoidCallback? onTap;
   final bool? border;
+  final bool expand;
   final MainAxisAlignment alignment;
   final bool splash;
 
@@ -34,6 +35,7 @@ class Button extends ThemedWidget {
       this.kind = ColorKinds.accent,
       this.manner = ColorManners.major,
       this.alignment = MainAxisAlignment.center,
+      this.expand = false,
       this.splash = true});
 
   /// create a button with a major manner. Major buttons signify the main action
@@ -46,6 +48,7 @@ class Button extends ThemedWidget {
       this.border,
       this.alignment = MainAxisAlignment.center,
       this.kind = ColorKinds.accent,
+      this.expand = false,
       this.splash = true})
       : manner = ColorManners.major;
 
@@ -60,6 +63,7 @@ class Button extends ThemedWidget {
       this.border,
       this.alignment = MainAxisAlignment.center,
       this.kind = ColorKinds.accent,
+      this.expand = false,
       this.splash = true})
       : manner = ColorManners.minor;
 
@@ -74,6 +78,7 @@ class Button extends ThemedWidget {
       this.border = false,
       this.alignment = MainAxisAlignment.center,
       this.kind = ColorKinds.accent,
+      this.expand = false,
       this.splash = true})
       : manner = ColorManners.flat;
 
@@ -88,6 +93,7 @@ class Button extends ThemedWidget {
       this.constraints,
       this.border = false,
       this.alignment = MainAxisAlignment.center,
+      this.expand = false,
       this.splash = true})
       : manner = ColorManners.flat,
         kind = ColorKinds.plain;
@@ -109,6 +115,7 @@ class Button extends ThemedWidget {
           child: Padded.symmetric(
             horizontal: 0.75,
             child: Row(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: alignment,
                 children: [
                   if (icon != null) Icon(icon!),

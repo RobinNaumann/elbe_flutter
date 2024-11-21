@@ -1,5 +1,6 @@
 import 'package:elbe/elbe.dart';
-import 'package:example/main.dart';
+
+import '../bit/b_theme_seed.dart';
 
 class RoutingPage extends StatelessWidget {
   const RoutingPage({super.key});
@@ -8,18 +9,19 @@ class RoutingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       title: "routing",
+      childrenMaxWidth: 40,
       actions: [
-        ColorModeBit.builder(
+        ThemeSeedBit.builder(
             onData: (bit, data) => IconButton.flat(
                 kind: ColorKinds.plain,
-                icon: data.isDark ? Icons.moon : Icons.sun,
+                icon: data.mode.isDark ? Icons.moon : Icons.sun,
                 onTap: bit.toggle))
       ],
       //leadingIcon: LeadingIcon.back(),
       children: [
-        Text(
+        const Text(
             "elbe utilizes the 'go_router' package for routing. It is a simple and powerful routing package that allows for easy navigation and deep linking."),
-        Title.h6("define the router"),
+        const Title.h6("define the router"),
         Card(
             scheme: ColorSchemes.inverse,
             child: Text.code("""

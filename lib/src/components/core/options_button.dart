@@ -27,6 +27,7 @@ class OptionsButton<T> extends StatelessWidget {
   final List<OptionsItem<T>> items;
   final Function(T id) onSelect;
   final bool vertical;
+  final bool compact;
 
   /// a button that allows the user to select from a list of options
   ///
@@ -42,41 +43,47 @@ class OptionsButton<T> extends StatelessWidget {
       required this.selected,
       required this.items,
       required this.onSelect,
+      this.compact = false,
       this.vertical = false});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        kind: ColorKinds.accent,
-        padding: null,
-        child: Flex(
-            mainAxisSize: MainAxisSize.min,
-            direction: vertical ? Axis.vertical : Axis.horizontal,
-            children: items.listMap((e) => GestureDetector(
-                onTap: () => onSelect(e.key),
-                child: Box(
-                  kind: ColorKinds.plain,
-                  child: Card(
-                      padding: const RemInsets.symmetric(horizontal: 1),
-                      height: 3.5,
-                      manner: selected == e.key
-                          ? ColorManners.minor
-                          : ColorManners.flat,
-                      kind: ColorKinds.accent,
-                      border: Border.noneRect,
-                      child: Row(children: [
-                        if (e.icon != null)
-                          Padded.only(right: 1, child: Icon(e.icon!)),
-                        vertical
-                            ? Expanded(
-                                child: Text(
-                                e.label,
-                                variant: TypeVariants.bold,
-                              ))
-                            : Text(e.label, variant: TypeVariants.bold),
-                        if (selected == e.key && vertical)
-                          Padded.only(left: 1, child: const Icon(Icons.check))
-                      ])),
-                )))));
+    return Align(
+        alignment: Alignment.centerLeft,
+        child: Card(
+          kind: ColorKinds.accent,
+          padding: null,
+          child: Flex(
+              mainAxisSize: MainAxisSize.min,
+              direction: vertical ? Axis.vertical : Axis.horizontal,
+              children: items.listMap((e) => GestureDetector(
+                  onTap: () => onSelect(e.key),
+                  child: Box(
+                    kind: ColorKinds.plain,
+                    child: Card(
+                        padding:
+                            RemInsets.symmetric(horizontal: compact ? .7 : 1),
+                        height: compact ? 2.5 : 3.5,
+                        manner: selected == e.key
+                            ? ColorManners.minor
+                            : ColorManners.flat,
+                        kind: ColorKinds.accent,
+                        border: Border.noneRect,
+                        child: Row(children: [
+                          if (e.icon != null)
+                            Padded.only(
+                                right: compact ? .4 : 1, child: Icon(e.icon!)),
+                          vertical
+                              ? Expanded(
+                                  child: Text(
+                                  e.label,
+                                  variant: TypeVariants.bold,
+                                ))
+                              : Text(e.label, variant: TypeVariants.bold),
+                          if (selected == e.key && vertical)
+                            Padded.only(left: 1, child: const Icon(Icons.check))
+                        ])),
+                  )))),
+        ));
   }
 }

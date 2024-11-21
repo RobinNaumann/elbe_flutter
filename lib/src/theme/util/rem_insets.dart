@@ -4,7 +4,8 @@ import '../../../elbe.dart';
 
 /// use *WText* to use the default Flutter Text widget
 class Border {
-  static const Border none = Border(pixelWidth: 0, color: Colors.transparent);
+  static const Border none =
+      Border(pixelWidth: 0, color: Colors.transparent, borderRadius: null);
   static const Border noneRect = Border(
       pixelWidth: 0,
       color: Colors.transparent,
@@ -21,11 +22,11 @@ class Border {
   ///
   /// Use this to define a border for widgets like `Box` or `Card`.
   const Border(
-      {this.pixelWidth,
-      this.style,
-      this.strokeAlign,
+      {this.pixelWidth = 2,
+      this.style = w.BorderStyle.solid,
+      this.borderRadius = const BorderRadius.all(Radius.circular(10)),
       this.color,
-      this.borderRadius});
+      this.strokeAlign});
 
   /// create a border with a preset style
   const Border.preset(

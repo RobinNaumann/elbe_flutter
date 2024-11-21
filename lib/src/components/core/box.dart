@@ -100,13 +100,14 @@ class Box extends ThemedWidget {
         mode: mode, scheme: scheme, kind: kind, manner: manner, state: state);
     final c = color ?? decoration?.color ?? colorT.activeLayer.back;
 
+    final _pad = rawPadding ?? padding?.toPixel(context);
+
     return ColorTheme(
       data: colorT,
       child: Container(
           clipBehavior: clipBehavior ?? Clip.none,
           width: theme.rem(width),
           height: theme.rem(height),
-          padding: rawPadding ?? padding?.toPixel(context),
           margin: rawMargin ?? margin?.toPixel(context),
           constraints: rawConstraints ?? constraints?.toPixel(context),
           decoration: theme.geometry.border
@@ -116,9 +117,10 @@ class Box extends ThemedWidget {
               .copyWith(color: c),
           child: ClipRRect(
               clipBehavior: clipBehavior != null ? Clip.none : Clip.antiAlias,
-              borderRadius:
-                  _subtractBorder(border.borderRadius, border.pixelWidth ?? 0),
-              child: child)),
+              borderRadius: _subtractBorder(
+                  border.borderRadius ?? theme.geometry.border.borderRadius,
+                  border.pixelWidth ?? 0),
+              child: Padding(padding: _pad ?? EdgeInsets.zero, child: child))),
     );
   }
 }

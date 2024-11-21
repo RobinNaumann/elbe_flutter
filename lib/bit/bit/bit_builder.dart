@@ -52,27 +52,48 @@ Widget bitEmptyView() => const SizedBox.shrink();
 Widget bitEmpty(dynamic _, dynamic __) => const SizedBox.shrink();
 
 Widget bitErrorView(BitControl bit, dynamic error) => Center(
-        child: ElbeErrorView(
-      error: error,
-      reload: () => bit.reload(),
+        child: _IfTheme(
+      orElse: Center(child: WIcon(Icons.alertTriangle)),
+      builder: () => ElbeErrorView(
+        error: error,
+        reload: () => bit.reload(),
+      ),
     ));
 
-Widget bitLoadingView(BitControl bit) => Padding(
-    padding: const EdgeInsets.all(10),
-    child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const CircularProgressIndicator.adaptive(),
-          if (bit is MsgBitControl)
-            Padded.only(
-                top: 1,
-                child: Box(
-                  constraints: const RemConstraints(maxWidth: 20),
-                  color: Colors.transparent,
-                  border: Border.noneRect,
-                  child: Text(
-                      bit.state.whenOrNull<String?>(onLoading: (l) => l) ?? "",
-                      textAlign: TextAlign.center),
-                ))
-        ]));
+Widget bitLoadingView(BitControl bit) {
+  return _IfTheme(
+      orElse: const CircularProgressIndicator.adaptive(),
+      builder: () => Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CircularProgressIndicator.adaptive(),
+                if (bit is MsgBitControl)
+                  Padded.only(
+                      top: 1,
+                      child: Box(
+                        constraints: const RemConstraints(maxWidth: 20),
+                        color: Colors.transparent,
+                        border: Border.noneRect,
+                        child: Text(
+                            bit.state
+                                    .whenOrNull<String?>(onLoading: (l) => l) ??
+                                "",
+                            textAlign: TextAlign.center),
+                      ))
+              ])));
+}
+
+class _IfTheme extends StatelessWidget {
+  final Widget orElse;
+  final Widget Function() builder;
+  const _IfTheme({super.key, required this.builder, required this.orElse});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = GeometryTheme.maybeOf(context);
+    return theme != null ? builder() : orElse;
+  }
+}

@@ -41,6 +41,14 @@ class Scaffold extends ThemedWidget {
   final Widget? child;
   final List<Widget>? children;
 
+  /// center the children in the scaffold if the screen is larger than the
+  /// specified [childrenMaxWidth]. Does not affect the child widget. Value in rem.
+  final double? childrenMaxWidth;
+
+  /// padding between the edge of the screen and the children.
+  /// Does not affect the child widget. Value in rem.
+  final double childrenPadding;
+
   /// create a scaffold with a single child or a list of children
   ///
   /// for a parallax effect, you can use `HeroScaffold`
@@ -54,12 +62,16 @@ class Scaffold extends ThemedWidget {
       this.resizeOnKeyboard = true,
       this.heroTag,
       this.child,
-      this.children})
+      this.children,
+      this.childrenMaxWidth,
+      this.childrenPadding = 1})
       : assert(child == null || children == null,
             "provide only one of child, children");
 
   @override
   Widget make(context, theme) {
+    final screenWidth = m.MediaQuery.of(context).size.width;
+
     bool implyLeading = GoRouter.maybeOf(context)?.canPop() ?? false;
     var leading = leadingIcon;
     if (implyLeading && leading == null) {
@@ -77,7 +89,7 @@ class Scaffold extends ThemedWidget {
                         ? child
                         : (animation.status == AnimationStatus.reverse
                             ? Box(
-                                border: Border.none,
+                                border: Border.noneRect,
                                 mode: theme.color.mode == ColorModes.light
                                     ? ColorModes.dark
                                     : ColorModes.light,
@@ -89,12 +101,12 @@ class Scaffold extends ThemedWidget {
         child: m.Scaffold(
           key: ValueKey(theme.color.mode),
           resizeToAvoidBottomInset: resizeOnKeyboard,
-          backgroundColor: s.plain.neutral,
+          backgroundColor: s.plain.neutral.back,
           appBar: AppBar(
             //toolbarHeight: 50,
             elevation: 0,
             scrolledUnderElevation: 3,
-            surfaceTintColor: theme.color.activeScheme.accent,
+            surfaceTintColor: theme.color.activeScheme.accent.back,
             backgroundColor: theme.color.activeLayer.back,
             automaticallyImplyLeading: false,
             centerTitle: true,
@@ -122,7 +134,17 @@ class Scaffold extends ThemedWidget {
               tag: heroTag,
               child: child ??
                   ListView(
-                      padding: const RemInsets.all(1).toPixel(context),
+                      padding: //const RemInsets.all(1).toPixel(context).add(),
+
+                          m.EdgeInsets.symmetric(
+                              vertical: context.rem(1),
+                              horizontal: Math.max(
+                                  context.rem(childrenPadding),
+                                  childrenMaxWidth != null
+                                      ? ((screenWidth -
+                                              context.rem(childrenMaxWidth!)) /
+                                          2)
+                                      : 0)),
                       children: children ?? [])),
         ));
   }
@@ -155,7 +177,7 @@ extension Toast on BuildContext {
       Duration? duration}) {
     ScaffoldMessenger.of(this).showSnackBar(SnackBar(
       duration: duration ?? const Duration(seconds: 2),
-      backgroundColor: theme.color.activeScheme.inverse,
+      backgroundColor: theme.color.activeScheme.inverse.back,
       padding: m.EdgeInsets.all(0),
       content: Card(
         scheme: ColorSchemes.inverse,

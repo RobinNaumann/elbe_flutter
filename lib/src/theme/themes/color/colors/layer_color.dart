@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 /// these are the different layers of a color
 enum ColorLayers { back, front, border }
 
-abstract class _JsonColor extends Color {
+abstract class _JsonColor {
   Map<String, dynamic> get map;
 
-  _JsonColor.from(Color c) : super(c.value);
+  _JsonColor.from(Color c); //: super(c.value);
 
   @override
   String toString() => "$runtimeType$map";
@@ -19,9 +19,20 @@ abstract class _JsonColor extends Color {
   bool operator ==(Object other) => hashCode == other.hashCode;
 }
 
+/// a color with three layers: back, front, and border
+///
+/// the [back] layer is the main color of the element
+/// the [front] layer is the color of the text and icons
+/// the [border] layer is the color of the border. If null,
+/// the border is transparent
 class LayerColor extends _JsonColor {
+  /// the background color. This is the main color of the element
   final Color back;
+
+  /// the front color. This is the color of the text and icons
   final Color front;
+
+  /// the border color. This is the color of the border. If null, the border is transparent
   final Color? border;
   final Color? borderContext;
 

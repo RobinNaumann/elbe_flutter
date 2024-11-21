@@ -22,18 +22,21 @@ class SliderSelect extends StatelessWidget {
       required this.value,
       required this.onChanged,
       this.min = 0,
-      this.max = 10})
-      : assert(value >= min && value <= max);
+      this.max = 10});
 
   @override
   Widget build(BuildContext context) {
     return m.Slider(
-        value: value,
+        value: value.clamp(min, max),
         min: min,
         max: max,
         onChanged: onChanged != null ? (v) => onChanged!(v) : null,
-        activeColor:
-            ThemeData.fromContext(context).color.activeKind.accent.safeMajor,
+        activeColor: ThemeData.fromContext(context)
+            .color
+            .activeKind
+            .accent
+            .safeMajor
+            .back,
         inactiveColor: ThemeData.fromContext(context).color.activeLayer.border);
   }
 }

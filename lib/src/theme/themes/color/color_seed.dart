@@ -127,11 +127,11 @@ class ColorStyleSeed {
   final SeedStyleSelector error;
 
   static SeedStyleSelector _styleSel = (seed, base, style) =>
-      (base.luminance == 1)
+      (base.back.luminance == 1)
           ? style
           : style.inter(
               LayerColor.fromBack(
-                  base.luminance > 0.5 ? Colors.black : Colors.white,
+                  base.back.luminance > 0.5 ? Colors.black : Colors.white,
                   border: Colors.green),
               0.1);
 
@@ -200,7 +200,6 @@ class ColorVariantSeed {
                       : b.back.hasWCAGContrast(s.back)
                           ? s.back
                           : s.back.inter(b.front, 0.6);
-                  print("making flat theme");
                   return LayerColor(
                       back: b.back,
                       front: front,

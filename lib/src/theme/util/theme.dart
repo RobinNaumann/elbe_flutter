@@ -1,5 +1,3 @@
-import 'package:elbe/src/theme/themes/color/color_seed.dart';
-
 import '../../../elbe.dart';
 import 'inherited_theme.dart';
 
@@ -21,19 +19,21 @@ class ThemeData {
       {required this.color, required this.type, required this.geometry});
 
   /// create a new theme from a seed and some optional parameters.
-  ThemeData.preset(
-      {ColorSeed? seed,
-      double? remSize,
-      String? titleFont,
-      TypeVariants titleVariant = TypeVariants.regular,
-      double? iconFactor})
-      : this(
-            color: ColorThemeData.fromSeed(seed ?? ColorSeed.make()),
+  ThemeData.preset({
+    ColorSeed? colorSeed,
+    double? remSize,
+    String? titleFont,
+    TypeVariants titleVariant = TypeVariants.regular,
+    double? iconFactor,
+    Border border = const Border.preset(),
+  }) : this(
+            color: ColorThemeData.fromSeed(colorSeed ?? ColorSeed.make()),
             type: TypeThemeData.preset(
                 titleFont: titleFont,
                 titleVariant: titleVariant,
                 iconFactor: iconFactor),
-            geometry: GeometryThemeData.preset(remSize: remSize ?? 16));
+            geometry: GeometryThemeData.preset(
+                remSize: remSize ?? 16, border: border));
 
   factory ThemeData.fromContext(BuildContext context) => ThemeData(
       color: ColorTheme.of(context),

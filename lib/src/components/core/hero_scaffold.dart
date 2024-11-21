@@ -48,7 +48,7 @@ class HeroScaffold extends ThemedWidget {
     final prim = theme.color.activeScheme;
 
     return m.Scaffold(
-        backgroundColor: prim.plain.neutral,
+        backgroundColor: prim.plain.neutral.back,
         body: CustomScrollView(slivers: [
           SliverAppBar(
               leading: leadingIcon?.icon != null
@@ -71,7 +71,7 @@ class HeroScaffold extends ThemedWidget {
                   : null,
               pinned: true,
               collapsedHeight: 83,
-              backgroundColor: prim.plain.neutral,
+              backgroundColor: prim.plain.neutral.back,
               automaticallyImplyLeading: false,
               title: customTitle ??
                   InvisibleExpandedHeader(
@@ -83,9 +83,12 @@ class HeroScaffold extends ThemedWidget {
                 fit: StackFit.expand,
                 children: [
                   Container(
-                      color: prim.accent.inter(prim.plain.neutral, 0.9),
-                      margin: const EdgeInsets.only(bottom: 2),
-                      child: FlexibleSpaceBar(background: hero)),
+                      color: prim.accent.inter(prim.plain.neutral, 0.9).back,
+                      //padding: RemInsets(bottom: 2),
+                      margin: EdgeInsets.only(bottom: 2),
+                      child: FlexibleSpaceBar(
+                          background: Box(
+                              scheme: ColorSchemes.secondary, child: hero))),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
@@ -94,7 +97,7 @@ class HeroScaffold extends ThemedWidget {
                       decoration: BoxDecoration(
                           borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(17)),
-                          color: theme.color.activeLayer),
+                          color: theme.color.activeLayer.back),
                     ),
                   )
                 ],

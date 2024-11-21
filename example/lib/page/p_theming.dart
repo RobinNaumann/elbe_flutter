@@ -1,7 +1,7 @@
 import 'package:elbe/elbe.dart';
-import 'package:example/main.dart';
 import 'package:example/view/v_section.dart';
 
+import '../bit/b_theme_seed.dart';
 import 'v_color.dart';
 
 class ThemingPage extends StatelessWidget {
@@ -10,11 +10,13 @@ class ThemingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      childrenMaxWidth: 40,
       title: "theming",
       actions: [
-        ColorModeBit.builder(
+        ThemeSeedBit.builder(
             onData: (bit, data) => IconButton.flatPlain(
-                icon: data.isDark ? Icons.moon : Icons.sun, onTap: bit.toggle))
+                icon: data.mode.isDark ? Icons.moon : Icons.sun,
+                onTap: bit.toggle))
       ],
       //leadingIcon: LeadingIcon.back(),
       children: const [

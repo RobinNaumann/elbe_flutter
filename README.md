@@ -62,7 +62,10 @@ class YourApp extends StatelessWidget {
   Widget build(BuildContext context) =>
     ElbeApp(
       router: router,
-      theme: ThemeData.preset(color: Colors.blue));
+      theme: ThemeData.preset(
+        colorSeed: ColorSeed.make(
+            accent: LayerColor.fromBack(Colors.blue)
+    )));
 
 }
 ```
@@ -143,3 +146,14 @@ ConfigBit.builder(
     )
 ),
 ```
+
+## Info
+
+### conflicts
+
+some **elbe** widgets are (intentionally) named the same as corresponding widgets provided by Flutter. If you want
+to use the Flutter version, use one of the following aliases:
+
+- `Icon` -> `WIcon`
+- `Text` -> `WText`
+- `Border` -> `WBorder`

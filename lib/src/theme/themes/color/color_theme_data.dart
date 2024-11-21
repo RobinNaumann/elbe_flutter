@@ -1,9 +1,10 @@
+import 'package:elbe/util/json_tools.dart';
 import 'package:flutter/material.dart' as m;
 
 import '../../../../elbe.dart';
 import '../../util/inherited_theme.dart';
 
-var _matCache = null;
+Map<int, m.ColorScheme> _matCache = {};
 
 /// a theme that provides colors for the app
 class ColorThemeData extends ElbeInheritedThemeData {
@@ -77,21 +78,30 @@ class ColorThemeData extends ElbeInheritedThemeData {
   @override
   getProps() => [data, mode, scheme, kind, manner, state];
 
+  JsonMap map() => {
+        //"data": data.map,
+        "mode": mode.name,
+        "scheme": scheme.name,
+        "kind": kind.name,
+        "manner": manner.name,
+        "state": state.name
+      };
+
+  int get _hash => map().hashCode;
+
   @override
   Widget provider(Widget child) => ColorTheme(data: this, child: child);
 
-  m.ColorScheme _asMaterial() => m.ColorScheme.dark();
-
-  /*m.ColorScheme(
-      brightness: mode.isDark ? m.Brightness.dark : m.Brightness.light,
-      primary: activeScheme.accent,
-      onPrimary: activeScheme.accent.front,
-      secondary: activeScheme.accent.safeMinor,
-      onSecondary: activeScheme.accent.safeMinor.front,
-      surface: activeLayer,
-      onSurface: activeLayer.front,
-      background: activeLayer,
-      onBackground: activeLayer.front,
-      error: activeScheme.error.safeMajor,
-      onError: activeScheme.error.safeMajor.front);*/
+  m.ColorScheme _asMaterial() {
+    return m.ColorScheme(
+        brightness: mode.isDark ? m.Brightness.dark : m.Brightness.light,
+        primary: activeScheme.accent.back,
+        onPrimary: activeScheme.accent.front,
+        secondary: activeScheme.accent.safeMinor.back,
+        onSecondary: activeScheme.accent.safeMinor.front,
+        surface: activeLayer.back,
+        onSurface: activeLayer.front,
+        error: activeScheme.error.safeMajor.back,
+        onError: activeScheme.error.safeMajor.front);
+  }
 }
