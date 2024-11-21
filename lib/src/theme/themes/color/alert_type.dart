@@ -1,29 +1,13 @@
 import '../../../../elbe.dart';
 
+/// the types of alerts that can be displayed in the app
 enum AlertType {
-  info(
-    ColorStyles.majorAlertInfo,
-    ColorStyles.minorAlertInfo,
-    Icons.info,
-  ),
-  success(
-    ColorStyles.majorAlertSuccess,
-    ColorStyles.minorAlertSuccess,
-    Icons.alertTriangle,
-  ),
-  warning(
-    ColorStyles.majorAlertWarning,
-    ColorStyles.minorAlertWarning,
-    Icons.alertTriangle,
-  ),
-  error(
-    ColorStyles.majorAlertError,
-    ColorStyles.minorAlertError,
-    Icons.xOctagon,
-  );
+  info(ColorKinds.info, Icons.info),
+  success(ColorKinds.success, Icons.alertTriangle),
+  warning(ColorKinds.warning, Icons.alertTriangle),
+  error(ColorKinds.error, Icons.xOctagon);
 
-  const AlertType(this.major, this.minor, this.icon);
-  final ColorStyles major;
-  final ColorStyles minor;
+  const AlertType(this.kind, this.icon);
+  final ColorKinds kind;
   final IconData icon;
 }

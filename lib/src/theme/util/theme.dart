@@ -1,26 +1,34 @@
+import 'package:elbe/src/theme/themes/color/color_seed.dart';
+
 import '../../../elbe.dart';
 import 'inherited_theme.dart';
 
 extension ThemeContext on BuildContext {
+  /// get the current elbe theme
   ThemeData get theme => ThemeData.fromContext(this);
 }
 
+/// the data that is used to style the app.
+/// This includes colors, fonts, sizes, etc.
 class ThemeData {
   final ColorThemeData color;
   final TypeThemeData type;
   final GeometryThemeData geometry;
 
+  /// create a new theme by defining all properties.
+  /// Use [ThemeData.preset] to create a theme with default values.
   const ThemeData(
       {required this.color, required this.type, required this.geometry});
 
+  /// create a new theme from a seed and some optional parameters.
   ThemeData.preset(
-      {Color color = Colors.purple,
+      {ColorSeed? seed,
       double? remSize,
       String? titleFont,
       TypeVariants titleVariant = TypeVariants.regular,
       double? iconFactor})
       : this(
-            color: ColorThemeData.fromColor(accent: color),
+            color: ColorThemeData.fromSeed(seed ?? ColorSeed.make()),
             type: TypeThemeData.preset(
                 titleFont: titleFont,
                 titleVariant: titleVariant,

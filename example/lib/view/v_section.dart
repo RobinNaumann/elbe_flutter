@@ -9,6 +9,7 @@ class SectionView extends StatefulWidget {
       bool Function(String key) get, Function(String key) toggle)? child;
   final List<Widget>? Function(
       bool Function(String key) get, Function(String key) toggle)? children;
+  final double childrenGap;
   const SectionView(
       {super.key,
       required this.initial,
@@ -16,7 +17,8 @@ class SectionView extends StatefulWidget {
       required this.about,
       this.code,
       this.child,
-      this.children});
+      this.children,
+      this.childrenGap = 1});
 
   SectionView.stateless(
       {Key? key,
@@ -48,8 +50,9 @@ class _SectionViewState<T> extends State<SectionView> {
 
   Widget _chip(String key) {
     final v = get(key);
-    return Button(
-        style: v ? ColorStyles.action : ColorStyles.actionIntegrated,
+    return Button.flat(
+        //kind: v ? ColorKinds.accent : ColorKinds.plain,
+        kind: ColorKinds.accent,
         icon: v ? Icons.checkCircle : Icons.circle,
         label: key.replaceAll("_", " "),
         splash: false,
@@ -67,7 +70,7 @@ class _SectionViewState<T> extends State<SectionView> {
             children: [
               Text.h5(widget.title).expanded,
               if (widget.code != null)
-                IconButton.integrated(icon: Icons.code, onTap: toggleCode),
+                IconButton.flatPlain(icon: Icons.code, onTap: toggleCode),
             ].spaced(),
           ),
           const Spaced.vertical(0.5),
@@ -96,8 +99,8 @@ class _SectionViewState<T> extends State<SectionView> {
             ),
           widget.child?.call(get, toggle) ??
               Wrap(
-                  runSpacing: context.rem(),
-                  spacing: context.rem(),
+                  runSpacing: context.rem(widget.childrenGap),
+                  spacing: context.rem(widget.childrenGap),
                   children: widget.children?.call(get, toggle) ?? []),
           const Spaced.vertical(3)
         ],

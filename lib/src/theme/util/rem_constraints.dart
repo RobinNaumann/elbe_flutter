@@ -1,5 +1,5 @@
-import '../../../elbe.dart';
 import '../../../elbe.dart' as elbe;
+import '../../../elbe.dart';
 
 extension RemContext on BuildContext {
   double rem([elbe.rem size = 1]) => GeometryTheme.of(this).rem(size);
@@ -11,6 +11,8 @@ class RemConstraints {
   final double maxWidth;
   final double maxHeight;
 
+  /// works like [BoxConstraints] but uses rem units. You can transform this
+  /// to a [BoxConstraints] using the [toPixel] method.
   const RemConstraints(
       {this.minWidth = 0,
       this.minHeight = 0,

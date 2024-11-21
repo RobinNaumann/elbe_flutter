@@ -10,7 +10,7 @@ class UtilsPage extends StatelessWidget {
       title: "utilities",
       actions: [
         ColorModeBit.builder(
-            onData: (bit, data) => IconButton.integrated(
+            onData: (bit, data) => IconButton.flatPlain(
                 icon: data.isDark ? Icons.moon : Icons.sun, onTap: bit.toggle))
       ],
       //leadingIcon: LeadingIcon.back(),

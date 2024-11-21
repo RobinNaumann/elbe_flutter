@@ -1,4 +1,3 @@
-import 'package:elbe/bit/bit/bit.dart';
 import 'package:elbe/elbe.dart';
 import 'package:example/routes.dart';
 
@@ -9,6 +8,8 @@ class _App extends StatelessWidget {
 
   final GoRouter _appRouter = GoRouter(routes: appRoutes);
 
+  final t = ThemeData.preset();
+
   @override
   Widget build(BuildContext context) =>
       BitBuildProvider<ColorModes, ColorModes, String, ColorModeBit>(
@@ -17,7 +18,7 @@ class _App extends StatelessWidget {
                 router: _appRouter,
                 mode: d,
                 debugShowCheckedModeBanner: false,
-                theme: ThemeData.preset(color: Colors.blueAccent),
+                theme: t,
               ));
 }
 

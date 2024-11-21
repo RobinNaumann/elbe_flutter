@@ -91,10 +91,15 @@ class BitControl<M, V, L> {
   void emitError(dynamic e) => _emitState(BitState.error(e));
 
   /// Emits the previous state, if [history] is enabled.
+  /// otherwise, it does nothing.
   void back() {
-    if (_history?.isEmpty ?? true) return;
+    if (!backIsPossible()) return;
     _emitState(BitState.data(_history!.removeLast()), false);
   }
+
+  /// Returns true if the history is not empty.
+  /// This means that the [back] method will have an effect.
+  bool backIsPossible() => (_history?.length ?? 0) > 1;
 
   /// Gets called whenever the state of the bit changes.
   void effect(BitState<M, L> state) {}

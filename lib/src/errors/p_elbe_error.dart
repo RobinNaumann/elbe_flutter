@@ -1,7 +1,5 @@
 import 'package:elbe/elbe.dart';
 
-import 'elbe_error.dart';
-
 class ElbeErrorPage extends StatelessWidget {
   final String title;
   final String causeLabel;
@@ -25,7 +23,7 @@ class ElbeErrorPage extends StatelessWidget {
       title: title,
       leadingIcon: LeadingIcon.none(),
       actions: [
-        IconButton.integrated(
+        IconButton.flatPlain(
           icon: Icons.x,
           onTap: () => Navigator.of(context).maybePop(),
         )

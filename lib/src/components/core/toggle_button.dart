@@ -2,42 +2,38 @@ import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../elbe.dart';
 
+/// a toggle button that can be switched on or off
 class ToggleButton extends StatelessWidget {
   final bool value;
-  final ToggleItem item;
+  final String label;
+  final IconData? icon;
   final Function(bool value) onChanged;
 
+  /// create a toggle button with a label and an optional icon
   const ToggleButton(
       {super.key,
       required this.value,
-      required this.item,
+      required this.label,
+      this.icon,
       required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        padding: null,
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: InkWell(
-                onTap: () => onChanged(!value),
-                child: Card(
-                    height: 3.5,
-                    style: value ? ColorStyles.minorAccent : null,
-                    border: Border.noneRect,
-                    child: Row(children: [
-                      if (item.icon != null)
-                        Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Icon(item.icon!)),
-                      Expanded(
-                          child: Text(
-                        item.label,
-                        variant: TypeVariants.bold,
-                      )),
-                      if (value)
-                        Padded.only(
-                            left: 1, child: const Icon(LucideIcons.check))
-                    ])))));
+        onTap: () => onChanged(!value),
+        height: 3.5,
+        kind: value ? ColorKinds.accent : null,
+        manner: ColorManners.minor,
+        border: Border.none,
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
+          if (icon != null)
+            Padding(
+                padding: const EdgeInsets.only(right: 10), child: Icon(icon!)),
+          Text(
+            label,
+            variant: TypeVariants.bold,
+          ),
+          if (value) Padded.only(left: 2, child: const Icon(LucideIcons.check))
+        ]));
   }
 }

@@ -1,10 +1,12 @@
 import '../../../elbe.dart';
 import 'maybe_hero.dart';
 
+/// a card is an interactive box with styling and geometry options
 class Card extends ThemedWidget {
   final Clip? clipBehavior;
-  final ColorSchemes scheme;
-  final ColorStyles? style;
+  final ColorSchemes? scheme;
+  final ColorKinds? kind;
+  final ColorManners? manner;
   final ColorStates? state;
 
   final RemInsets? margin;
@@ -22,11 +24,17 @@ class Card extends ThemedWidget {
 
   final Widget child;
 
+  /// create a card by providing all properties. Cards are interactive boxes
+  /// with styling and geometry options
+  ///
+  /// The style parameters will be merged with the current color scheme. This
+  /// is also applied to child widgets.
   const Card(
       {super.key,
-      this.clipBehavior = Clip.antiAlias,
-      this.scheme = ColorSchemes.primary,
-      this.style,
+      this.clipBehavior,
+      this.scheme,
+      this.kind,
+      this.manner,
       this.state,
       this.margin,
       this.color,
@@ -44,7 +52,8 @@ class Card extends ThemedWidget {
         tag: heroTag,
         child: Box(
             scheme: scheme,
-            style: style,
+            kind: kind,
+            manner: manner,
             state: state,
             clipBehavior: clipBehavior,
             width: width,
@@ -59,11 +68,7 @@ class Card extends ThemedWidget {
 
   @override
   Widget make(context, theme) => onTap != null
-      ? InkWell(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          onTap: onTap,
-          onLongPress: onLongTap,
-          child: _card(theme))
+      ? GestureDetector(
+          onTap: onTap, onLongPress: onLongTap, child: _card(theme))
       : _card(theme);
 }

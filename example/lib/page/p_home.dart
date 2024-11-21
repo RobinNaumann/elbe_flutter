@@ -1,6 +1,5 @@
 import 'package:elbe/elbe.dart';
 import 'package:flutter/material.dart' as m;
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class HomePage extends StatelessWidget {
@@ -28,7 +27,7 @@ class HomePage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 resolvedStyle: TypeStyle(fontSize: 2.5),
               ),
-              Text.bodyM("a humble Framework\nfor Flutter",
+              Text.bodyM("a humble Framework\nfor React and Flutter",
                   textAlign: TextAlign.center),
             ]),
         body: Padded.all(
@@ -41,16 +40,21 @@ class HomePage extends StatelessWidget {
                   children: [
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                        children: const [
                           _PlatformIcon(name: "phone", icon: Icons.smartphone),
                           _PlatformIcon(name: "pc", icon: Icons.laptop),
                           _PlatformIcon(name: "web", icon: Icons.globe),
                         ].spaced()),
-                    Spaced(),
-                    Card(
+                    Button.flat(
+                        icon: Icons.package,
+                        label: "install via pub.dev",
+                        onTap: () =>
+                            launchUrlString("https://pub.dev/packages/elbe")),
+                    const Spaced(),
+                    const Card(
                       scheme: ColorSchemes.secondary,
-                      child: const Text(
-                        "elbe is a minimalistic framework for Flutter.\n"
+                      child: Text(
+                        "elbe is a UI and state management framework for Flutter.\n"
                         "It provides a set of widgets with a simplified styling system.\n"
                         "In addition, it provides a way to manage state (called 'bit'). This aims to separate the UI from the logic, while keeping a minimal API",
                         //textAlign: TextAlign.justify,
@@ -67,12 +71,12 @@ class HomePage extends StatelessWidget {
                             : null,
                       ),
                     const Spaced(),
-                    Button.action(
+                    Button.flat(
                         icon: Icons.github,
                         label: "repository",
                         onTap: () => launchUrlString(
                             "https://github.com/RobinNaumann/elbe_flutter")),
-                    Button.action(
+                    Button.flat(
                         icon: Icons.globe,
                         label: "home page",
                         onTap: () => launchUrlString("https://robbb.in")),

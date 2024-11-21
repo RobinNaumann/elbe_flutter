@@ -3,7 +3,7 @@ import 'package:example/main.dart';
 import 'package:example/view/v_section.dart';
 
 class ComponentsPage extends StatelessWidget {
-  const ComponentsPage({super.key});
+  const ComponentsPage();
 
   @override
   Widget build(BuildContext context) {
@@ -11,17 +11,22 @@ class ComponentsPage extends StatelessWidget {
       title: "components",
       actions: [
         ColorModeBit.builder(
-            onData: (bit, data) => IconButton.integrated(
+            onData: (bit, data) => IconButton.flatPlain(
                 icon: data.isDark ? Icons.moon : Icons.sun, onTap: bit.toggle))
       ],
       //leadingIcon: LeadingIcon.back(),
       children: const [
         _BoxView(),
         _CardView(),
+        _SpacersView(),
         _IconView(),
         _ButtonsView(),
         _IconButtonsView(),
+        _ToggleView(),
         _ToggleBtnView(),
+        _SliderView(),
+        _FieldView(),
+        _SpinnerView(),
         _AlertsView(),
         _ToastView(),
         _PageView()
@@ -31,7 +36,7 @@ class ComponentsPage extends StatelessWidget {
 }
 
 class _BoxView extends StatelessWidget {
-  const _BoxView({super.key});
+  const _BoxView();
 
   @override
   Widget build(BuildContext context) => SectionView.stateless(
@@ -59,7 +64,7 @@ Box(
 }
 
 class _CardView extends StatelessWidget {
-  const _CardView({super.key});
+  const _CardView();
 
   @override
   Widget build(BuildContext context) => SectionView.stateless(
@@ -85,14 +90,13 @@ Card(
 }
 
 class _ButtonsView extends StatelessWidget {
-  static const _btnStyles = [
-    ("major", ColorStyles.majorAccent),
-    ("minor", ColorStyles.minorAccent),
-    ("action", ColorStyles.action),
-    ("integrated", ColorStyles.actionIntegrated)
+  static const _btnManners = [
+    ("major", ColorManners.major),
+    ("minor", ColorManners.minor),
+    ("flat", ColorManners.flat)
   ];
 
-  const _ButtonsView({super.key});
+  const _ButtonsView();
 
   @override
   Widget build(BuildContext context) {
@@ -107,9 +111,9 @@ Button.major(
   onTap: ${s("enabled") ? "() {}" : "null"},
 )
 """,
-      children: (get, _) => _btnStyles
+      children: (get, _) => _btnManners
           .map((e) => Button(
-                  style: e.$2,
+                  manner: e.$2,
                   icon: get("icon") ? Icons.sailboat : null,
                   label: e.$1,
                   onTap: get("enabled") ? () {} : null)
@@ -120,7 +124,7 @@ Button.major(
 }
 
 class _IconButtonsView extends StatelessWidget {
-  const _IconButtonsView({super.key});
+  const _IconButtonsView();
 
   @override
   Widget build(BuildContext context) {
@@ -134,9 +138,9 @@ IconButton.major(
   onTap: ${s("enabled") ? "() {}" : "null"},
 )
 """,
-      children: (get, _) => _ButtonsView._btnStyles
+      children: (get, _) => _ButtonsView._btnManners
           .map((e) => IconButton(
-                  style: e.$2,
+                  manner: e.$2,
                   icon: Icons.leaf,
                   onTap: get("enabled") ? () {} : null)
               .fitWidth)
@@ -145,42 +149,235 @@ IconButton.major(
   }
 }
 
+class _SpinnerView extends StatelessWidget {
+  const _SpinnerView();
+
+  @override
+  Widget build(BuildContext context) {
+    return SectionView(
+        initial: const {},
+        title: "Spinner",
+        about: "a circular progress indicator",
+        code: (s) => """
+Spinner()
+""",
+        children: (get, _) => const [Spinner()]);
+  }
+}
+
+class _SpacersView extends StatelessWidget {
+  const _SpacersView();
+
+  final Color cDemo = Colors.purple;
+
+  @override
+  Widget build(BuildContext context) {
+    return SectionView(
+        initial: const {},
+        childrenGap: 2,
+        title: "Spacers",
+        about: "add whitespace between widgets",
+        code: (s) => """
+Padded.all(1, child: ...),
+Spaced(vertical: 2),
+Row(children: [...].spaced())
+""",
+        children: (get, _) => [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text.code("Padded.all"),
+                  Container(
+                    decoration:
+                        BoxDecoration(border: WBorder.all(color: cDemo)),
+                    child: Padded.all(
+                        child: Container(
+                      color: cDemo,
+                      width: 32,
+                      height: 16,
+                    )),
+                  ),
+                ].spaced(),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text.code("Spaced"),
+                  Container(
+                      height: 16,
+                      width: 16,
+                      decoration:
+                          BoxDecoration(border: WBorder.all(color: cDemo))),
+                ].spaced(),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text.code("<Widget>[...].spaced()"),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        color: cDemo,
+                        width: 32,
+                        height: 48,
+                      ),
+                      Container(
+                          height: 16,
+                          width: 16,
+                          decoration:
+                              BoxDecoration(border: WBorder.all(color: cDemo))),
+                      Container(
+                        color: cDemo,
+                        width: 32,
+                        height: 48,
+                      ),
+                      Container(
+                          height: 16,
+                          width: 16,
+                          decoration:
+                              BoxDecoration(border: WBorder.all(color: cDemo))),
+                      Container(
+                        color: cDemo,
+                        width: 32,
+                        height: 48,
+                      ),
+                    ],
+                  ),
+                ].spaced(),
+              ),
+            ]);
+  }
+}
+
+class _SliderView extends StatefulWidget {
+  const _SliderView();
+
+  @override
+  State<_SliderView> createState() => _SliderViewState();
+}
+
+class _SliderViewState extends State<_SliderView> {
+  double value = 4;
+  @override
+  Widget build(BuildContext context) {
+    return SectionView(
+        initial: const {"enabled": true},
+        title: "Slider",
+        about: "a widget for selecting a value from a linear scale",
+        code: (s) => """
+SliderSelect(
+  value: $value,
+  onChanged: (v) {...},
+  min: 0,
+  max: 10,
+)
+""",
+        children: (get, _) => [
+              SliderSelect(
+                value: value,
+                onChanged:
+                    get("enabled") ? (v) => setState(() => value = v) : null,
+                min: 0,
+                max: 10,
+              )
+            ]);
+  }
+}
+
+class _FieldView extends StatelessWidget {
+  const _FieldView();
+
+  @override
+  Widget build(BuildContext context) {
+    return SectionView(
+        initial: const {},
+        title: "Text Field",
+        about: "widget styles for entering text",
+        code: (s) => """
+TextField(
+  decoration: 
+    elbeFieldDeco(context, hint: "type"))
+""",
+        children: (get, _) => [
+              TextField(
+                  decoration: elbeFieldDeco(context, hint: "type something")),
+              TextField(
+                  minLines: 3,
+                  maxLines: 3,
+                  decoration: elbeFieldDeco(context, hint: "type something"))
+            ]);
+  }
+}
+
 class _IconView extends StatelessWidget {
-  const _IconView({super.key});
+  const _IconView();
 
   @override
   Widget build(BuildContext context) {
     return SectionView(
         initial: const {"badge": true},
+        childrenGap: 2,
         title: "Icons",
         about:
             "a graphical symbol for a concept or object. uses lucide.dev by default.",
         code: (s) => """
 Icon(Icons.leaf,
-  style: TypeStyles.bodyS,
+  //style: TypeStyles.bodyS,
   color: Colors.green,
   badge: ${s("badge") ? "Badge(value: 2)" : "null"}
 )
 """,
         children: (get, _) => [
               Icon(Icons.treeDeciduous,
-                  badge: get("badge")
-                      ? Badge(value: 1, type: AlertType.warning)
-                      : null),
+                  badge: get("badge") ? Badge(type: AlertType.error) : null),
               Icon(Icons.trees,
                   badge: get("badge")
-                      ? Badge(text: "fire", type: AlertType.error)
+                      ? Badge(text: "fire", type: AlertType.warning)
                       : null),
               Icon(Icons.leaf,
-                  style: TypeStyles.bodyS,
                   color: Colors.green,
                   badge: get("badge") ? Badge(value: 2) : null),
             ]);
   }
 }
 
+class _ToggleView extends StatefulWidget {
+  const _ToggleView();
+  @override
+  State<_ToggleView> createState() => _ToggleViewState();
+}
+
+class _ToggleViewState extends State<_ToggleView> {
+  bool selected = true;
+  @override
+  Widget build(BuildContext context) {
+    return SectionView(
+        initial: const {},
+        childrenGap: 2,
+        title: "Toggle Button",
+        about:
+            "a clickable widget that can be in one of two states, often used to represent a binary choice.",
+        code: (s) => """
+Icon(Icons.leaf,
+  //style: TypeStyles.bodyS,
+  color: Colors.green,
+  badge: ${s("badge") ? "Badge(value: 2)" : "null"}
+)
+""",
+        children: (get, _) => [
+              ToggleButton(
+                  icon: Icons.leaf,
+                  label: "foliage",
+                  value: selected,
+                  onChanged: (v) => setState(() => selected = v)),
+            ]);
+  }
+}
+
 class _ToggleBtnView extends StatefulWidget {
-  const _ToggleBtnView({super.key});
+  const _ToggleBtnView();
 
   @override
   State<_ToggleBtnView> createState() => _ToggleBtnViewState();
@@ -191,19 +388,20 @@ class _ToggleBtnViewState extends State<_ToggleBtnView> {
   @override
   Widget build(BuildContext context) {
     return SectionView(
-        initial: const {"icon": true},
-        title: "Toggle Buttons",
+        initial: const {"icon": true, "vertical": false},
+        title: "OptionsButton",
         about: "a group of buttons allowing the user to select one option.",
         code: (s) => """
-ToggleButtons(
+OptionsButton(
   selected: 1,
+  vertical: false,
   onSelect: (key) {},
   items: [
-    MultiToggleItem(
+    OptionsItem(
         key: 0,
         label: "apple",
         icon: Icons.apple),
-    MultiToggleItem(
+    OptionsItem(
         key: 1,
         label: "cherry",
         icon: Icons.cherry),
@@ -212,19 +410,21 @@ ToggleButtons(
         child: (get, set) => Align(
               alignment: Alignment.topLeft,
               child: Box.plain(
-                constraints: RemConstraints(maxWidth: 25),
-                child: ToggleButtons(
+                constraints:
+                    get("vertical") ? const RemConstraints(maxWidth: 15) : null,
+                child: OptionsButton(
+                  vertical: get("vertical"),
                   selected: selected,
                   items: [
-                    MultiToggleItem(
+                    OptionsItem(
                         key: 0,
                         label: "apple",
                         icon: get("icon") ? Icons.apple : null),
-                    MultiToggleItem(
+                    OptionsItem(
                         key: 1,
                         label: "cherry",
                         icon: get("icon") ? Icons.cherry : null),
-                    MultiToggleItem(
+                    OptionsItem(
                         key: 2,
                         label: "banana",
                         icon: get("icon") ? Icons.banana : null),
@@ -244,7 +444,7 @@ class _AlertsView extends StatelessWidget {
     AlertType.success
   ];
 
-  const _AlertsView({super.key});
+  const _AlertsView();
 
   @override
   Widget build(BuildContext context) => SectionView.stateless(
@@ -261,7 +461,7 @@ Badge(
 }
 
 class _ToastView extends StatelessWidget {
-  const _ToastView({super.key});
+  const _ToastView();
 
   @override
   Widget build(BuildContext context) => SectionView.stateless(
@@ -273,7 +473,7 @@ context.showToast("hello world");
 context.showToast(
   "hello world", 
   icon: Icons.leaf, 
-  color: context.theme.color.activeScheme.minorAlertSuccess
+  kind: ColorKinds.success
 );""",
           children: [
             Button.minor(
@@ -283,12 +483,13 @@ context.showToast(
                 label: "show custom toast",
                 onTap: () => context.showToast("hello world",
                     icon: Icons.leaf,
-                    color: context.theme.color.activeScheme.minorAlertSuccess)),
+                    kind: ColorKinds.success,
+                    manner: ColorManners.minor)),
           ]);
 }
 
 class _PageView extends StatelessWidget {
-  const _PageView({super.key});
+  const _PageView();
 
   @override
   Widget build(BuildContext context) => SectionView.stateless(
@@ -302,14 +503,16 @@ Scaffold(
 );""",
           children: [
             Card(
+              padding: RemInsets.zero,
               child: SizedBox(
                   height: 300,
                   child: Scaffold(
                       title: "title",
                       actions: [
-                        IconButton.integrated(icon: Icons.leaf, onTap: () {})
+                        IconButton.flatPlain(icon: Icons.leaf, onTap: () {})
                       ],
-                      child: Text("this is some content"))),
-            )
+                      child: Padded.all(
+                          child: const Text("this is some content")))),
+            ),
           ]);
 }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart' as m;
 import '../../../elbe.dart';
 import '../../thirdparty/invisible_header.dart';
 
+/// A scaffold with a hero sliver at the top. This creates a
+/// parallax effect when scrolling.
 class HeroScaffold extends ThemedWidget {
   final String title;
   final Widget hero;
@@ -14,6 +16,11 @@ class HeroScaffold extends ThemedWidget {
   final Widget? body;
   final List<Widget>? bodyList;
 
+  /// Page foundation with a hero sliver at the top.
+  /// The [hero] is the widget that will be displayed at the top.
+  /// Scrolling will trigger a parallax effect.
+  ///
+  /// use `Scaffold` for a normal page.
   const HeroScaffold(
       {super.key,
       required this.hero,
@@ -38,7 +45,7 @@ class HeroScaffold extends ThemedWidget {
 
   @override
   Widget make(context, theme) {
-    final prim = theme.color.activeMode.primary;
+    final prim = theme.color.activeScheme;
 
     return m.Scaffold(
         backgroundColor: prim.plain.neutral,
@@ -47,7 +54,7 @@ class HeroScaffold extends ThemedWidget {
               leading: leadingIcon?.icon != null
                   ? Center(
                       child: _heroBase(
-                          IconButton.integrated(
+                          IconButton.flatPlain(
                               onTap: leadingIcon!.onTap != null
                                   ? () => leadingIcon!.onTap?.call(context)
                                   : null,
@@ -76,8 +83,7 @@ class HeroScaffold extends ThemedWidget {
                 fit: StackFit.expand,
                 children: [
                   Container(
-                      color: prim.majorAccent.neutral
-                          .inter(0.9, prim.plain.neutral),
+                      color: prim.accent.inter(prim.plain.neutral, 0.9),
                       margin: const EdgeInsets.only(bottom: 2),
                       child: FlexibleSpaceBar(background: hero)),
                   Align(

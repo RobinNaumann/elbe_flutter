@@ -27,6 +27,11 @@ class Spaced extends ThemedWidget {
   final double width;
   final double height;
 
+  /// widget for adding whitespace btween objects
+  ///
+  /// also take a look at `Padded` for adding padding around objects.
+  ///
+  /// you can also [].spaced() a list of widgets to add spacing between them.
   const Spaced({super.key, this.width = 1, this.height = 1});
   const Spaced.vertical([this.height = 1]) : width = 0;
   const Spaced.horizontal([this.width = 1]) : height = 0;

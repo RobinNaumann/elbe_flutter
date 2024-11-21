@@ -3,7 +3,8 @@ import '../../../elbe.dart';
 part './icon_button.dart';
 
 class Button extends ThemedWidget {
-  final ColorStyles style;
+  final ColorKinds kind;
+  final ColorManners manner;
   final IconData? icon;
   final String? label;
   final RemConstraints? constraints;
@@ -12,6 +13,17 @@ class Button extends ThemedWidget {
   final MainAxisAlignment alignment;
   final bool splash;
 
+  /// create a button with all the options. Buttons are automatically styled
+  /// based on the [kind] and [manner] properties. If [onTap] is null, the
+  /// button will be disabled.
+  ///
+  /// you can use:
+  /// - `Button.major`
+  /// - `Button.minor`
+  /// - `Button.flat`
+  /// - `Button.flatPlain`
+  ///
+  /// to create a button with a specific manner.
   const Button(
       {super.key,
       this.icon,
@@ -19,10 +31,12 @@ class Button extends ThemedWidget {
       this.onTap,
       this.constraints,
       this.border,
-      required this.style,
+      this.kind = ColorKinds.accent,
+      this.manner = ColorManners.major,
       this.alignment = MainAxisAlignment.center,
       this.splash = true});
 
+  /// create a button with a major manner. Major buttons signify the main action
   const Button.major(
       {super.key,
       this.icon,
@@ -31,9 +45,12 @@ class Button extends ThemedWidget {
       this.constraints,
       this.border,
       this.alignment = MainAxisAlignment.center,
+      this.kind = ColorKinds.accent,
       this.splash = true})
-      : style = ColorStyles.majorAccent;
+      : manner = ColorManners.major;
 
+  /// create a button with a minor manner. Minor buttons signify a secondary action
+  /// or a less important action
   const Button.minor(
       {super.key,
       this.icon,
@@ -42,10 +59,28 @@ class Button extends ThemedWidget {
       this.constraints,
       this.border,
       this.alignment = MainAxisAlignment.center,
+      this.kind = ColorKinds.accent,
       this.splash = true})
-      : style = ColorStyles.minorAccent;
+      : manner = ColorManners.minor;
 
-  const Button.action(
+  /// create a button with a flat manner. Flat buttons have no background color
+  /// and are typically used for actions that are not the main focus
+  const Button.flat(
+      {super.key,
+      this.icon,
+      this.label,
+      this.onTap,
+      this.constraints,
+      this.border = false,
+      this.alignment = MainAxisAlignment.center,
+      this.kind = ColorKinds.accent,
+      this.splash = true})
+      : manner = ColorManners.flat;
+
+  /// create a button with a flat manner and a plain color scheme. Flat plain
+  /// buttons have no background color and are typically used for actions that
+  /// are not the main focus. They are used within other widgets
+  const Button.flatPlain(
       {super.key,
       this.icon,
       this.label,
@@ -54,26 +89,19 @@ class Button extends ThemedWidget {
       this.border = false,
       this.alignment = MainAxisAlignment.center,
       this.splash = true})
-      : style = ColorStyles.action;
-
-  const Button.integrated(
-      {super.key,
-      this.icon,
-      this.label,
-      this.onTap,
-      this.constraints,
-      this.border = false,
-      this.alignment = MainAxisAlignment.center,
-      this.splash = true})
-      : style = ColorStyles.actionIntegrated;
+      : manner = ColorManners.flat,
+        kind = ColorKinds.plain;
 
   @override
   Widget make(context, theme) {
     return Card(
+        clipBehavior: Clip.antiAlias,
         padding: null,
         constraints: constraints ?? const RemConstraints(minHeight: 3.5),
         border: (border ?? theme.geometry.buttonBorder) ? null : Border.none,
-        style: style,
+        kind: kind,
+        manner: manner,
+        //color: manner == ColorManners.flat ? Colors.transparent : null,
         state: onTap != null ? ColorStates.neutral : ColorStates.disabled,
         child: _Inkwell(
           splash: splash,
@@ -99,7 +127,12 @@ class _Inkwell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final m = ColorTheme.of(context).activeStyle.pressed.back;
+    final m = ColorTheme.of(context)
+        .activeManner
+        .active
+        .back
+        .inter(Colors.black, .5)
+        .withOpacity(.125);
     return Material(
         color: Colors.transparent,
         child: onPressed == null

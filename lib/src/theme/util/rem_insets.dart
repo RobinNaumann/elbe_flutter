@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart' as w;
 
 import '../../../elbe.dart';
 
+/// use *WText* to use the default Flutter Text widget
 class Border {
   static const Border none = Border(pixelWidth: 0, color: Colors.transparent);
   static const Border noneRect = Border(
@@ -15,6 +16,10 @@ class Border {
   final Color? color;
   final BorderRadius? borderRadius;
 
+  /// This is the elbe border. Use `WBorder` for the Flutter border. You can
+  /// also use the `toDeco` method to convert this border to a `BoxDecoration`.
+  ///
+  /// Use this to define a border for widgets like `Box` or `Card`.
   const Border(
       {this.pixelWidth,
       this.style,
@@ -22,8 +27,9 @@ class Border {
       this.color,
       this.borderRadius});
 
+  /// create a border with a preset style
   const Border.preset(
-      {this.pixelWidth = 1,
+      {this.pixelWidth = 2,
       this.style = BorderStyle.solid,
       this.borderRadius = const BorderRadius.all(Radius.circular(10)),
       this.color,
@@ -51,6 +57,8 @@ class Border {
           color: other.color ?? color,
           borderRadius: other.borderRadius ?? borderRadius);
 
+  /// convert this border to a `BoxDecoration`. Use this to apply the border to
+  /// a Flutter `Container` widget.
   BoxDecoration toDeco([Color? color]) => BoxDecoration(
       borderRadius: borderRadius,
       border: pixelWidth == 0
@@ -62,7 +70,9 @@ class Border {
               strokeAlign: strokeAlign ?? BorderSide.strokeAlignInside));
 }
 
+/// Insets in rem units. Works analogously to `EdgeInsets` but in rem units.
 class RemInsets {
+  /// add no space
   static const RemInsets zero = RemInsets.all(0);
 
   final double left;
@@ -70,21 +80,31 @@ class RemInsets {
   final double right;
   final double bottom;
 
+  /// define each side of the insets separately
   const RemInsets(
       {this.left = 0, this.top = 0, this.right = 0, this.bottom = 0});
 
+  /// apply the same value to all sides. Define this through [value]
   const RemInsets.all(double value)
       : left = value,
         right = value,
         top = value,
         bottom = value;
+
+  /// apply different values to each side. Define this through [left], [top],
+  /// [right], and [bottom]
   const RemInsets.fromLTRB(this.left, this.top, this.right, this.bottom);
+
+  /// apply the same value to the vertical and horizontal sides. Define this
+  /// through [horizontal] and [vertical]
   const RemInsets.symmetric({double horizontal = 0, double vertical = 0})
       : left = horizontal,
         right = horizontal,
         top = vertical,
         bottom = vertical;
 
+  /// when using widgets from other libraries, you might need to convert the
+  /// rem units to pixels. Use this method to do so.
   EdgeInsets toPixel(BuildContext context) {
     final rem = GeometryTheme.of(context).rem;
     return EdgeInsets.fromLTRB(rem(left), rem(top), rem(right), rem(bottom));

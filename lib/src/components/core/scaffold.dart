@@ -29,6 +29,7 @@ class LeadingIcon {
   const LeadingIcon({required this.icon, this.onTap});
 }
 
+/// base widget for creating screen filling pages
 class Scaffold extends ThemedWidget {
   final ColorSchemes? scheme;
   final String title;
@@ -40,6 +41,9 @@ class Scaffold extends ThemedWidget {
   final Widget? child;
   final List<Widget>? children;
 
+  /// create a scaffold with a single child or a list of children
+  ///
+  /// for a parallax effect, you can use `HeroScaffold`
   const Scaffold(
       {super.key,
       this.scheme = ColorSchemes.primary,
@@ -61,7 +65,7 @@ class Scaffold extends ThemedWidget {
     if (implyLeading && leading == null) {
       leading = const LeadingIcon.back();
     }
-    final s = theme.color.activeMode.scheme(scheme ?? ColorSchemes.primary);
+    final s = theme.color.activeScheme.scheme(scheme ?? ColorSchemes.primary);
 
     return AnimatedSwitcher(
         duration: const Duration(milliseconds: 500),
@@ -90,17 +94,19 @@ class Scaffold extends ThemedWidget {
             //toolbarHeight: 50,
             elevation: 0,
             scrolledUnderElevation: 3,
-            surfaceTintColor: theme.color.activeScheme.majorAccent.neutral,
+            surfaceTintColor: theme.color.activeScheme.accent,
             backgroundColor: theme.color.activeLayer.back,
             automaticallyImplyLeading: false,
             centerTitle: true,
             leading: leading != null
                 ? leading.icon != null
-                    ? IconButton.integrated(
-                        onTap: leading.onTap != null
-                            ? () => leading!.onTap?.call(context)
-                            : null,
-                        icon: leading.icon!)
+                    ? Padded.all(
+                        value: .5,
+                        child: IconButton.flatPlain(
+                            onTap: leading.onTap != null
+                                ? () => leading!.onTap?.call(context)
+                                : null,
+                            icon: leading.icon!))
                     : null
                 : null,
             actions: actions?.isEmpty ?? true
@@ -140,25 +146,31 @@ class CircleClip extends CustomClipper<Rect> {
 }
 
 extension Toast on BuildContext {
+  /// show a toast message at the bottom of the screen
+  /// the message will be displayed for 2 seconds
   void showToast(String message,
-      {IconData? icon, LayerColor? color, Duration? duration}) {
-    final c = color ?? (this).theme.color.activeMode.inverse;
+      {IconData? icon,
+      ColorKinds? kind,
+      ColorManners? manner,
+      Duration? duration}) {
     ScaffoldMessenger.of(this).showSnackBar(SnackBar(
-        duration: duration ?? const Duration(seconds: 2),
-        backgroundColor: c.back,
-        content: Row(
+      duration: duration ?? const Duration(seconds: 2),
+      backgroundColor: theme.color.activeScheme.inverse,
+      padding: m.EdgeInsets.all(0),
+      content: Card(
+        scheme: ColorSchemes.inverse,
+        padding: RemInsets.all(1),
+        border: Border.noneRect,
+        kind: kind,
+        manner: manner,
+        child: Row(
             children: [
-          if (icon != null)
-            Icon(
-              icon,
-              color: c.front,
-            ),
+          if (icon != null) Icon(icon),
           Expanded(
-            child: Text(
-              message,
-              color: c.front,
-            ),
+            child: Text(message),
           )
-        ].spaced(amount: 0.75))));
+        ].spaced(amount: 0.75)),
+      ),
+    ));
   }
 }

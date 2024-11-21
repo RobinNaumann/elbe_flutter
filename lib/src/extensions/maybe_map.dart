@@ -5,6 +5,8 @@ extension MaypeMap<A, B> on Map<A, B> {
 }
 
 extension MaybeList<B> on List<B> {
+  /// Works just like .map.
+  /// Automatically calls .toList() on the resulting iterable
   List<T> listMap<T>(T Function(B e) toElement) => map(toElement).toList();
   B? maybe(int i) => i >= 0 && i < length ? this[i] : null;
 }

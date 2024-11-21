@@ -10,8 +10,10 @@ class RoutingPage extends StatelessWidget {
       title: "routing",
       actions: [
         ColorModeBit.builder(
-            onData: (bit, data) => IconButton.integrated(
-                icon: data.isDark ? Icons.moon : Icons.sun, onTap: bit.toggle))
+            onData: (bit, data) => IconButton.flat(
+                kind: ColorKinds.plain,
+                icon: data.isDark ? Icons.moon : Icons.sun,
+                onTap: bit.toggle))
       ],
       //leadingIcon: LeadingIcon.back(),
       children: [
