@@ -32,6 +32,7 @@ export 'src/components/core/box.dart';
 export 'src/components/core/button.dart';
 export 'src/components/core/card.dart';
 export 'src/components/core/center_message.dart';
+export 'src/components/core/drop_down.dart';
 // components
 
 export 'src/components/core/elbe_app.dart';
