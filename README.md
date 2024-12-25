@@ -48,25 +48,24 @@ final router = GoRouter(
 
 ##### 2. define the app
 
-define and call your app in your `main.dart` file
+define and call your app within your `main.dart` file
 
 ```dart
 import 'package:elbe/elbe.dart';
 
 void main() async => runApp(const MyApp());
 
+final router = GoRouter(
+    routes: [GoRoute(
+      path: '/',
+      builder: (context, _) => const YourPage())]);
+
 class YourApp extends StatelessWidget {
   const YourApp({super.key});
 
   @override
   Widget build(BuildContext context) =>
-    ElbeApp(
-      router: router,
-      theme: ThemeData.preset(
-        colorSeed: ColorSeed.make(
-            accent: LayerColor.fromBack(Colors.blue)
-    )));
-
+    ElbeApp(router: router);
 }
 ```
 

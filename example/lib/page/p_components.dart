@@ -161,11 +161,14 @@ class _SpinnerView extends StatelessWidget {
     return SectionView(
         initial: const {},
         title: "Spinner",
-        about: "a circular progress indicator",
+        about: "a progress indicator",
         code: (s) => """
 Spinner()
 """,
-        children: (get, _) => const [Spinner()]);
+        children: (get, _) => const [
+              Box(width: 4, height: 4, child: Spinner()),
+              Box(width: 4, height: 4, child: Spinner(kind: ColorKinds.plain)),
+            ]);
   }
 }
 

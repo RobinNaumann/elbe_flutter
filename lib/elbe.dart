@@ -71,6 +71,7 @@ export 'src/theme/util/theme.dart';
 export 'src/util/opt.dart';
 //utils
 export 'src/util/unix_date.dart';
+export 'util/aliases.dart';
 export 'util/lorem.dart';
 export 'util/math.dart';
 export 'util/try.dart';
@@ -78,12 +79,3 @@ export 'util/try.dart';
 typedef MaterialIcons = m.Icons;
 typedef ApfelIcons = c.CupertinoIcons;
 typedef Icons = l.LucideIcons;
-
-/// A shorthand for using the regular [Text] widget instead of the one provided by Elbe.
-typedef WText = m.Text;
-
-/// A shorthand for using the regular [Icon] widget instead of the one provided by Elbe.
-typedef WIcon = m.Icon;
-
-/// A shorthand for using the regular [Border] widget instead of the one provided by Elbe.
-typedef WBorder = m.Border;
