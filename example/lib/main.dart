@@ -14,18 +14,22 @@ class _App extends StatelessWidget {
   Widget build(BuildContext context) => BitProvider(
       create: (_) => ThemeSeedBit(),
       child: ThemeSeedBit.builder(
-          onData: (bit, data) => ElbeApp(
-                router: _appRouter,
-                mode: data.mode,
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData.preset(
-                    titleVariant: TypeVariants.bold,
-                    titleFont: data.font,
-                    border: Border(
-                      borderRadius: BorderRadius.circular(data.borderRadius),
-                      pixelWidth: data.borderWidth,
-                    ),
-                    colorSeed: ColorSeed.make(
-                        accent: LayerColor.fromBack(data.accent))),
+          onData: (bit, data) => Container(
+                color: Colors.green,
+                padding: EdgeInsets.only(top: 30),
+                child: ElbeApp(
+                  router: _appRouter,
+                  mode: data.mode,
+                  debugShowCheckedModeBanner: false,
+                  theme: ThemeData.preset(
+                      titleVariant: TypeVariants.bold,
+                      titleFont: data.font,
+                      border: Border(
+                        borderRadius: BorderRadius.circular(data.borderRadius),
+                        pixelWidth: data.borderWidth,
+                      ),
+                      colorSeed: ColorSeed.make(
+                          accent: LayerColor.fromBack(data.accent))),
+                ),
               )));
 }

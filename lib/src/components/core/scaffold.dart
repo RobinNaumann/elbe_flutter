@@ -38,6 +38,7 @@ class Scaffold extends ThemedWidget {
   final bool resizeOnKeyboard;
   final String? heroTag;
   final Widget? customTitle;
+  final bool primary;
   final Widget? child;
   final List<Widget>? children;
 
@@ -64,6 +65,7 @@ class Scaffold extends ThemedWidget {
       this.child,
       this.children,
       this.childrenMaxWidth,
+      this.primary = true,
       this.childrenPadding = 1})
       : assert(child == null || children == null,
             "provide only one of child, children");
@@ -103,6 +105,7 @@ class Scaffold extends ThemedWidget {
           resizeToAvoidBottomInset: resizeOnKeyboard,
           backgroundColor: s.plain.neutral.back,
           appBar: AppBar(
+            primary: primary,
             //toolbarHeight: 50,
             elevation: 0,
             scrolledUnderElevation: 3,
