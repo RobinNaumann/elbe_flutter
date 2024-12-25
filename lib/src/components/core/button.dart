@@ -135,7 +135,7 @@ class _Inkwell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final m = ColorTheme.of(context)
-        .activeManner
+        .activeManners
         .active
         .back
         .inter(Colors.black, .5)

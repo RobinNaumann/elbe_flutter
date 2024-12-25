@@ -33,19 +33,19 @@ class ColorThemeData extends ElbeInheritedThemeData {
           .state(state ?? this.state);
 
   /// get the currently active color scheme for the current context
-  SchemeColor get activeScheme => data.mode(mode);
+  SchemeColor get activeSchemes => data.mode(mode);
 
   /// get the currently active color kind for the current context
-  KindColor get activeKind => activeScheme.scheme(scheme);
+  KindColor get activeKinds => activeSchemes.scheme(scheme);
 
   /// get the currently active color manner for the current context
-  MannerColor get activeManner => activeKind.kind(kind);
+  MannerColor get activeManners => activeKinds.kind(kind);
 
   /// get the currently active color state for the current context
-  StateColor get activeState => activeManner.manner(manner);
+  StateColor get activeStates => activeManners.manner(manner);
 
   /// get the currently active layer color for the current context
-  LayerColor get activeLayer => activeState.state(state);
+  LayerColor get activeLayers => activeStates.state(state);
 
   ColorThemeData(
       {required this.data,
@@ -95,13 +95,13 @@ class ColorThemeData extends ElbeInheritedThemeData {
   m.ColorScheme _asMaterial() {
     return m.ColorScheme(
         brightness: mode.isDark ? m.Brightness.dark : m.Brightness.light,
-        primary: activeScheme.accent.back,
-        onPrimary: activeScheme.accent.front,
-        secondary: activeScheme.accent.safeMinor.back,
-        onSecondary: activeScheme.accent.safeMinor.front,
-        surface: activeLayer.back,
-        onSurface: activeLayer.front,
-        error: activeScheme.error.safeMajor.back,
-        onError: activeScheme.error.safeMajor.front);
+        primary: activeSchemes.accent.back,
+        onPrimary: activeSchemes.accent.front,
+        secondary: activeSchemes.accent.safeMinor.back,
+        onSecondary: activeSchemes.accent.safeMinor.front,
+        surface: activeLayers.back,
+        onSurface: activeLayers.front,
+        error: activeSchemes.error.safeMajor.back,
+        onError: activeSchemes.error.safeMajor.front);
   }
 }

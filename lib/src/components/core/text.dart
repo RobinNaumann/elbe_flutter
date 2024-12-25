@@ -16,6 +16,7 @@ class Text extends ThemedWidget {
   final TextOverflow? overflow;
   final int? maxLines;
   final String? semanticLabel;
+  final bool softWrap;
 
   /// create a text widget with the given value
   /// [value] is the text to display
@@ -45,6 +46,7 @@ class Text extends ThemedWidget {
       this.semanticLabel,
       this.maxLines,
       this.overflow,
+      this.softWrap = true,
       this.textAlign = TextAlign.start});
 
   /// create a small body text
@@ -59,6 +61,7 @@ class Text extends ThemedWidget {
       this.semanticLabel,
       this.maxLines,
       this.overflow,
+      this.softWrap = true,
       this.textAlign = TextAlign.start})
       : style = TypeStyles.bodyS;
 
@@ -74,6 +77,7 @@ class Text extends ThemedWidget {
       this.semanticLabel,
       this.maxLines,
       this.overflow,
+      this.softWrap = true,
       this.textAlign = TextAlign.start})
       : style = TypeStyles.bodyM;
 
@@ -89,6 +93,7 @@ class Text extends ThemedWidget {
       this.semanticLabel,
       this.maxLines,
       this.overflow,
+      this.softWrap = true,
       this.textAlign = TextAlign.start})
       : style = TypeStyles.bodyL;
 
@@ -104,6 +109,7 @@ class Text extends ThemedWidget {
       this.semanticLabel,
       this.maxLines,
       this.overflow,
+      this.softWrap = true,
       this.textAlign = TextAlign.start})
       : style = TypeStyles.code;
 
@@ -119,6 +125,7 @@ class Text extends ThemedWidget {
       this.semanticLabel,
       this.maxLines,
       this.overflow,
+      this.softWrap = true,
       this.textAlign = TextAlign.start})
       : style = TypeStyles.h6;
 
@@ -134,6 +141,7 @@ class Text extends ThemedWidget {
       this.semanticLabel,
       this.maxLines,
       this.overflow,
+      this.softWrap = true,
       this.textAlign = TextAlign.start})
       : style = TypeStyles.h5;
 
@@ -149,6 +157,7 @@ class Text extends ThemedWidget {
       this.semanticLabel,
       this.maxLines,
       this.overflow,
+      this.softWrap = true,
       this.textAlign = TextAlign.start})
       : style = TypeStyles.h4;
 
@@ -164,6 +173,7 @@ class Text extends ThemedWidget {
       this.semanticLabel,
       this.maxLines,
       this.overflow,
+      this.softWrap = true,
       this.textAlign = TextAlign.start})
       : style = TypeStyles.h3;
 
@@ -179,6 +189,7 @@ class Text extends ThemedWidget {
       this.semanticLabel,
       this.maxLines,
       this.overflow,
+      this.softWrap = true,
       this.textAlign = TextAlign.start})
       : style = TypeStyles.h2;
 
@@ -194,6 +205,7 @@ class Text extends ThemedWidget {
       this.semanticLabel,
       this.maxLines,
       this.overflow,
+      this.softWrap = true,
       this.textAlign = TextAlign.start})
       : style = TypeStyles.h1;
 
@@ -214,7 +226,7 @@ class Text extends ThemedWidget {
         overflow: overflow,
         semanticsLabel: semanticLabel,
         maxLines: maxLines,
-        softWrap: true,
+        softWrap: softWrap,
         style: appliedType.toTextStyle(context, appliedColor));
   }
 }

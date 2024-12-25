@@ -26,6 +26,7 @@ class ComponentsPage extends StatelessWidget {
         _IconButtonsView(),
         _ToggleView(),
         _ToggleBtnView(),
+        _DropDownView(),
         _SliderView(),
         _FieldView(),
         _SpinnerView(),
@@ -510,6 +511,52 @@ context.showToast(
                     icon: Icons.leaf,
                     kind: ColorKinds.success,
                     manner: ColorManners.minor)),
+          ]);
+}
+
+class _DropDownView extends StatefulWidget {
+  const _DropDownView();
+
+  @override
+  createState() => _DropDownViewState();
+}
+
+class _DropDownViewState extends State<_DropDownView> {
+  String? selected;
+  @override
+  Widget build(BuildContext context) => SectionView(
+      initial: const {"icon": true},
+      title: "DropDown",
+      about: "a widget for selecting a value from a list of options",
+      code: (config) => """
+DropDown(
+  selected: "banana",
+  items: [
+    OptionsItem(key: "banana", label: "Banana", icon: Icons.banana),
+    OptionsItem(key: "cherry", label: "Cherry", icon: Icons.cherry),
+    OptionsItem(key: "apple", label: "Apple", icon: Icons.apple),
+  ],
+  onSelect: (v) => ...,
+);""",
+      children: (config, _) => [
+            DropDown(
+              selected: selected,
+              items: [
+                OptionsItem(
+                    key: "banana",
+                    label: "Banana",
+                    icon: config("icon") ? Icons.banana : null),
+                OptionsItem(
+                    key: "cherry",
+                    label: "Cherry",
+                    icon: config("icon") ? Icons.cherry : null),
+                OptionsItem(
+                    key: "apple",
+                    label: "Apple",
+                    icon: config("icon") ? Icons.apple : null),
+              ],
+              onSelect: (v) => setState(() => selected = v),
+            )
           ]);
 }
 

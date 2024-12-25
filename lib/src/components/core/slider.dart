@@ -33,10 +33,11 @@ class SliderSelect extends StatelessWidget {
         onChanged: onChanged != null ? (v) => onChanged!(v) : null,
         activeColor: ThemeData.fromContext(context)
             .color
-            .activeKind
+            .activeKinds
             .accent
             .safeMajor
             .back,
-        inactiveColor: ThemeData.fromContext(context).color.activeLayer.border);
+        inactiveColor:
+            ThemeData.fromContext(context).color.activeLayers.border);
   }
 }

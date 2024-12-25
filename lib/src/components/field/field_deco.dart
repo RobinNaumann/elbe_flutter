@@ -16,10 +16,10 @@ InputDecoration elbeFieldDeco(BuildContext context, {String? hint}) {
       hintText: hint,
       hintStyle: t.type.bodyM
           .toTextStyle(context)
-          .copyWith(color: t.color.activeLayer.front.withAlpha(110)),
-      border: border(t.color.activeLayer),
-      enabledBorder: border(t.color.activeLayer),
-      focusedBorder: border(t.color.activeKind.accent.safeMinor),
-      disabledBorder: border(t.color.activeState.disabled),
-      errorBorder: border(t.color.activeKind.error));
+          .copyWith(color: t.color.activeLayers.front.withAlpha(110)),
+      border: border(t.color.activeLayers),
+      enabledBorder: border(t.color.activeLayers),
+      focusedBorder: border(t.color.activeKinds.accent.safeMinor),
+      disabledBorder: border(t.color.activeStates.disabled),
+      errorBorder: border(t.color.activeKinds.error));
 }

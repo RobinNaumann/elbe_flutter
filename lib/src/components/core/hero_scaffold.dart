@@ -45,7 +45,7 @@ class HeroScaffold extends ThemedWidget {
 
   @override
   Widget make(context, theme) {
-    final prim = theme.color.activeScheme;
+    final prim = theme.color.activeSchemes;
 
     return m.Scaffold(
         backgroundColor: prim.plain.neutral.back,
@@ -97,7 +97,7 @@ class HeroScaffold extends ThemedWidget {
                       decoration: BoxDecoration(
                           borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(17)),
-                          color: theme.color.activeLayer.back),
+                          color: theme.color.activeLayers.back),
                     ),
                   )
                 ],

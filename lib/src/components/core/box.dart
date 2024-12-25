@@ -98,7 +98,7 @@ class Box extends ThemedWidget {
   Widget make(context, theme) {
     final colorT = ColorTheme.of(context).copyWith(
         mode: mode, scheme: scheme, kind: kind, manner: manner, state: state);
-    final c = color ?? decoration?.color ?? colorT.activeLayer.back;
+    final c = color ?? decoration?.color ?? colorT.activeLayers.back;
 
     final _pad = rawPadding ?? padding?.toPixel(context);
 
@@ -112,7 +112,7 @@ class Box extends ThemedWidget {
           constraints: rawConstraints ?? constraints?.toPixel(context),
           decoration: theme.geometry.border
               .merged(border)
-              .toDeco(colorT.activeLayer.border)
+              .toDeco(colorT.activeLayers.border)
               .merged(decoration)
               .copyWith(color: c),
           child: ClipRRect(

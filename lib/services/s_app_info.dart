@@ -25,11 +25,18 @@ RunPlatform get runPlatform => AppInfoService.i.platform;
 
 abstract class AppInfoService {
   static AppInfoService? _i;
-  static AppInfoService get i => serviceInst(_i);
+  static AppInfoService get i => assertInit(_i);
+  static AppInfoService? get maybe => _i;
 
   /// provide a custom app info service. For basic console logging, use BasicAppInfoService.
   static Future<void> init([AppInfoService? s]) async =>
       _i = s ?? await BasicAppInfoService.make();
+
+  /// initialize the app info service if it hasn't been initialized yet.
+  /// this does not throw an error if the initialization fails.
+  /// It should only be used with the `maybe` getter.
+  static Future<void> maybeInit([AppInfoService? s]) async =>
+      tryCatchAsync(() => init(s));
 
   /// the app's name
   String get appName;
@@ -47,6 +54,9 @@ abstract class AppInfoService {
 
   /// the current platform
   RunPlatform get platform;
+
+  /// get the store the app was installed through. returns null if unknown.
+  String? get store;
 }
 
 class BasicAppInfoService extends AppInfoService {
@@ -70,6 +80,9 @@ class BasicAppInfoService extends AppInfoService {
 
   @override
   get version => packageInfo.version;
+
+  @override
+  get store => packageInfo.installerStore;
 
   @override
   get platform {

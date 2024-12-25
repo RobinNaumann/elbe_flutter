@@ -77,7 +77,7 @@ class Scaffold extends ThemedWidget {
     if (implyLeading && leading == null) {
       leading = const LeadingIcon.back();
     }
-    final s = theme.color.activeScheme.scheme(scheme ?? ColorSchemes.primary);
+    final s = theme.color.activeSchemes.scheme(scheme ?? ColorSchemes.primary);
 
     return AnimatedSwitcher(
         duration: const Duration(milliseconds: 500),
@@ -106,8 +106,8 @@ class Scaffold extends ThemedWidget {
             //toolbarHeight: 50,
             elevation: 0,
             scrolledUnderElevation: 3,
-            surfaceTintColor: theme.color.activeScheme.accent.back,
-            backgroundColor: theme.color.activeLayer.back,
+            surfaceTintColor: theme.color.activeSchemes.accent.back,
+            backgroundColor: theme.color.activeLayers.back,
             automaticallyImplyLeading: false,
             centerTitle: true,
             leading: leading != null
@@ -177,7 +177,7 @@ extension Toast on BuildContext {
       Duration? duration}) {
     ScaffoldMessenger.of(this).showSnackBar(SnackBar(
       duration: duration ?? const Duration(seconds: 2),
-      backgroundColor: theme.color.activeScheme.inverse.back,
+      backgroundColor: theme.color.activeSchemes.inverse.back,
       padding: m.EdgeInsets.all(0),
       content: Card(
         scheme: ColorSchemes.inverse,

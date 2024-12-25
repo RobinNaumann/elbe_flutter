@@ -62,14 +62,14 @@ Widget bitErrorView(BitControl bit, dynamic error) => Center(
 
 Widget bitLoadingView(BitControl bit) {
   return _IfTheme(
-      orElse: const CircularProgressIndicator.adaptive(),
+      orElse: Center(child: const CircularProgressIndicator.adaptive()),
       builder: () => Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CircularProgressIndicator.adaptive(),
+                const Spinner(),
                 if (bit is MsgBitControl)
                   Padded.only(
                       top: 1,
@@ -89,11 +89,9 @@ Widget bitLoadingView(BitControl bit) {
 class _IfTheme extends StatelessWidget {
   final Widget orElse;
   final Widget Function() builder;
-  const _IfTheme({super.key, required this.builder, required this.orElse});
+  const _IfTheme({required this.builder, required this.orElse});
 
   @override
-  Widget build(BuildContext context) {
-    final theme = GeometryTheme.maybeOf(context);
-    return theme != null ? builder() : orElse;
-  }
+  Widget build(BuildContext context) =>
+      GeometryTheme.maybeOf(context) != null ? builder() : orElse;
 }

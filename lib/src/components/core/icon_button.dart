@@ -85,7 +85,7 @@ class IconButton extends ThemedWidget {
               textStyle: theme.type.bodyM.toTextStyle(context),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: theme.color.activeScheme.back.withOpacity(0.8)),
+                  color: theme.color.activeSchemes.back.withOpacity(0.8)),
               message: hint,
               child: child)
           : child;

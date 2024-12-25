@@ -37,7 +37,7 @@ class Icon extends ThemedWidget {
   Widget make(context, theme) {
     final appliedType =
         theme.type.selected.merge(theme.type.get(style)).merge(resolvedStyle);
-    final appliedColor = color ?? theme.color.activeLayer.front;
+    final appliedColor = color ?? theme.color.activeLayers.front;
     final appliedSize = appliedType.iconSize;
 
     if (badge == null) return _icon(context, appliedType, appliedColor);

@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
-import 'package:elbe/src/errors/elbe_error.dart';
 import 'package:elbe/src/extensions/maybe_map.dart';
 
 import '../elbe.dart';
@@ -25,11 +24,12 @@ enum LogLevel {
 
 final log = LoggerService.i;
 
-T serviceInst<T>(T? i) => i ?? (throw ElbeError.serviceNotInitialized("$T"));
+/// check if a service has been initialized. If not, throw an error.
+T assertInit<T>(T? i) => i ?? (throw ElbeError.serviceNotInitialized("$T"));
 
 abstract class LoggerService {
   static LoggerService? _i;
-  static LoggerService get i => serviceInst(_i);
+  static LoggerService get i => assertInit(_i);
 
   /// provide a custom logger service. For basic console logging, use ConsoleLoggerService.
   static void init(LoggerService i) => _i = _i ?? i;
