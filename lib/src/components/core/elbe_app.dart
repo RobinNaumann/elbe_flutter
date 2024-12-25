@@ -8,22 +8,23 @@ import '../../../elbe.dart';
 class ElbeApp extends StatelessWidget {
   final bool debugShowCheckedModeBanner;
   final GoRouter router;
-  final ThemeData theme;
+  final ThemeData? theme;
   final ColorModes mode;
   const ElbeApp(
       {super.key,
       required this.router,
-      required this.theme,
+      this.theme,
       this.mode = ColorModes.light,
       this.debugShowCheckedModeBanner = true});
 
   @override
   Widget build(BuildContext context) {
+    final t = theme ?? ThemeData.fallback;
     final resTheme = m.ThemeData.from(
         useMaterial3: true,
-        colorScheme: theme.color.copyWith(mode: mode).asMaterial);
+        colorScheme: t.color.copyWith(mode: mode).asMaterial);
     return Theme(
-        data: theme,
+        data: t,
         child: Box.plain(
             mode: mode,
             child: m.MaterialApp.router(

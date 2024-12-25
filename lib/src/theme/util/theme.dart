@@ -9,6 +9,8 @@ extension ThemeContext on BuildContext {
 /// the data that is used to style the app.
 /// This includes colors, fonts, sizes, etc.
 class ThemeData {
+  static final fallback = ThemeData.preset();
+
   final ColorThemeData color;
   final TypeThemeData type;
   final GeometryThemeData geometry;
