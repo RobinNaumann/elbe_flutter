@@ -53,7 +53,7 @@ define and call your app within your `main.dart` file
 ```dart
 import 'package:elbe/elbe.dart';
 
-void main() async => runApp(const MyApp());
+void main() async => runApp(const YourApp());
 
 final router = GoRouter(
     routes: [GoRoute(

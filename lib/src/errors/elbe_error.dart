@@ -2,7 +2,7 @@ import 'package:elbe/elbe.dart';
 
 import '../../util/m_data.dart';
 
-final Map<int, String> _httpErrMsgs = {
+const Map<int, String> _httpErrMsgs = {
   //3xx codes:
   300: "The server has more than one possible response.",
   301: "The requested page has moved to a new URL.",
@@ -67,7 +67,7 @@ final Map<int, String> _httpErrMsgs = {
 /// It contains a code, message and optional details.
 /// It can be localized using the ElbeErrors service.
 class ElbeError extends DataModel implements Exception {
-  late final String code;
+  final String _code;
   final String message;
   final String? description;
   final IconData? icon;
@@ -75,16 +75,18 @@ class ElbeError extends DataModel implements Exception {
   final dynamic details;
   final ElbeError? cause;
 
-  ElbeError._(
+  String get code => _code.toUpperCase();
+
+  const ElbeError._(
       {required String code,
       required this.message,
       this.description,
       this.cause,
       this.details,
       this.icon})
-      : code = code.toUpperCase();
+      : _code = code;
 
-  ElbeError(
+  const ElbeError(
     String code,
     String message, {
     dynamic cause,
@@ -131,7 +133,7 @@ class ElbeError extends DataModel implements Exception {
   // ====== PREDEFINED ERRORS ======
 
   /// Create an ElbeError instance for an unknown error.
-  ElbeError.unknown([dynamic cause])
+  const ElbeError.unknown([dynamic cause])
       : this("UNKNOWN", "An unknown error occurred", cause: cause);
 
   /// Create an ElbeError instance for an HTTP error.
@@ -142,7 +144,7 @@ class ElbeError extends DataModel implements Exception {
             cause: details);
 
   /// Create an ElbeError instance for a service not initialized error.
-  ElbeError.serviceNotInitialized([String service = "- unknown -"])
+  const ElbeError.serviceNotInitialized([String service = "- unknown -"])
       : this("SERVICE_INIT", "service not initialized",
             cause: "service '$service' was not initialized before being used.",
             description: "a service has not been initialized");
