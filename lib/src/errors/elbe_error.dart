@@ -66,7 +66,7 @@ const Map<int, String> _httpErrMsgs = {
 /// ElbeError is a class that represents an error in the Elbe framework.
 /// It contains a code, message and optional details.
 /// It can be localized using the ElbeErrors service.
-class ElbeError extends DataModel implements Exception {
+class ElbeError extends JsonModel implements Exception {
   final String _code;
   final String message;
   final String? description;

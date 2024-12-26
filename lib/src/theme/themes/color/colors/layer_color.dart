@@ -1,22 +1,12 @@
 import 'package:elbe/src/theme/themes/color/colors/rich_color.dart';
+import 'package:elbe/util/m_data.dart';
 import 'package:flutter/material.dart';
 
 /// these are the different layers of a color
 enum ColorLayers { back, front, border }
 
-abstract class _JsonColor {
-  Map<String, dynamic> get map;
-
+abstract class _JsonColor extends JsonModel {
   _JsonColor.from(Color c); //: super(c.value);
-
-  @override
-  String toString() => "$runtimeType$map";
-
-  @override
-  int get hashCode => toString().hashCode;
-
-  @override
-  bool operator ==(Object other) => hashCode == other.hashCode;
 }
 
 /// a color with three layers: back, front, and border

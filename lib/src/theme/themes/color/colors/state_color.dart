@@ -1,5 +1,4 @@
 import 'package:elbe/elbe.dart';
-import 'package:elbe/src/theme/themes/color/color_seed.dart';
 
 /// some Widgets are interactive and can be in one of these states
 /// - `neutral` is the default state

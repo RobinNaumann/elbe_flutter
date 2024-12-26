@@ -1,6 +1,6 @@
 part of 'bit_control.dart';
 
-abstract class BitState<V, L> extends DataModel {
+abstract class BitState<V, L> extends JsonModel {
   const BitState._();
   factory BitState.loading(L? loading) => _LoadingBitState<V, L>(loading);
   factory BitState.error(dynamic e) => _ErrorBitState(e);

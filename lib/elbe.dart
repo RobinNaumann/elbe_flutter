@@ -73,6 +73,7 @@ export 'src/util/opt.dart';
 export 'src/util/unix_date.dart';
 export 'util/aliases.dart';
 export 'util/lorem.dart';
+export 'util/m_data.dart';
 export 'util/math.dart';
 export 'util/try.dart';
 
