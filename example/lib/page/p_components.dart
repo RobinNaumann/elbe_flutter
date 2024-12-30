@@ -33,6 +33,7 @@ class ComponentsPage extends StatelessWidget {
         _AlertsView(),
         _ToastView(),
         _PageView(),
+        _ToDoView(),
         _ExtendView(),
       ],
     );
@@ -168,6 +169,26 @@ Spinner()
         children: (get, _) => const [
               Box(width: 4, height: 4, child: Spinner()),
               Box(width: 4, height: 4, child: Spinner(kind: ColorKinds.plain)),
+            ]);
+  }
+}
+
+class _ToDoView extends StatelessWidget {
+  const _ToDoView();
+
+  @override
+  Widget build(BuildContext context) {
+    return SectionView(
+        initial: const {},
+        title: "util: ToDo",
+        about: "a visual development indicator",
+        code: (s) => """
+ToDo("this still needs work")
+""",
+        children: (get, _) => const [
+              ToDo("this still needs work"),
+              ToDo.sized(
+                  RemConstraints(minHeight: 7, maxWidth: 6), "a sized todo")
             ]);
   }
 }
