@@ -14,7 +14,10 @@ extension UnixMsConv on int {
 /// - `x as UnixMs`
 extension type UnixMs(int i) {
   /// get the current time in milliseconds since epoch
-  UnixMs get now => DateTime.now().asUnixMs;
+  static UnixMs get now => DateTime.now().asUnixMs;
+
+  /// get the date at 1970-01-01 00:00:00.000
+  static UnixMs get zero => UnixMs(0);
 
   /// convert this UnixMs to a DateTime
   DateTime get asDateTime => DateTime.fromMillisecondsSinceEpoch(i);
