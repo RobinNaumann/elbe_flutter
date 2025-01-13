@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:core';
 
 import '../../elbe.dart';
-import '../../util/json_tools.dart';
-import '../../util/m_data.dart';
 import 'bit.dart';
 
 part 'bit_builder.dart';
@@ -21,12 +19,19 @@ typedef MsgBit<V> = Bit<V, String>;
 typedef MsgBitBuilder<M, V, B extends MsgBitControl<M, V>>
     = BitBuilder<M, V, String, B>;
 
+/// A simplified version of `MsgBitControl` automatically
+/// handles the mapping of the data to a state.
 typedef MapMsgBitControl<V> = MsgBitControl<V, V>;
 typedef MapMsgBitBuilder<V, B extends MsgBitControl<V, V>>
     = MsgBitBuilder<V, V, B>;
 
 typedef BitMapper<M, V> = M Function(V value, M? previous);
 
+/// a class that helps you manage the state of a bit. It has a generic
+/// type [L] that represents the loading state of the bit. You can use
+/// `MsgBitControl` if you want to use a string as the loading state.
+///
+/// You can also use `PlainBitControl` for more simple cases.
 class BitControl<M, V, L> {
   final M Function(V value, M? previous)? map;
   final Bit<V, L> _bit;

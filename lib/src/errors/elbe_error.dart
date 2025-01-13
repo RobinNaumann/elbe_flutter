@@ -1,7 +1,5 @@
 import 'package:elbe/elbe.dart';
 
-import '../../util/m_data.dart';
-
 const Map<int, String> _httpErrMsgs = {
   //3xx codes:
   300: "The server has more than one possible response.",
