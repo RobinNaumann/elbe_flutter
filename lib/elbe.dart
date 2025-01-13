@@ -68,11 +68,12 @@ export 'src/theme/util/definitions.dart';
 export 'src/theme/util/rem_constraints.dart';
 export 'src/theme/util/rem_insets.dart';
 export 'src/theme/util/theme.dart';
+//util
 export 'src/util/opt.dart';
 export 'src/util/todo.dart';
-//utils
 export 'src/util/unix_date.dart';
 export 'util/aliases.dart';
+export 'util/json_tools.dart';
 export 'util/lorem.dart';
 export 'util/m_data.dart';
 export 'util/math.dart';
