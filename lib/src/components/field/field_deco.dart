@@ -2,7 +2,8 @@ import 'package:elbe/elbe.dart';
 
 /// create a decoration for a text field. Use this to style the text field.
 /// It automatically uses the theme of the context.
-InputDecoration elbeFieldDeco(BuildContext context, {String? hint}) {
+InputDecoration elbeFieldDeco(BuildContext context,
+    {String? hint, String? label, InputDecoration? mergeWith}) {
   final t = ThemeData.fromContext(context);
 
   border(LayerColor c) => OutlineInputBorder(
@@ -12,7 +13,8 @@ InputDecoration elbeFieldDeco(BuildContext context, {String? hint}) {
           width: t.geometry.border.pixelWidth ?? 0),
       borderRadius: t.geometry.border.borderRadius ?? BorderRadius.circular(0));
 
-  return InputDecoration(
+  return (mergeWith ?? const InputDecoration()).copyWith(
+      labelText: label,
       hintText: hint,
       hintStyle: t.type.bodyM
           .toTextStyle(context)
