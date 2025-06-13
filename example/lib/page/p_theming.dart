@@ -29,7 +29,7 @@ class ThemingPage extends StatelessWidget {
 }
 
 class _TypeView extends StatelessWidget {
-  const _TypeView({super.key});
+  const _TypeView();
 
   @override
   Widget build(BuildContext context) => SectionView(
@@ -62,14 +62,14 @@ Text("hello",
 }
 
 class _GeometryView extends StatelessWidget {
-  const _GeometryView({super.key});
+  const _GeometryView();
 
   @override
   Widget build(BuildContext context) => SectionView(
       title: "Geometry",
       about:
           "defines the spacing within the application. It is based on the rem unit. This makes it easier to adapt scaling to different needs.",
-      initial: {"larger": false},
+      initial: const {"larger": false},
       code: (s) => """
 Padded.all(child: Text("padded"));
 Spaced.vertical(1);

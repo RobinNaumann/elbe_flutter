@@ -12,7 +12,6 @@ class _ColorCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const _ColorCard({
-    super.key,
     required this.current,
     required this.showName,
     required this.onTap,

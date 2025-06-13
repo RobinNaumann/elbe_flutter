@@ -21,7 +21,7 @@ import 'package:elbe/elbe.dart';
 /// It is advised to add a static `PlainBitBuilder builder` to your BitControl.
 ///
 /// ```dart
-/// class CounterBit extends PlainBitControl<int> {
+/// class CounterBit extends SimpleBit<int> {
 ///    static const builder = PlainBitBuilder<int, CounterBit>.make;
 ///
 ///    CounterBit() : super(worker: (_) async => 0);
@@ -37,6 +37,5 @@ import 'package:elbe/elbe.dart';
 ///   onError: (bit, error) => ...
 /// )
 /// ```
-typedef PlainBitControl<D> = MapMsgBitControl<D>;
-typedef PlainBitBuilder<D, B extends PlainBitControl<D>>
-    = MapMsgBitBuilder<D, B>;
+typedef SimpleBit<D> = MapMsgBitControl<D>;
+typedef SimpleBitBuilder<D, B extends SimpleBit<D>> = MapMsgBitBuilder<D, B>;

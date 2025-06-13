@@ -75,15 +75,11 @@ class Bit<R, L> {
 
   Bit(BitWorker<R, L> this.worker)
       : streamWorker = null,
-        _onDispose = null {
-    reload();
-  }
+        _onDispose = null;
 
   Bit.stream(BitStreamWorker<R, L> this.streamWorker, {Function()? onDispose})
       : worker = null,
-        _onDispose = onDispose {
-    reload();
-  }
+        _onDispose = onDispose;
 
   dispose() {
     _streamCtrl.close();

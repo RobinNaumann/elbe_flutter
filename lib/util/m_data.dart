@@ -11,7 +11,10 @@ abstract class JsonModel {
   const JsonModel();
 
   @override
-  String toString() => "$runtimeType$map";
+  String toString() => ({
+        ...map,
+        "_runtimeType": runtimeType.toString(),
+      }).toString();
 
   @override
   int get hashCode => toString().hashCode;

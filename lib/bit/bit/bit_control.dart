@@ -31,7 +31,7 @@ typedef BitMapper<M, V> = M Function(V value, M? previous);
 /// type [L] that represents the loading state of the bit. You can use
 /// `MsgBitControl` if you want to use a string as the loading state.
 ///
-/// You can also use `PlainBitControl` for more simple cases.
+/// You can also use `SimpleBit` for more simple cases.
 class BitControl<M, V, L> {
   final M Function(V value, M? previous)? map;
   final Bit<V, L> _bit;

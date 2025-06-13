@@ -12,7 +12,7 @@ extension UnixMsConv on int {
 /// - `UnixMs(x)`,
 /// - `x.asUnixMs`
 /// - `x as UnixMs`
-extension type UnixMs(int i) {
+extension type UnixMs(int i) implements int {
   /// get the current time in milliseconds since epoch
   static UnixMs get now => DateTime.now().asUnixMs;
 

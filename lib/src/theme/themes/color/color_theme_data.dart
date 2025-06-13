@@ -1,10 +1,7 @@
-import 'package:elbe/util/json_tools.dart';
 import 'package:flutter/material.dart' as m;
 
 import '../../../../elbe.dart';
 import '../../util/inherited_theme.dart';
-
-Map<int, m.ColorScheme> _matCache = {};
 
 /// a theme that provides colors for the app
 class ColorThemeData extends ElbeInheritedThemeData {
@@ -86,8 +83,6 @@ class ColorThemeData extends ElbeInheritedThemeData {
         "manner": manner.name,
         "state": state.name
       };
-
-  int get _hash => map().hashCode;
 
   @override
   Widget provider(Widget child) => ColorTheme(data: this, child: child);

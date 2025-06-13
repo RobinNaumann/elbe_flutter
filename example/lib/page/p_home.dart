@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
                             icon: e.icon,
                             label: e.label,
                             onTap: e.route != null
-                                ? () => context.push(e.route!)
+                                ? () => context.push(e.route)
                                 : null,
                           ),
                       ]),
@@ -105,7 +105,7 @@ class HomePage extends StatelessWidget {
 class _PlatformIcon extends StatelessWidget {
   final String name;
   final IconData icon;
-  const _PlatformIcon({super.key, required this.name, required this.icon});
+  const _PlatformIcon({required this.name, required this.icon});
 
   @override
   Widget build(BuildContext context) => m.Icon(icon);
