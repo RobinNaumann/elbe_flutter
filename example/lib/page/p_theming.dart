@@ -14,7 +14,7 @@ class ThemingPage extends StatelessWidget {
       title: "theming",
       actions: [
         ThemeSeedBit.builder(
-            onData: (bit, data) => IconButton.flatPlain(
+            onData: (bit, data) => IconButton.plain(
                 icon: data.mode.isDark ? Icons.moon : Icons.sun,
                 onTap: bit.toggle))
       ],
@@ -78,9 +78,11 @@ Spaced.zero;
 // get rem size
 context.rem();
 """,
-      child: (get, _) => GeometryTheme(
-            data: GeometryThemeData.preset(remSize: get("larger") ? 32 : 16),
-            child: Box(
+      child: (get, _) => Theme(
+            data: context.theme.copyWith(
+                geometry: context.theme.geometry
+                    .copyWith(remSize: get("larger") ? 32 : 16)),
+            child: const Box(
                 scheme: ColorSchemes.secondary,
                 padding: RemInsets.all(1),
                 border: Border.noneRect,

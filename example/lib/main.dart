@@ -18,15 +18,7 @@ class _App extends StatelessWidget {
           router: _appRouter,
           mode: data.mode,
           debugShowCheckedModeBanner: false,
-          theme: ThemeData.preset(
-              titleVariant: TypeVariants.bold,
-              titleFont: data.font,
-              border: Border(
-                borderRadius: BorderRadius.circular(data.borderRadius),
-                pixelWidth: data.borderWidth,
-              ),
-              colorSeed:
-                  ColorSeed.make(accent: LayerColor.fromBack(data.accent))),
+          theme: ElbeThemeData.preset(),
         ),
       ));
 }

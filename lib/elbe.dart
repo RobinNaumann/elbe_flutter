@@ -55,19 +55,15 @@ export 'src/errors/elbe_error.dart';
 export 'src/errors/elbe_errors.dart';
 export 'src/errors/p_elbe_error.dart';
 export 'src/errors/v_elbe_error.dart';
-export 'src/theme/themes/color/alert_type.dart';
-export 'src/theme/themes/color/color_theme.dart';
-export 'src/theme/themes/color/color_theme_data.dart';
-export 'src/theme/themes/geometry/geometry_theme.dart';
-//themes
-export 'src/theme/themes/geometry/geometry_theme_data.dart';
-export 'src/theme/themes/type/type_style.dart';
-export 'src/theme/themes/type/type_theme.dart';
-export 'src/theme/themes/type/type_theme_data.dart';
+//theme
+export 'src/theme/subthemes/color/color_theme_data.dart';
+export 'src/theme/subthemes/geometry/geometry_theme_data.dart';
+export 'src/theme/subthemes/type/type_style.dart';
+export 'src/theme/subthemes/type/type_theme_data.dart';
+export 'src/theme/theme.dart';
 export 'src/theme/util/definitions.dart';
 export 'src/theme/util/rem_constraints.dart';
 export 'src/theme/util/rem_insets.dart';
-export 'src/theme/util/theme.dart';
 //util
 export 'src/util/opt.dart';
 export 'src/util/todo.dart';

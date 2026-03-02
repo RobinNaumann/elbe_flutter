@@ -96,29 +96,30 @@ class Box extends ThemedWidget {
 
   @override
   Widget make(context, theme) {
-    final colorT = ColorTheme.of(context).copyWith(
+    final updatedTheme = context.theme.withColorSelection(
         mode: mode, scheme: scheme, kind: kind, manner: manner, state: state);
-    final c = color ?? decoration?.color ?? colorT.activeLayers.back;
+
+    final c = color ?? decoration?.color ?? updatedTheme.color.selected.back;
 
     final _pad = rawPadding ?? padding?.toPixel(context);
 
-    return ColorTheme(
-      data: colorT,
+    return Theme(
+      data: updatedTheme,
       child: Container(
           clipBehavior: clipBehavior ?? Clip.none,
-          width: theme.rem(width),
-          height: theme.rem(height),
+          width: theme.geometry.maybeRem(width),
+          height: theme.geometry.maybeRem(height),
           margin: rawMargin ?? margin?.toPixel(context),
           constraints: rawConstraints ?? constraints?.toPixel(context),
           decoration: theme.geometry.border
               .merged(border)
-              .toDeco(colorT.activeLayers.border)
+              .toDeco(updatedTheme.color.selected.border)
               .merged(decoration)
               .copyWith(color: c),
           child: ClipRRect(
               clipBehavior: clipBehavior != null ? Clip.none : Clip.antiAlias,
               borderRadius: _subtractBorder(
-                  border.borderRadius ?? theme.geometry.border.borderRadius,
+                  border.radius ?? theme.geometry.border.radius,
                   border.pixelWidth ?? 0),
               child: Padding(padding: _pad ?? EdgeInsets.zero, child: child))),
     );

@@ -69,23 +69,24 @@ class IconButton extends ThemedWidget {
   /// create an icon button with a flat manner and plain color.
   /// Flat plain icon buttons have no background color
   /// and are typically used for actions that are not the main focus
-  const IconButton.flatPlain(
+  const IconButton.plain(
       {super.key,
       required this.icon,
       this.hint,
       this.onTap,
       this.constraints,
+      this.kind = ColorKinds.accent,
       this.splash = true})
-      : manner = ColorManners.flat,
-        kind = ColorKinds.plain;
+      : manner = ColorManners.plain;
 
-  Widget _maybeTooltip(BuildContext context, ThemeData theme, Widget child) =>
+  Widget _maybeTooltip(
+          BuildContext context, ElbeThemeData theme, Widget child) =>
       hint != null
           ? Tooltip(
               textStyle: theme.type.bodyM.toTextStyle(context),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: theme.color.activeSchemes.back.withOpacity(0.8)),
+                  color: theme.color.selected.back.withOpacity(0.8)),
               message: hint,
               child: child)
           : child;
@@ -100,7 +101,7 @@ class IconButton extends ThemedWidget {
             constraints: constraints ??
                 const RemConstraints(minHeight: 2.5, minWidth: 2.5),
             border: (theme.geometry.buttonBorder ? const Border() : Border.none)
-                .copyWith(borderRadius: BorderRadius.circular(200)),
+                .copyWith(radius: BorderRadius.circular(200)),
             kind: kind,
             manner: manner,
             state: onTap != null ? ColorStates.neutral : ColorStates.disabled,

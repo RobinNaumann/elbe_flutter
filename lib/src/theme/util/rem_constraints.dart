@@ -2,7 +2,11 @@ import '../../../elbe.dart' as elbe;
 import '../../../elbe.dart';
 
 extension RemContext on BuildContext {
-  double rem([elbe.rem size = 1]) => GeometryTheme.of(this).rem(size);
+  /// shorthand for `context.theme.geometry.rem(size)`. Use this to get the rem value in pixels.
+  /// You can also use this to convert rem values to pixels,
+  ///
+  /// e.g. `context.rem(2)` will give you the pixel value of 2 rem.
+  double rem([elbe.rem size = 1]) => this.theme.geometry.rem(size);
 }
 
 class RemConstraints {

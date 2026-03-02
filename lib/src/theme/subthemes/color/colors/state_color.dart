@@ -27,21 +27,19 @@ class StateColor extends LayerColor {
             active: c.active,
             disabled: c.disabled);
 
-  LayerColor? maybeState(ColorStates? state) =>
-      state != null ? this.state(state) : null;
-
   LayerColor state(ColorStates state) =>
       [neutral, hover, active, disabled][state.index];
 
-  factory StateColor.generate(ColorSeed _, LayerColor context, LayerColor style,
-      [bool fromFront = false]) {
+  factory StateColor.generate(
+      List<String> path, LayerColor context, LayerColor style,
+      [fromFront = false]) {
     _make(double factor) {
       final front = style.front;
       return new LayerColor(
           back: (fromFront
                   ? context.back.inter(front, factor)
                   : style.back.inter(context.back.mirrorBrightness(), factor))
-              .withOpacity(Math.max(style.back.alpha / 255, 0.2)),
+              .withOpacity(Math.max(style.back.a, 0.2)),
           front: front,
           border: style.border,
           borderContext: style.borderContext);
@@ -49,8 +47,8 @@ class StateColor extends LayerColor {
 
     return new StateColor(
         neutral: style,
-        hover: _make(0.075),
-        active: _make(0.25),
+        hover: _make(0.05),
+        active: _make(0.15),
         disabled: style.desaturated());
   }
 

@@ -1,4 +1,4 @@
-import 'package:elbe/src/theme/themes/color/colors/rich_color.dart';
+import 'package:elbe/src/theme/subthemes/color/colors/rich_color.dart';
 import 'package:elbe/util/m_data.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 enum ColorLayers { back, front, border }
 
 abstract class _JsonColor extends JsonModel {
-  _JsonColor.from(Color c); //: super(c.value);
+  const _JsonColor.from(Color c); //: super(c.value);
 }
 
 /// a color with three layers: back, front, and border
@@ -33,7 +33,7 @@ class LayerColor extends _JsonColor {
   /// the back layer is the main color of the element
   /// the front layer is the color of the text and icons
   /// the border layer is the color of the border
-  LayerColor(
+  const LayerColor(
       {required this.back,
       required this.front,
       this.border,
@@ -44,6 +44,9 @@ class LayerColor extends _JsonColor {
     front ??= back.isDark ? Colors.white : Colors.black;
     return LayerColor(back: back, front: front, border: border);
   }
+
+  LayerColor withBorder(Color border, {Color? borderContext}) => LayerColor(
+      back: back, front: front, border: border, borderContext: borderContext);
 
   Color layer(ColorLayers layer) =>
       [back, front, border ?? Colors.transparent][layer.index];

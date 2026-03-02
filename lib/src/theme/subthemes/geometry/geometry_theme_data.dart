@@ -1,7 +1,6 @@
 import '../../../../elbe.dart';
-import '../../util/inherited_theme.dart';
 
-class GeometryThemeData extends ElbeInheritedThemeData {
+class GeometryThemeData extends JsonModel {
   final Border border;
   final double remSize;
   final bool buttonBorder;
@@ -19,9 +18,20 @@ class GeometryThemeData extends ElbeInheritedThemeData {
       this.border = const Border.preset(),
       this.buttonBorder = false});
 
-  @override
-  List getProps() => [border, remSize];
+  GeometryThemeData copyWith({
+    Border? border,
+    double? remSize,
+    bool? buttonBorder,
+  }) {
+    return GeometryThemeData(
+        remSize: remSize ?? this.remSize,
+        border: border ?? this.border,
+        buttonBorder: buttonBorder ?? this.buttonBorder);
+  }
 
-  @override
-  Widget provider(Widget child) => GeometryTheme(data: this, child: child);
+  get map => {
+        "remSize": remSize,
+        "border": border.hashCode,
+        "buttonBorder": buttonBorder
+      };
 }

@@ -23,7 +23,7 @@ class ElbeErrorPage extends StatelessWidget {
       title: title,
       leadingIcon: LeadingIcon.none(),
       actions: [
-        IconButton.flatPlain(
+        IconButton.plain(
           icon: Icons.x,
           onTap: () => Navigator.of(context).maybePop(),
         )

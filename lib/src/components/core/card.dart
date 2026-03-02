@@ -48,7 +48,7 @@ class Card extends ThemedWidget {
       this.heroTag,
       required this.child});
 
-  Widget _card(ThemeData theme) => MaybeHero(
+  Widget _card(ElbeThemeData theme) => MaybeHero(
         tag: heroTag,
         child: Box(
             scheme: scheme,

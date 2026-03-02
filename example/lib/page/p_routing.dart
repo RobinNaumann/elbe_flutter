@@ -12,8 +12,7 @@ class RoutingPage extends StatelessWidget {
       childrenMaxWidth: 40,
       actions: [
         ThemeSeedBit.builder(
-            onData: (bit, data) => IconButton.flat(
-                kind: ColorKinds.plain,
+            onData: (bit, data) => IconButton.plain(
                 icon: data.mode.isDark ? Icons.moon : Icons.sun,
                 onTap: bit.toggle))
       ],

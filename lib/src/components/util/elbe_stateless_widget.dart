@@ -5,8 +5,7 @@ abstract class ThemedWidget extends StatelessWidget {
   const ThemedWidget({super.key});
 
   @override
-  Widget build(BuildContext context) =>
-      make(context, ThemeData.fromContext(context));
+  Widget build(BuildContext context) => make(context, Theme.of(context));
 
-  Widget make(BuildContext context, ThemeData theme);
+  Widget make(BuildContext context, ElbeThemeData theme);
 }

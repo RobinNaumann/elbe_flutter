@@ -11,7 +11,7 @@ class ComponentsPage extends StatelessWidget {
       title: "components",
       actions: [
         ThemeSeedBit.builder(
-            onData: (bit, data) => IconButton.flatPlain(
+            onData: (bit, data) => IconButton.plain(
                 icon: data.mode.isDark ? Icons.moon : Icons.sun,
                 onTap: bit.toggle))
       ],
@@ -98,7 +98,8 @@ class _ButtonsView extends StatelessWidget {
   static const _btnManners = [
     ("major", ColorManners.major),
     ("minor", ColorManners.minor),
-    ("flat", ColorManners.flat)
+    ("flat", ColorManners.flat),
+    ("plain", ColorManners.plain),
   ];
 
   const _ButtonsView();
@@ -168,7 +169,7 @@ Spinner()
 """,
         children: (get, _) => const [
               Box(width: 4, height: 4, child: Spinner()),
-              Box(width: 4, height: 4, child: Spinner(kind: ColorKinds.plain)),
+              Box(width: 4, height: 4, child: Spinner(plain: true)),
             ]);
   }
 }
@@ -380,10 +381,10 @@ Icon(Icons.leaf,
 """,
         children: (get, _) => [
               Icon(Icons.treeDeciduous,
-                  badge: get("badge") ? Badge(type: AlertType.error) : null),
+                  badge: get("badge") ? Badge(kind: ColorKinds.error) : null),
               Icon(Icons.trees,
                   badge: get("badge")
-                      ? Badge(text: "fire", type: AlertType.warning)
+                      ? Badge(text: "fire", kind: ColorKinds.warning)
                       : null),
               Icon(Icons.leaf,
                   color: Colors.green,
@@ -412,7 +413,7 @@ class _ToggleViewState extends State<_ToggleView> {
 Icon(Icons.leaf,
   //style: TypeStyles.bodyS,
   color: Colors.green,
-  badge: ${s("badge") ? "Badge(value: 2)" : "null"}
+  badge: ${s("badge") ? "Badge(kind: ColorKinds.warning, value: 2)" : "null"}
 )
 """,
         children: (get, _) => [
@@ -487,12 +488,7 @@ OptionsButton(
 }
 
 class _AlertsView extends StatelessWidget {
-  static const _types = [
-    AlertType.error,
-    AlertType.warning,
-    AlertType.info,
-    AlertType.success
-  ];
+  static const _types = ColorKinds.values;
 
   const _AlertsView();
 
@@ -503,10 +499,10 @@ class _AlertsView extends StatelessWidget {
           code: """
 Badge(
   text: "error", 
-  type: AlertType.error)
+  kind: ColorKinds.error)
 """,
           children: [
-            for (final s in _types) Badge(text: s.name, type: s),
+            for (final s in _types) Badge(text: s.name, kind: s),
           ]);
 }
 
@@ -605,7 +601,7 @@ Scaffold(
                   child: Scaffold(
                       title: "title",
                       actions: [
-                        IconButton.flatPlain(icon: Icons.leaf, onTap: () {})
+                        IconButton.plain(icon: Icons.leaf, onTap: () {})
                       ],
                       child: Padded.all(
                           child: const Text("this is some content")))),

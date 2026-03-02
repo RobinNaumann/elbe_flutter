@@ -31,7 +31,7 @@ class LeadingIcon {
 
 /// base widget for creating screen filling pages
 class Scaffold extends ThemedWidget {
-  final ColorSchemes? scheme;
+  final ColorSchemes scheme;
   final String title;
   final List<Widget>? actions;
   final LeadingIcon? leadingIcon;
@@ -79,7 +79,6 @@ class Scaffold extends ThemedWidget {
     if (implyLeading && leading == null) {
       leading = const LeadingIcon.back();
     }
-    final s = theme.color.activeSchemes.scheme(scheme ?? ColorSchemes.primary);
 
     return AnimatedSwitcher(
         duration: const Duration(milliseconds: 500),
@@ -92,32 +91,32 @@ class Scaffold extends ThemedWidget {
                         : (animation.status == AnimationStatus.reverse
                             ? Box(
                                 border: Border.noneRect,
-                                mode: theme.color.mode == ColorModes.light
-                                    ? ColorModes.dark
-                                    : ColorModes.light,
+                                mode: theme.color.isDark
+                                    ? ColorModes.light
+                                    : ColorModes.dark,
                                 child: child)
                             : ClipOval(
                                 key: ValueKey(animation.value),
                                 clipper: CircleClip(animation.value),
                                 child: child))),
         child: m.Scaffold(
-          key: ValueKey(theme.color.mode),
+          key: ValueKey(theme.color.selection.mode),
           resizeToAvoidBottomInset: resizeOnKeyboard,
-          backgroundColor: s.plain.neutral.back,
+          backgroundColor: context.theme.color.resolve(scheme: scheme).back,
           appBar: AppBar(
             primary: primary,
             //toolbarHeight: 50,
             elevation: 0,
             scrolledUnderElevation: 3,
-            surfaceTintColor: theme.color.activeSchemes.accent.back,
-            backgroundColor: theme.color.activeLayers.back,
+            surfaceTintColor: theme.color.resolve(kind: ColorKinds.accent).back,
+            backgroundColor: theme.color.selected.back,
             automaticallyImplyLeading: false,
             centerTitle: true,
             leading: leading != null
                 ? leading.icon != null
                     ? Padded.all(
                         value: .5,
-                        child: IconButton.flatPlain(
+                        child: IconButton.plain(
                             onTap: leading.onTap != null
                                 ? () => leading!.onTap?.call(context)
                                 : null,
@@ -180,7 +179,7 @@ extension Toast on BuildContext {
       Duration? duration}) {
     ScaffoldMessenger.of(this).showSnackBar(SnackBar(
       duration: duration ?? const Duration(seconds: 2),
-      backgroundColor: theme.color.activeSchemes.inverse.back,
+      backgroundColor: theme.color.resolve(scheme: ColorSchemes.inverse).back,
       padding: m.EdgeInsets.all(0),
       content: Card(
         scheme: ColorSchemes.inverse,

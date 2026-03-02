@@ -14,7 +14,7 @@ class ElbeApp extends StatelessWidget {
   final bool debugShowCheckedModeBanner;
 
   final GoRouter router;
-  final ThemeData? theme;
+  final ElbeThemeData? theme;
   final ColorModes mode;
   const ElbeApp(
       {super.key,
@@ -30,10 +30,9 @@ class ElbeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = theme ?? ThemeData.fallback;
+    final t = theme ?? ElbeThemeData.preset();
     final resTheme = m.ThemeData.from(
-        useMaterial3: true,
-        colorScheme: t.color.copyWith(mode: mode).asMaterial);
+        useMaterial3: true, colorScheme: t.color.asMaterialTheme());
     return Theme(
         data: t,
         child: Box.plain(

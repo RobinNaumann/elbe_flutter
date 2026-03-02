@@ -1,12 +1,11 @@
 import '../../../../elbe.dart';
-import '../../util/inherited_theme.dart';
 
 const calistoga = 'Calistoga';
 const spaceMono = 'SpaceMono';
 
 enum TypeStyles { bodyS, bodyM, bodyL, h6, h5, h4, h3, h2, h1, code }
 
-class TypeThemeData extends ElbeInheritedThemeData {
+class TypeThemeData extends JsonModel {
   final TypeStyle bodyS;
   final TypeStyle bodyM;
   final TypeStyle bodyL;
@@ -126,8 +125,16 @@ class TypeThemeData extends ElbeInheritedThemeData {
       [bodyS, bodyM, bodyL, h6, h5, h4, h3, h2, h1, code][style.index];
 
   @override
-  List getProps() => [bodyS, bodyM, bodyL, h6, h5, h4, h3, h2, h1];
-
-  @override
-  Widget provider(Widget child) => TypeTheme(data: this, child: child);
+  get map => {
+        "bodyS": bodyS.map,
+        "bodyM": bodyM.map,
+        "bodyL": bodyL.map,
+        "h6": h6.map,
+        "h5": h5.map,
+        "h4": h4.map,
+        "h3": h3.map,
+        "h2": h2.map,
+        "h1": h1.map,
+        "code": code.map
+      };
 }

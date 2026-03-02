@@ -12,7 +12,7 @@ class UtilsPage extends StatelessWidget {
       title: "utilities",
       actions: [
         ThemeSeedBit.builder(
-            onData: (bit, data) => IconButton.flatPlain(
+            onData: (bit, data) => IconButton.plain(
                 icon: data.mode.isDark ? Icons.moon : Icons.sun,
                 onTap: bit.toggle))
       ],

@@ -37,6 +37,6 @@ class Spaced extends ThemedWidget {
   const Spaced.horizontal([this.width = 1]) : height = 0;
 
   @override
-  Widget make(context, theme) =>
-      SizedBox(width: theme.rem(width), height: theme.rem(height));
+  Widget make(context, theme) => SizedBox(
+      width: theme.geometry.rem(width), height: theme.geometry.rem(height));
 }

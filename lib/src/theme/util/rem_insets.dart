@@ -2,20 +2,18 @@ import 'package:flutter/widgets.dart' as w;
 
 import '../../../elbe.dart';
 
-/// use *WText* to use the default Flutter Text widget
+/// use *WBorder* to use the default Flutter Border widget
 class Border {
   static const Border none =
-      Border(pixelWidth: 0, color: Colors.transparent, borderRadius: null);
+      Border(pixelWidth: 0, color: Colors.transparent, radius: null);
   static const Border noneRect = Border(
-      pixelWidth: 0,
-      color: Colors.transparent,
-      borderRadius: BorderRadius.zero);
+      pixelWidth: 0, color: Colors.transparent, radius: BorderRadius.zero);
 
   final double? pixelWidth;
   final BorderStyle? style;
   final double? strokeAlign;
   final Color? color;
-  final BorderRadius? borderRadius;
+  final BorderRadius? radius;
 
   /// This is the elbe border. Use `WBorder` for the Flutter border. You can
   /// also use the `toDeco` method to convert this border to a `BoxDecoration`.
@@ -24,7 +22,7 @@ class Border {
   const Border(
       {this.pixelWidth = 2,
       this.style = w.BorderStyle.solid,
-      this.borderRadius = const BorderRadius.all(Radius.circular(10)),
+      this.radius = const BorderRadius.all(Radius.circular(10)),
       this.color,
       this.strokeAlign});
 
@@ -32,7 +30,7 @@ class Border {
   const Border.preset(
       {this.pixelWidth = 2,
       this.style = BorderStyle.solid,
-      this.borderRadius = const BorderRadius.all(Radius.circular(10)),
+      this.radius = const BorderRadius.all(Radius.circular(10)),
       this.color,
       this.strokeAlign});
 
@@ -41,13 +39,13 @@ class Border {
           BorderStyle? style,
           double? strokeAlign,
           Color? color,
-          BorderRadius? borderRadius}) =>
+          BorderRadius? radius}) =>
       Border(
           pixelWidth: pixelWidth ?? this.pixelWidth,
           style: style ?? this.style,
           strokeAlign: strokeAlign ?? this.strokeAlign,
           color: color ?? this.color,
-          borderRadius: borderRadius ?? this.borderRadius);
+          radius: radius ?? this.radius);
 
   Border merged(Border? other) => other == null
       ? this
@@ -56,12 +54,12 @@ class Border {
           style: other.style ?? style,
           strokeAlign: other.strokeAlign ?? strokeAlign,
           color: other.color ?? color,
-          borderRadius: other.borderRadius ?? borderRadius);
+          radius: other.radius ?? radius);
 
   /// convert this border to a `BoxDecoration`. Use this to apply the border to
   /// a Flutter `Container` widget.
   BoxDecoration toDeco([Color? color]) => BoxDecoration(
-      borderRadius: borderRadius,
+      borderRadius: radius,
       border: pixelWidth == 0
           ? null
           : w.Border.all(
@@ -107,7 +105,7 @@ class RemInsets {
   /// when using widgets from other libraries, you might need to convert the
   /// rem units to pixels. Use this method to do so.
   EdgeInsets toPixel(BuildContext context) {
-    final rem = GeometryTheme.of(context).rem;
+    final rem = context.theme.geometry.rem;
     return EdgeInsets.fromLTRB(rem(left), rem(top), rem(right), rem(bottom));
   }
 }

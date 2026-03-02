@@ -70,7 +70,7 @@ class _SectionViewState<T> extends State<SectionView> {
             children: [
               Text.h5(widget.title).expanded,
               if (widget.code != null)
-                IconButton.flatPlain(icon: Icons.code, onTap: toggleCode),
+                IconButton.plain(icon: Icons.code, onTap: toggleCode),
             ].spaced(),
           ),
           const Spaced.vertical(0.5),

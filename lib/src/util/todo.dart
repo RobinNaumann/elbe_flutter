@@ -29,7 +29,7 @@ class ToDo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final radius = GeometryTheme.of(context).border.borderRadius;
+    final radius = context.theme.geometry.border.radius;
     return Container(
         constraints: size?.toPixel(context),
         decoration: BoxDecoration(

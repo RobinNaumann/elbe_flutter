@@ -1,6 +1,6 @@
 name: elbe
 description: a toolkit for simplifying frontend development
-version: 0.2.11
+version: 1.0.14
 homepage: https://robbb.in
 repository: https://github.com/RobinNaumann/elbe_flutter
 
@@ -12,11 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
   collection: ^1.17.2
-  package_info_plus: ^8.1.1
+  package_info_plus: ^9.0.0
   lucide_icons: ^0.257.0
-  go_router: ^14.4.1
+  go_router: ^17.1.0
 
-dev_dependencies:
+#dev_dependencies:
 
 flutter:
   assets:

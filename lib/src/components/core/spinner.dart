@@ -6,11 +6,11 @@ import 'package:elbe/elbe.dart';
 /// Use this to indicate that the app is busy.
 /// The spinner is a simple animation that shows a wave.
 ///
-/// Use [kind] to set the color of the spinner.
+/// Use [plain] to set the color of the spinner.
 class Spinner extends StatefulWidget {
-  final ColorKinds kind;
+  final bool plain;
 
-  const Spinner({super.key, this.kind = ColorKinds.accent});
+  const Spinner({super.key, this.plain = false});
 
   @override
   createState() => _State();
@@ -36,9 +36,13 @@ class _State extends State<Spinner> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final size = GeometryTheme.of(context).rem(2.2);
-    final color =
-        ColorTheme.of(context).activeSchemes.kind(widget.kind).safeMinor.front;
+    final size = context.rem(2.2);
+    final color = context.theme.color
+        .resolve(
+            kind: ColorKinds.accent,
+            manner: widget.plain ? ColorManners.flat : ColorManners.minor)
+        .front;
+
     return Center(
       child: AnimatedBuilder(
         animation: anim,

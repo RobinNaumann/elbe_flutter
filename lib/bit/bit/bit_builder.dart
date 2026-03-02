@@ -93,5 +93,5 @@ class _IfTheme extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      GeometryTheme.maybeOf(context) != null ? builder() : orElse;
+      Theme.maybeOf(context) != null ? builder() : orElse;
 }

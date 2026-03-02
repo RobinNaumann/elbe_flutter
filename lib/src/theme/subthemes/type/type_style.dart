@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import '../../../../elbe.dart';
 
 enum TypeVariants {
@@ -18,7 +16,7 @@ enum TypeVariants {
   final FontWeight fontWeight;
 }
 
-class TypeStyle {
+class TypeStyle extends JsonModel {
   final String? package;
   final String? fontFamily;
 
@@ -72,6 +70,16 @@ class TypeStyle {
           fontFeatures: fontFeatures ?? this.fontFeatures,
           fontFamily: fontFamily ?? this.fontFamily,
           package: fontFamily != null ? (package) : this.package);
+
+  @override
+  get map => {
+        "variant": variant.name,
+        "fontSize": fontSize,
+        "iconFactor": iconFactor,
+        "fontFeatures": fontFeatures.hashCode,
+        "fontFamily": fontFamily,
+        "package": package
+      };
 
   TextStyle toTextStyle(BuildContext context, [Color? color]) => TextStyle(
       color: color,

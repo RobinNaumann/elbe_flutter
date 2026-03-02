@@ -39,22 +39,22 @@ class HeroScaffold extends ThemedWidget {
       constraints: const RemConstraints(minHeight: 3.1),
       padding: RemInsets.symmetric(
           vertical: 0.3, horizontal: (single || left) ? 0.3 : 0.6),
-      border: Border(borderRadius: BorderRadius.circular(200), pixelWidth: 0),
+      border: Border(radius: BorderRadius.circular(200), pixelWidth: 0),
       margin: RemInsets(left: left ? 0.4 : 0, right: left ? 0 : 0.4),
       child: child);
 
   @override
   Widget make(context, theme) {
-    final prim = theme.color.activeSchemes;
+    final prim = theme.color.selected;
 
     return m.Scaffold(
-        backgroundColor: prim.plain.neutral.back,
+        backgroundColor: prim.back,
         body: CustomScrollView(slivers: [
           SliverAppBar(
               leading: leadingIcon?.icon != null
                   ? Center(
                       child: _heroBase(
-                          IconButton.flatPlain(
+                          IconButton.plain(
                               onTap: leadingIcon!.onTap != null
                                   ? () => leadingIcon!.onTap?.call(context)
                                   : null,
@@ -71,7 +71,7 @@ class HeroScaffold extends ThemedWidget {
                   : null,
               pinned: true,
               collapsedHeight: 83,
-              backgroundColor: prim.plain.neutral.back,
+              backgroundColor: prim.back,
               automaticallyImplyLeading: false,
               title: customTitle ??
                   InvisibleExpandedHeader(
@@ -83,7 +83,13 @@ class HeroScaffold extends ThemedWidget {
                 fit: StackFit.expand,
                 children: [
                   Container(
-                      color: prim.accent.inter(prim.plain.neutral, 0.9).back,
+                      color: prim.back.inter(
+                          context.theme.color
+                              .resolve(
+                                  kind: ColorKinds.accent,
+                                  manner: ColorManners.major)
+                              .back,
+                          .1),
                       //padding: RemInsets(bottom: 2),
                       margin: EdgeInsets.only(bottom: 2),
                       child: FlexibleSpaceBar(
@@ -97,7 +103,7 @@ class HeroScaffold extends ThemedWidget {
                       decoration: BoxDecoration(
                           borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(17)),
-                          color: theme.color.activeLayers.back),
+                          color: prim.back),
                     ),
                   )
                 ],

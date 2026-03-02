@@ -59,7 +59,8 @@ class OptionsButton<T> extends StatelessWidget {
               children: items.listMap((e) => GestureDetector(
                   onTap: () => onSelect(e.key),
                   child: Box(
-                    kind: ColorKinds.plain,
+                    kind: ColorKinds.accent,
+                    manner: ColorManners.plain,
                     child: Card(
                         padding:
                             RemInsets.symmetric(horizontal: compact ? .7 : 1),

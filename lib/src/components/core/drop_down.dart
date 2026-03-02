@@ -19,10 +19,10 @@ class DropDown<T> extends ThemedWidget {
       border: Border(),
       child: DropdownButton<T>(
         value: selected,
-        borderRadius: theme.geometry.border.borderRadius,
+        borderRadius: theme.geometry.border.radius,
         icon: Icon(Icons.chevronDown),
         isExpanded: true,
-        dropdownColor: theme.color.activeSchemes.secondary.back,
+        dropdownColor: theme.color.resolve(scheme: ColorSchemes.secondary).back,
 
         focusColor: Colors.transparent,
         padding: EdgeInsets.symmetric(horizontal: context.rem(1)),

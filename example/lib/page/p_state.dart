@@ -12,8 +12,7 @@ class StatePage extends StatelessWidget {
       title: "state",
       actions: [
         ThemeSeedBit.builder(
-            onData: (bit, data) => IconButton.flat(
-                kind: ColorKinds.plain,
+            onData: (bit, data) => IconButton.plain(
                 icon: data.mode.isDark ? Icons.moon : Icons.sun,
                 onTap: bit.toggle))
       ],

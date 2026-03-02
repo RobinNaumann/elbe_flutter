@@ -85,7 +85,7 @@ class Button extends ThemedWidget {
   /// create a button with a flat manner and a plain color scheme. Flat plain
   /// buttons have no background color and are typically used for actions that
   /// are not the main focus. They are used within other widgets
-  const Button.flatPlain(
+  const Button.plain(
       {super.key,
       this.icon,
       this.label,
@@ -93,10 +93,10 @@ class Button extends ThemedWidget {
       this.constraints,
       this.border = false,
       this.alignment = MainAxisAlignment.center,
+      this.kind = ColorKinds.accent,
       this.expand = false,
       this.splash = true})
-      : manner = ColorManners.flat,
-        kind = ColorKinds.plain;
+      : manner = ColorManners.plain;
 
   @override
   Widget make(context, theme) {
@@ -107,7 +107,6 @@ class Button extends ThemedWidget {
         border: (border ?? theme.geometry.buttonBorder) ? null : Border.none,
         kind: kind,
         manner: manner,
-        //color: manner == ColorManners.flat ? Colors.transparent : null,
         state: onTap != null ? ColorStates.neutral : ColorStates.disabled,
         child: _Inkwell(
           splash: splash,
@@ -134,12 +133,12 @@ class _Inkwell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final m = ColorTheme.of(context)
-        .activeManners
-        .active
+    final m = context.theme.color
+        .resolve(state: ColorStates.active)
         .back
         .inter(Colors.black, .5)
-        .withOpacity(.125);
+        .withOpacity(0.12);
+
     return Material(
         color: Colors.transparent,
         child: onPressed == null

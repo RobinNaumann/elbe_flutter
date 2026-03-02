@@ -31,13 +31,9 @@ class SliderSelect extends StatelessWidget {
         min: min,
         max: max,
         onChanged: onChanged != null ? (v) => onChanged!(v) : null,
-        activeColor: ThemeData.fromContext(context)
-            .color
-            .activeKinds
-            .accent
-            .safeMajor
+        activeColor: context.theme.color
+            .resolve(kind: ColorKinds.accent, manner: ColorManners.major)
             .back,
-        inactiveColor:
-            ThemeData.fromContext(context).color.activeLayers.border);
+        inactiveColor: context.theme.color.selected.border);
   }
 }
