@@ -51,7 +51,6 @@ class OptionsButton<T> extends StatelessWidget {
     return Align(
         alignment: Alignment.centerLeft,
         child: Card(
-          clipBehavior: Clip.antiAlias,
           border: Border(),
           kind: ColorKinds.accent,
           manner: ColorManners.major,

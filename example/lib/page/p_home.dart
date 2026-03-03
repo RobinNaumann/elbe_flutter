@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => HeroScaffold(
         heroHeight: 14,
-        leadingIcon: LeadingIcon.none(),
+        leadingIcon: const LeadingIcon.none(),
         title: 'elbe',
         hero: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
