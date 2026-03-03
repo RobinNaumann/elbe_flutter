@@ -106,6 +106,7 @@ Card(
                         current: kind,
                         showName: n,
                         scheme: scheme,
+                        manner: ColorManners.major,
                         kind: k,
                       )
                   ]),

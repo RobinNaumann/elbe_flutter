@@ -9,19 +9,19 @@ class SchemeColorSeed {
       {SeedSelector? primary, SeedSelector? secondary, SeedSelector? inverse}) {
     this.primary = primary ?? ((path, seed, base, _) => base);
     this.secondary = secondary ??
-        ((path, data, base, _) => (path.contains("highvis"))
+        ((path, seed, base, _) => (path.contains("highvis"))
             ? base
             : LayerColor(
                 back: base.back
                     .inter(
-                      data.values.accent.back,
+                      seed.values.accent.back,
                       base.back.luminance < 0.3 ? 0.2 : 0.1,
                     )
                     .desaturated(0.5),
                 front: base.front,
                 border: base.border));
-    this.inverse = inverse ??
-        ((path, data, base, _) => data.values.base.mirrorBrightness());
+    this.inverse =
+        inverse ?? ((path, seed, base, _) => base.mirrorBrightness());
   }
 }
 

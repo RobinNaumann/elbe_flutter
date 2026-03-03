@@ -40,7 +40,7 @@ class _State extends State<Spinner> with SingleTickerProviderStateMixin {
     final color = context.theme.color
         .resolve(
             kind: ColorKinds.accent,
-            manner: widget.plain ? ColorManners.flat : ColorManners.minor)
+            manner: widget.plain ? ColorManners.plain : ColorManners.minor)
         .front;
 
     return Center(
