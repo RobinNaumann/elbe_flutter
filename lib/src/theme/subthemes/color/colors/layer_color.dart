@@ -24,7 +24,6 @@ class LayerColor extends _JsonColor {
 
   /// the border color. This is the color of the border. If null, the border is transparent
   final Color? border;
-  final Color? borderContext;
 
   LayerColor.from(LayerColor c)
       : this(back: c.back, front: c.front, border: c.border);
@@ -33,20 +32,18 @@ class LayerColor extends _JsonColor {
   /// the back layer is the main color of the element
   /// the front layer is the color of the text and icons
   /// the border layer is the color of the border
-  const LayerColor(
-      {required this.back,
-      required this.front,
-      this.border,
-      this.borderContext})
-      : super.from(back);
+  const LayerColor({required this.back, required Color front, Color? border})
+      : this.front = front,
+        this.border = border ?? front,
+        super.from(back);
 
   factory LayerColor.fromBack(Color back, {Color? front, Color? border}) {
     front ??= back.isDark ? Colors.white : Colors.black;
-    return LayerColor(back: back, front: front, border: border);
+    return LayerColor(back: back, front: front, border: border ?? front);
   }
 
-  LayerColor withBorder(Color border, {Color? borderContext}) => LayerColor(
-      back: back, front: front, border: border, borderContext: borderContext);
+  LayerColor withBorder(Color border, {Color? borderContext}) =>
+      LayerColor(back: back, front: front, border: border);
 
   Color layer(ColorLayers layer) =>
       [back, front, border ?? Colors.transparent][layer.index];
@@ -59,32 +56,22 @@ class LayerColor extends _JsonColor {
   LayerColor mirrorBrightness([double factor = 1]) => LayerColor(
       back: back.mirrorBrightness(factor),
       front: front.mirrorBrightness(factor),
-      border: border?.mirrorBrightness(factor),
-      borderContext: borderContext?.mirrorBrightness(factor));
+      border: border?.mirrorBrightness(factor));
 
   /// interpolate between two colors
   /// [factor] = 1 will return the other color, 0 will return the same color
   LayerColor inter(LayerColor other, double factor) => LayerColor(
       back: this.back.inter(other.back, factor),
       front: this.front.inter(other.front, factor),
-      border: this.border?.inter(other.border ?? Colors.transparent, factor),
-      borderContext: this
-          .borderContext
-          ?.inter(other.borderContext ?? Colors.transparent, factor));
+      border: this.border?.inter(other.border ?? Colors.transparent, factor));
 
   /// return a color with the same hue but different saturation
   /// [factor] = 1 will return the same color, 0 will return grey
   LayerColor desaturated([double factor = 1]) => LayerColor(
       back: back.desaturated(factor),
       front: front.desaturated(factor),
-      border: border?.desaturated(factor),
-      borderContext: borderContext?.desaturated(factor));
+      border: border?.desaturated(factor));
 
   @override
-  get map => {
-        "back": back.map,
-        "front": front.map,
-        "border": border?.map,
-        "borderContext": borderContext?.map
-      };
+  get map => {"back": back.map, "front": front.map, "border": border?.map};
 }

@@ -85,19 +85,22 @@ context.rem();
             child: const Box(
                 scheme: ColorSchemes.secondary,
                 padding: RemInsets.all(1),
-                border: Border.noneRect,
+                borderRadius: 0,
+                border: Border(width: 0),
                 child: Row(
                   children: [
                     Box(
                         scheme: ColorSchemes.inverse,
                         padding: RemInsets.all(1),
-                        border: Border.noneRect,
+                        borderRadius: 0,
+                        border: Border(width: 0),
                         child: Spaced.zero),
                     Spaced.horizontal(),
                     Box(
                         scheme: ColorSchemes.inverse,
                         padding: RemInsets.all(1),
-                        border: Border.noneRect,
+                        borderRadius: 0,
+                        border: Border(width: 0),
                         child: Spaced.zero),
                     Spaced.horizontal(),
                     Text("box"),

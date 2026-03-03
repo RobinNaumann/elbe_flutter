@@ -90,7 +90,8 @@ class Scaffold extends ThemedWidget {
                         ? child
                         : (animation.status == AnimationStatus.reverse
                             ? Box(
-                                border: Border.noneRect,
+                                borderRadius: 0,
+                                border: Border(width: 0),
                                 mode: theme.color.isDark
                                     ? ColorModes.light
                                     : ColorModes.dark,
@@ -184,7 +185,8 @@ extension Toast on BuildContext {
       content: Card(
         scheme: ColorSchemes.inverse,
         padding: RemInsets.all(1),
-        border: Border.noneRect,
+        borderRadius: 0,
+        border: Border(width: 0),
         kind: kind,
         manner: manner,
         child: Row(

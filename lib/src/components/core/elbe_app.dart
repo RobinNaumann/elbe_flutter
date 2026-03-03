@@ -35,7 +35,7 @@ class ElbeApp extends StatelessWidget {
         useMaterial3: true, colorScheme: t.color.asMaterialTheme());
     return Theme(
         data: t,
-        child: Box.plain(
+        child: Box(
             mode: mode,
             child: m.MaterialApp.router(
                 theme: resTheme,

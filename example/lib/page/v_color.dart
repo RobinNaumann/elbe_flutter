@@ -28,6 +28,7 @@ class _ColorCard extends StatelessWidget {
     return AnimatedSize(
         duration: const Duration(milliseconds: 200),
         child: Card(
+            border: const Border(),
             onTap: onTap,
             scheme: scheme ?? ColorSchemes.primary,
             kind: kind,

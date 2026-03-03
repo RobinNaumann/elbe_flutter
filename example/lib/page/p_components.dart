@@ -60,10 +60,11 @@ Box(
             for (final s in ColorSchemes.values)
               Box(
                 scheme: s,
+                rawPadding: const EdgeInsets.all(5),
+                decoration:
+                    const BoxDecoration(borderRadius: BorderRadius.zero),
+                borderRadius: 0,
                 child: Text("${s.name} box"),
-                //raw pixel, not rem,
-                rawPadding: EdgeInsets.all(5),
-                border: Border.noneRect,
               )
           ]);
 }
@@ -72,19 +73,22 @@ class _CardView extends StatelessWidget {
   const _CardView();
 
   @override
-  Widget build(BuildContext context) => SectionView.stateless(
-          title: "Card",
-          about:
-              "a box with optional rounded corners, often used to group related content together.",
-          code: """
+  Widget build(BuildContext context) => SectionView(
+      initial: const {"bordered": true},
+      title: "Card",
+      about:
+          "a box with optional rounded corners, often used to group related content together.",
+      code: (_) => """
 Card(
   scheme: ColorSchemes.primary,
   child: Text("primary card"),
 )
 """,
-          children: [
+      children: (get, _) => [
             for (final s in ColorSchemes.values)
               Card(
+                  border:
+                      get("bordered") ? const Border() : const Border(width: 0),
                   scheme: s,
                   child: Column(
                     children: [
@@ -460,7 +464,7 @@ OptionsButton(
 """,
         child: (get, set) => Align(
               alignment: Alignment.topLeft,
-              child: Box.plain(
+              child: Box(
                 constraints:
                     get("vertical") ? const RemConstraints(maxWidth: 15) : null,
                 child: OptionsButton(

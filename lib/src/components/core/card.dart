@@ -17,6 +17,7 @@ class Card extends ThemedWidget {
   final double? width;
 
   final Color? color;
+  final double? borderRadius;
 
   final VoidCallback? onTap;
   final VoidCallback? onLongTap;
@@ -46,6 +47,7 @@ class Card extends ThemedWidget {
       this.onTap,
       this.onLongTap,
       this.heroTag,
+      this.borderRadius,
       required this.child});
 
   Widget _card(ElbeThemeData theme) => MaybeHero(
@@ -61,8 +63,9 @@ class Card extends ThemedWidget {
             padding: padding,
             margin: margin,
             constraints: constraints,
-            border: border ?? theme.geometry.border,
+            border: border ?? const Border(width: 0),
             color: color,
+            borderRadius: borderRadius,
             child: child),
       );
 

@@ -118,8 +118,10 @@ class ColorThemeValues extends JsonModel {
     this.base = const LayerColor(back: ColorDefs.white, front: ColorDefs.black),
     this.accent =
         const LayerColor(back: ColorDefs.blue, front: ColorDefs.white),
-    this.info =
-        const LayerColor(back: ColorDefs.blueAccent, front: ColorDefs.white),
+    this.info = const LayerColor(
+        back: ColorDefs.blueAccent,
+        front: ColorDefs.white,
+        border: Colors.green),
     this.success =
         const LayerColor(back: ColorDefs.green, front: ColorDefs.white),
     this.warning =

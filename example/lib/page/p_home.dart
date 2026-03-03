@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
             ]),
         body: Padded.all(
           child: Center(
-            child: Box.plain(
+            child: Box(
               constraints: const RemConstraints(maxWidth: 40),
               child: Column(
                 children: [

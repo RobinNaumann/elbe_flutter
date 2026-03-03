@@ -97,11 +97,12 @@ class IconButton extends ThemedWidget {
         context,
         theme,
         Card(
+            clipBehavior: Clip.hardEdge,
             padding: null,
+            borderRadius: 12,
             constraints: constraints ??
                 const RemConstraints(minHeight: 2.5, minWidth: 2.5),
-            border: (theme.geometry.buttonBorder ? const Border() : Border.none)
-                .copyWith(radius: BorderRadius.circular(200)),
+            border: Border(width: 0),
             kind: kind,
             manner: manner,
             state: onTap != null ? ColorStates.neutral : ColorStates.disabled,

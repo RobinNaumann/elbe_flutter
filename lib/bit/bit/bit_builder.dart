@@ -76,7 +76,8 @@ Widget bitLoadingView(BitControl bit) {
                       child: Box(
                         constraints: const RemConstraints(maxWidth: 20),
                         color: Colors.transparent,
-                        border: Border.noneRect,
+                        borderRadius: 0,
+                        border: Border(width: 0),
                         child: Text(
                             bit.state
                                     .whenOrNull<String?>(onLoading: (l) => l) ??

@@ -51,39 +51,39 @@ class OptionsButton<T> extends StatelessWidget {
     return Align(
         alignment: Alignment.centerLeft,
         child: Card(
+          clipBehavior: Clip.antiAlias,
+          border: Border(),
           kind: ColorKinds.accent,
+          manner: ColorManners.major,
           padding: null,
           child: Flex(
               mainAxisSize: MainAxisSize.min,
               direction: vertical ? Axis.vertical : Axis.horizontal,
               children: items.listMap((e) => GestureDetector(
                   onTap: () => onSelect(e.key),
-                  child: Box(
+                  child: Card(
+                    padding: RemInsets.symmetric(horizontal: compact ? .7 : 1),
+                    height: compact ? 2.5 : 3.5,
+                    manner: selected == e.key
+                        ? ColorManners.major
+                        : ColorManners.flat,
                     kind: ColorKinds.accent,
-                    manner: ColorManners.plain,
-                    child: Card(
-                        padding:
-                            RemInsets.symmetric(horizontal: compact ? .7 : 1),
-                        height: compact ? 2.5 : 3.5,
-                        manner: selected == e.key
-                            ? ColorManners.minor
-                            : ColorManners.flat,
-                        kind: ColorKinds.accent,
-                        border: Border.noneRect,
-                        child: Row(children: [
-                          if (e.icon != null)
-                            Padded.only(
-                                right: compact ? .4 : 1, child: Icon(e.icon!)),
-                          vertical
-                              ? Expanded(
-                                  child: Text(
-                                  e.label,
-                                  variant: TypeVariants.bold,
-                                ))
-                              : Text(e.label, variant: TypeVariants.bold),
-                          if (selected == e.key && vertical)
-                            Padded.only(left: 1, child: const Icon(Icons.check))
-                        ])),
+                    borderRadius: 0,
+                    border: Border(width: 0),
+                    child: Row(children: [
+                      if (e.icon != null)
+                        Padded.only(
+                            right: compact ? .4 : 1, child: Icon(e.icon!)),
+                      vertical
+                          ? Expanded(
+                              child: Text(
+                              e.label,
+                              variant: TypeVariants.bold,
+                            ))
+                          : Text(e.label, variant: TypeVariants.bold),
+                      if (selected == e.key && vertical)
+                        Padded.only(left: 1, child: const Icon(Icons.check))
+                    ]),
                   )))),
         ));
   }

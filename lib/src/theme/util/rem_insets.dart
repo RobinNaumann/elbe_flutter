@@ -4,69 +4,46 @@ import '../../../elbe.dart';
 
 /// use *WBorder* to use the default Flutter Border widget
 class Border {
-  static const Border none =
-      Border(pixelWidth: 0, color: Colors.transparent, radius: null);
-  static const Border noneRect = Border(
-      pixelWidth: 0, color: Colors.transparent, radius: BorderRadius.zero);
-
-  final double? pixelWidth;
+  final double? width;
   final BorderStyle? style;
   final double? strokeAlign;
   final Color? color;
-  final BorderRadius? radius;
 
   /// This is the elbe border. Use `WBorder` for the Flutter border. You can
   /// also use the `toDeco` method to convert this border to a `BoxDecoration`.
   ///
   /// Use this to define a border for widgets like `Box` or `Card`.
-  const Border(
-      {this.pixelWidth = 2,
-      this.style = w.BorderStyle.solid,
-      this.radius = const BorderRadius.all(Radius.circular(10)),
-      this.color,
-      this.strokeAlign});
+  const Border({this.width, this.style, this.color, this.strokeAlign});
 
-  /// create a border with a preset style
-  const Border.preset(
-      {this.pixelWidth = 2,
-      this.style = BorderStyle.solid,
-      this.radius = const BorderRadius.all(Radius.circular(10)),
-      this.color,
-      this.strokeAlign});
+  const Border._(
+      {required this.width,
+      required this.style,
+      required this.color,
+      required this.strokeAlign});
+
+  // returns a border with the current values.
+  // It will try to retrieve the information from the context
+  w.Border resolved(ElbeThemeData t) {
+    final resolvedWidth = width ?? t.geometry.rem(t.geometry.borderWidth);
+    return w.Border.all(
+        color: resolvedWidth > 0
+            ? color ?? t.color.selected.border ?? Colors.transparent
+            : Colors.transparent,
+        width: resolvedWidth,
+        style: style ?? t.geometry.borderStyle,
+        strokeAlign: strokeAlign ?? t.geometry.borderAlign);
+  }
 
   Border copyWith(
-          {double? pixelWidth,
+          {double? width,
           BorderStyle? style,
           double? strokeAlign,
-          Color? color,
-          BorderRadius? radius}) =>
+          Color? color}) =>
       Border(
-          pixelWidth: pixelWidth ?? this.pixelWidth,
+          width: width ?? this.width,
           style: style ?? this.style,
           strokeAlign: strokeAlign ?? this.strokeAlign,
-          color: color ?? this.color,
-          radius: radius ?? this.radius);
-
-  Border merged(Border? other) => other == null
-      ? this
-      : Border(
-          pixelWidth: other.pixelWidth ?? pixelWidth,
-          style: other.style ?? style,
-          strokeAlign: other.strokeAlign ?? strokeAlign,
-          color: other.color ?? color,
-          radius: other.radius ?? radius);
-
-  /// convert this border to a `BoxDecoration`. Use this to apply the border to
-  /// a Flutter `Container` widget.
-  BoxDecoration toDeco([Color? color]) => BoxDecoration(
-      borderRadius: radius,
-      border: pixelWidth == 0
-          ? null
-          : w.Border.all(
-              color: color ?? this.color ?? Colors.transparent,
-              width: pixelWidth ?? 0,
-              style: style ?? BorderStyle.solid,
-              strokeAlign: strokeAlign ?? BorderSide.strokeAlignInside));
+          color: color ?? this.color);
 }
 
 /// Insets in rem units. Works analogously to `EdgeInsets` but in rem units.

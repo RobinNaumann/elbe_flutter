@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart' as w;
+
 import '../../../elbe.dart';
 
 extension _MergedBoxDecoration on BoxDecoration {
@@ -27,6 +29,7 @@ class Box extends ThemedWidget {
   final ColorStates? state;
 
   final Color? color;
+  final double? borderRadius;
 
   final RemInsets? padding;
   final RemInsets? margin;
@@ -59,9 +62,10 @@ class Box extends ThemedWidget {
       this.manner,
       this.state,
       this.color,
+      this.borderRadius,
       this.padding,
       this.margin,
-      this.border = Border.noneRect,
+      this.border = const Border(width: 0),
       this.decoration,
       this.constraints,
       this.width,
@@ -71,7 +75,7 @@ class Box extends ThemedWidget {
       this.rawConstraints,
       required this.child});
 
-  /// a plain box with no color scheme, kind, manner, state, or custom color
+  /*/// a plain box with no color scheme, kind, manner, state, or custom color
   /// use this as part of a more complex widget
   const Box.plain(
       {super.key,
@@ -92,7 +96,7 @@ class Box extends ThemedWidget {
         manner = null,
         state = null,
         color = null,
-        border = Border.noneRect;
+        border = Border.noneRect;*/
 
   @override
   Widget make(context, theme) {
@@ -103,31 +107,58 @@ class Box extends ThemedWidget {
 
     final _pad = rawPadding ?? padding?.toPixel(context);
 
+    final w.Border border = this.border.resolved(updatedTheme);
+
+    final radius = this.borderRadius != null
+        ? BorderRadius.circular(context.rem(this.borderRadius ?? 0))
+        : null;
+
+    final resRadius = radius ??
+        decoration?.borderRadius ??
+        BorderRadius.circular(context.rem(updatedTheme.geometry.borderRadius));
+
     return Theme(
       data: updatedTheme,
       child: Container(
-          clipBehavior: clipBehavior ?? Clip.none,
+          clipBehavior: Clip.none,
           width: theme.geometry.maybeRem(width),
           height: theme.geometry.maybeRem(height),
           margin: rawMargin ?? margin?.toPixel(context),
           constraints: rawConstraints ?? constraints?.toPixel(context),
-          decoration: theme.geometry.border
-              .merged(border)
-              .toDeco(updatedTheme.color.selected.border)
-              .merged(decoration)
-              .copyWith(color: c),
+          decoration:
+              BoxDecoration(color: c, border: border, borderRadius: resRadius)
+                  .merged(decoration),
           child: ClipRRect(
-              clipBehavior: clipBehavior != null ? Clip.none : Clip.antiAlias,
-              borderRadius: _subtractBorder(
-                  border.radius ?? theme.geometry.border.radius,
-                  border.pixelWidth ?? 0),
-              child: Padding(padding: _pad ?? EdgeInsets.zero, child: child))),
+              clipBehavior: clipBehavior ?? Clip.antiAlias,
+              borderRadius: _subtractBorder(resRadius, _maxBorder(border)),
+              child: Padding(
+                  padding: _minusBorder(_pad ?? EdgeInsets.zero, border),
+                  child: child))),
     );
   }
 }
 
-BorderRadius _subtractBorder(BorderRadius? a, double borderWidth) {
-  if (a == null) return BorderRadius.zero;
+EdgeInsets _minusBorder(EdgeInsets e, w.Border b) {
+  return EdgeInsets.only(
+    left: Math.max(0, e.left - b.left.width),
+    top: Math.max(0, e.top - b.top.width),
+    right: Math.max(0, e.right - b.right.width),
+    bottom: Math.max(0, e.bottom - b.bottom.width),
+  );
+}
+
+double _maxBorder(w.Border border) {
+  if (border.isUniform) return border.bottom.width;
+  return [
+    border.bottom.width,
+    border.top.width,
+    border.left.width,
+    border.right.width
+  ].max;
+}
+
+BorderRadius _subtractBorder(BorderRadiusGeometry? a, double borderWidth) {
+  if (a == null || a is! BorderRadius) return BorderRadius.zero;
   return BorderRadius.only(
     topLeft: a.topLeft - Radius.circular(borderWidth),
     topRight: a.topRight - Radius.circular(borderWidth),

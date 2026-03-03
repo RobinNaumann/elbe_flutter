@@ -39,7 +39,8 @@ class HeroScaffold extends ThemedWidget {
       constraints: const RemConstraints(minHeight: 3.1),
       padding: RemInsets.symmetric(
           vertical: 0.3, horizontal: (single || left) ? 0.3 : 0.6),
-      border: Border(radius: BorderRadius.circular(200), pixelWidth: 0),
+      borderRadius: 12,
+      border: Border(width: 0),
       margin: RemInsets(left: left ? 0.4 : 0, right: left ? 0 : 0.4),
       child: child);
 

@@ -1,37 +1,48 @@
 import '../../../../elbe.dart';
 
 class GeometryThemeData extends JsonModel {
-  final Border border;
+  final double borderWidth;
+  final double borderRadius;
+  final BorderStyle borderStyle;
+  final double borderAlign;
   final double remSize;
-  final bool buttonBorder;
 
   double rem(double dim) => dim * remSize;
   double? maybeRem(double? dim) => dim != null ? rem(dim) : null;
 
   const GeometryThemeData(
       {required this.remSize,
-      required this.border,
-      required this.buttonBorder});
+      required this.borderWidth,
+      required this.borderRadius,
+      required this.borderStyle,
+      required this.borderAlign});
 
   GeometryThemeData.preset(
       {this.remSize = 16,
-      this.border = const Border.preset(),
-      this.buttonBorder = false});
+      this.borderWidth = .125,
+      this.borderRadius = .5,
+      this.borderStyle = BorderStyle.solid,
+      this.borderAlign = BorderSide.strokeAlignInside});
 
-  GeometryThemeData copyWith({
-    Border? border,
-    double? remSize,
-    bool? buttonBorder,
-  }) {
+  GeometryThemeData copyWith(
+      {double? borderWidth,
+      double? borderRadius,
+      BorderStyle? borderStyle,
+      double? remSize,
+      bool? buttonBorder,
+      double? borderAlign}) {
     return GeometryThemeData(
         remSize: remSize ?? this.remSize,
-        border: border ?? this.border,
-        buttonBorder: buttonBorder ?? this.buttonBorder);
+        borderWidth: borderWidth ?? this.borderWidth,
+        borderRadius: borderRadius ?? this.borderRadius,
+        borderStyle: borderStyle ?? this.borderStyle,
+        borderAlign: borderAlign ?? this.borderAlign);
   }
 
   get map => {
         "remSize": remSize,
-        "border": border.hashCode,
-        "buttonBorder": buttonBorder
+        "borderWidth": borderWidth,
+        "borderRadius": borderRadius,
+        "borderStyle": borderStyle.toString(),
       };
 }

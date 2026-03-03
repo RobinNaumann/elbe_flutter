@@ -10,8 +10,9 @@ InputDecoration elbeFieldDeco(BuildContext context,
       gapPadding: 2,
       borderSide: BorderSide(
           color: c.border ?? Colors.transparent,
-          width: t.geometry.border.pixelWidth ?? 0),
-      borderRadius: t.geometry.border.radius ?? BorderRadius.circular(0));
+          width: context.rem(t.geometry.borderWidth)),
+      borderRadius:
+          BorderRadius.circular(context.rem(t.geometry.borderRadius)));
 
   return (mergeWith ?? const InputDecoration()).copyWith(
       labelText: label,

@@ -43,7 +43,7 @@ class ToggleButton extends StatelessWidget {
         height: 3.5,
         kind: ColorKinds.accent,
         manner: value ? ColorManners.minor : ColorManners.flat,
-        border: Border.none,
+        border: Border(width: 0),
         child: Row(mainAxisSize: MainAxisSize.min, children: [
           if (icon != null && child == null)
             Padding(

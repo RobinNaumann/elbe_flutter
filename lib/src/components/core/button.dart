@@ -104,7 +104,7 @@ class Button extends ThemedWidget {
         clipBehavior: Clip.antiAlias,
         padding: null,
         constraints: constraints ?? const RemConstraints(minHeight: 3.5),
-        border: (border ?? theme.geometry.buttonBorder) ? null : Border.none,
+        border: const Border(width: 0),
         kind: kind,
         manner: manner,
         state: onTap != null ? ColorStates.neutral : ColorStates.disabled,

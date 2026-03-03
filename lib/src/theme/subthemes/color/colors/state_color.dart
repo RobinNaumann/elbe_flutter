@@ -41,8 +41,7 @@ class StateColor extends LayerColor {
                   : style.back.inter(context.back.mirrorBrightness(), factor))
               .withOpacity(Math.max(style.back.a, 0.2)),
           front: front,
-          border: style.border,
-          borderContext: style.borderContext);
+          border: style.border);
     }
 
     return new StateColor(

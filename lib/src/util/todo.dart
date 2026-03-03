@@ -29,19 +29,19 @@ class ToDo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final radius = context.theme.geometry.border.radius;
+    final radius = context.theme.geometry.borderRadius;
     return Container(
         constraints: size?.toPixel(context),
         decoration: BoxDecoration(
           color: const Color(0xFFDAA5E4),
-          borderRadius: radius,
+          borderRadius: BorderRadius.circular(context.rem(radius)),
         ),
         child: Stack(
           fit: StackFit.passthrough,
           children: [
             if (size != null)
               ClipRRect(
-                borderRadius: radius ?? BorderRadius.circular(0),
+                borderRadius: BorderRadius.circular(context.rem(radius)),
                 child: Placeholder(
                   fallbackHeight: 0,
                   fallbackWidth: 0,
