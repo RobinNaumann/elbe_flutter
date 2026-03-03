@@ -66,12 +66,12 @@ class HeroScaffold extends ThemedWidget {
                   : null,
               actions: (actions != null && actions!.isNotEmpty)
                   ? [
-                      _heroBase(Row(children: actions!.spaced(amount: 0.4)),
-                          false, actions?.length == 1)
+                      _heroBase(Row(gap: .4, children: actions!), false,
+                          actions?.length == 1)
                     ]
                   : null,
               pinned: true,
-              collapsedHeight: 83,
+              collapsedHeight: context.rem(3.5),
               backgroundColor: prim.back,
               automaticallyImplyLeading: false,
               title: customTitle ??
@@ -92,21 +92,25 @@ class HeroScaffold extends ThemedWidget {
                               .back,
                           .1),
                       //padding: RemInsets(bottom: 2),
-                      margin: EdgeInsets.only(bottom: 2),
                       child: FlexibleSpaceBar(
                           background: Box(
                               scheme: ColorSchemes.secondary, child: hero))),
-                  Align(
+                  InvisibleExpandedHeader(
+                      child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       clipBehavior: Clip.none,
-                      height: 19,
                       decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(17)),
-                          color: prim.back),
+                        boxShadow: [
+                          BoxShadow(
+                              color: ColorDefs.black.withAlpha(60),
+                              blurStyle: BlurStyle.outer,
+                              blurRadius: 4,
+                              spreadRadius: 0)
+                        ],
+                      ),
                     ),
-                  )
+                  ))
                 ],
               )),
           if (body != null) SliverToBoxAdapter(child: body),

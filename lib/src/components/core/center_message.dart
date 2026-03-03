@@ -8,14 +8,11 @@ class CenterMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon),
-              Container(
-                  constraints:
-                      const RemConstraints(maxWidth: 12).toPixel(context),
-                  child: Text(message, textAlign: TextAlign.center))
-            ].spaced()));
+        child: Column(main: MainAxisAlignment.center, children: [
+      Icon(icon),
+      Container(
+          constraints: const RemConstraints(maxWidth: 12).toPixel(context),
+          child: Text(message, textAlign: TextAlign.center))
+    ]));
   }
 }

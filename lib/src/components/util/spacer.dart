@@ -21,8 +21,8 @@ extension ExpandedWidget on Widget {
 }
 
 /// a visual spacer that can be placed between objects to ensure consistent margins
-class Spaced extends ThemedWidget {
-  static const zero = Spaced(height: 0, width: 0);
+class Spacer extends ThemedWidget {
+  static const zero = Spacer(height: 0, width: 0);
 
   final double width;
   final double height;
@@ -32,9 +32,9 @@ class Spaced extends ThemedWidget {
   /// also take a look at `Padded` for adding padding around objects.
   ///
   /// you can also [].spaced() a list of widgets to add spacing between them.
-  const Spaced({super.key, this.width = 1, this.height = 1});
-  const Spaced.vertical([this.height = 1]) : width = 0;
-  const Spaced.horizontal([this.width = 1]) : height = 0;
+  const Spacer({super.key, this.width = 1, this.height = 1});
+  const Spacer.vertical([this.height = 1]) : width = 0;
+  const Spacer.horizontal([this.width = 1]) : height = 0;
 
   @override
   Widget make(context, theme) => SizedBox(

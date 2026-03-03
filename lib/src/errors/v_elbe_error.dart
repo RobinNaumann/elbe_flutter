@@ -1,6 +1,3 @@
-import 'package:elbe/src/errors/elbe_errors.dart';
-import 'package:elbe/src/errors/p_elbe_error.dart';
-
 import '../../elbe.dart';
 
 class ElbeErrorView extends StatelessWidget {
@@ -17,29 +14,29 @@ class ElbeErrorView extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          gap: 0,
+          main: MainAxisAlignment.center,
+          cross: CrossAxisAlignment.stretch,
           children: [
             Icon(err.icon ?? Icons.alertCircle),
             const SizedBox(height: 18),
             GestureDetector(
               onTap: () => ElbeErrorPage.show(context, err),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      err.message,
-                      textAlign: TextAlign.center,
-                      style: TypeStyles.bodyL,
-                      variant: TypeVariants.bold,
-                    ),
-                    const Spaced.vertical(0.5),
-                    Text(
-                      err.description ?? "",
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 10),
-                  ]),
+              child:
+                  Column(gap: 0, cross: CrossAxisAlignment.stretch, children: [
+                Text(
+                  err.message,
+                  textAlign: TextAlign.center,
+                  style: TypeStyles.bodyL,
+                  variant: TypeVariants.bold,
+                ),
+                const Spacer.vertical(0.5),
+                Text(
+                  err.description ?? "",
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+              ]),
             ),
             TextButton.icon(
                 onPressed: reload,

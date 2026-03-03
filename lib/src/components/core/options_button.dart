@@ -51,8 +51,10 @@ class OptionsButton<T> extends StatelessWidget {
     return Align(
         alignment: Alignment.centerLeft,
         child: Card(
+          clipBehavior: Clip.hardEdge,
           border: Border(),
           kind: ColorKinds.accent,
+          color: context.theme.color.selected.back,
           manner: ColorManners.major,
           padding: null,
           child: Flex(
@@ -61,6 +63,7 @@ class OptionsButton<T> extends StatelessWidget {
               children: items.listMap((e) => GestureDetector(
                   onTap: () => onSelect(e.key),
                   child: Card(
+                    clipBehavior: Clip.hardEdge,
                     padding: RemInsets.symmetric(horizontal: compact ? .7 : 1),
                     height: compact ? 2.5 : 3.5,
                     manner: selected == e.key
@@ -69,7 +72,7 @@ class OptionsButton<T> extends StatelessWidget {
                     kind: ColorKinds.accent,
                     borderRadius: 0,
                     border: Border(width: 0),
-                    child: Row(children: [
+                    child: Row(gap: 0, children: [
                       if (e.icon != null)
                         Padded.only(
                             right: compact ? .4 : 1, child: Icon(e.icon!)),

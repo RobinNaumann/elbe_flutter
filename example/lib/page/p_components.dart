@@ -74,7 +74,7 @@ class _CardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SectionView(
-      initial: const {"bordered": true},
+      initial: const {"bordered": false},
       title: "Card",
       about:
           "a box with optional rounded corners, often used to group related content together.",
@@ -90,7 +90,7 @@ Card(
                   border:
                       get("bordered") ? const Border() : const Border(width: 0),
                   scheme: s,
-                  child: Column(
+                  child: Row(
                     children: [
                       Text("${s.name} card"),
                     ],
@@ -212,9 +212,11 @@ class _ExtendView extends StatelessWidget {
 Spinner()
 """,
         children: (get, _) => const [
-              Text.code("ColorTheme.of(context)"),
-              Text.code("GeometryTheme.of(context)"),
-              Text.code("TypeTheme.of(context)"),
+              Column(children: [
+                Text.code("context.theme.color"),
+                Text.code("context.theme.type"),
+                Text.code("context.theme.geometry")
+              ])
             ]);
   }
 }
@@ -233,14 +235,13 @@ class _SpacersView extends StatelessWidget {
         about: "add whitespace between widgets",
         code: (s) => """
 Padded.all(1, child: ...),
-Spaced(vertical: 2),
-Row(children: [...].spaced())
+Spacer(vertical: 2),
 """,
         children: (get, _) => [
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                cross: CrossAxisAlignment.start,
                 children: [
-                  Text.code("Padded.all"),
+                  const Text.code("Padded.all"),
                   Container(
                     decoration:
                         BoxDecoration(border: WBorder.all(color: cDemo)),
@@ -251,55 +252,18 @@ Row(children: [...].spaced())
                       height: 16,
                     )),
                   ),
-                ].spaced(),
+                ],
               ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                cross: CrossAxisAlignment.start,
                 children: [
-                  Text.code("Spaced"),
+                  const Text.code("Spacer"),
                   Container(
                       height: 16,
                       width: 16,
                       decoration:
                           BoxDecoration(border: WBorder.all(color: cDemo))),
-                ].spaced(),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text.code("<Widget>[...].spaced()"),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        color: cDemo,
-                        width: 32,
-                        height: 48,
-                      ),
-                      Container(
-                          height: 16,
-                          width: 16,
-                          decoration:
-                              BoxDecoration(border: WBorder.all(color: cDemo))),
-                      Container(
-                        color: cDemo,
-                        width: 32,
-                        height: 48,
-                      ),
-                      Container(
-                          height: 16,
-                          width: 16,
-                          decoration:
-                              BoxDecoration(border: WBorder.all(color: cDemo))),
-                      Container(
-                        color: cDemo,
-                        width: 32,
-                        height: 48,
-                      ),
-                    ],
-                  ),
-                ].spaced(),
+                ],
               ),
             ]);
   }
@@ -356,10 +320,14 @@ TextField(
 """,
         children: (get, _) => [
               TextField(
+                  style: TextStyle(color: context.theme.color.selected.front),
+                  cursorColor: context.theme.color.selected.front,
                   decoration: elbeFieldDeco(context, hint: "type something")),
               TextField(
                   minLines: 3,
                   maxLines: 3,
+                  style: TextStyle(color: context.theme.color.selected.front),
+                  cursorColor: context.theme.color.selected.front,
                   decoration: elbeFieldDeco(context, hint: "type something"))
             ]);
   }

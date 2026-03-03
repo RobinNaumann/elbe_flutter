@@ -89,5 +89,6 @@ class TypeStyle extends JsonModel {
       fontStyle: variant.fontStyle,
       fontWeight: variant.fontWeight,
       fontFeatures: fontFeatures,
+      textBaseline: TextBaseline.alphabetic,
       decoration: decoration);
 }

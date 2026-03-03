@@ -17,6 +17,9 @@ export 'package:flutter/material.dart'
         Scaffold,
         IconButton,
         ToggleButtons,
+        Column,
+        Row,
+        Spacer,
         Title;
 // EXPORTS
 
@@ -36,6 +39,7 @@ export 'src/components/core/drop_down.dart';
 // components
 
 export 'src/components/core/elbe_app.dart';
+export 'src/components/core/flex.dart';
 export 'src/components/core/hero_scaffold.dart';
 export 'src/components/core/icon.dart';
 export 'src/components/core/options_button.dart';
@@ -48,8 +52,7 @@ export 'src/components/core/title.dart';
 export 'src/components/core/toggle_button.dart';
 export 'src/components/field/field_deco.dart';
 export 'src/components/util/elbe_stateless_widget.dart';
-export 'src/components/util/spaced.dart';
-export 'src/components/util/spaced_list.dart';
+export 'src/components/util/spacer.dart';
 // errors
 export 'src/errors/elbe_error.dart';
 export 'src/errors/elbe_errors.dart';

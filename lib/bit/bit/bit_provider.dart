@@ -72,7 +72,7 @@ class _BitProviderState<B extends BitControl> extends State<BitProvider<B>> {
 
   @override
   Widget build(BuildContext context) =>
-      _TriInherited<B>(provider: this, child: widget.child ?? Spaced.zero);
+      _TriInherited<B>(provider: this, child: widget.child ?? Spacer.zero);
 }
 
 class _TriInherited<B extends BitControl> extends InheritedWidget {

@@ -23,7 +23,7 @@ class LayerColor extends _JsonColor {
   final Color front;
 
   /// the border color. This is the color of the border. If null, the border is transparent
-  final Color? border;
+  final Color border;
 
   LayerColor.from(LayerColor c)
       : this(back: c.back, front: c.front, border: c.border);
@@ -45,8 +45,7 @@ class LayerColor extends _JsonColor {
   LayerColor withBorder(Color border, {Color? borderContext}) =>
       LayerColor(back: back, front: front, border: border);
 
-  Color layer(ColorLayers layer) =>
-      [back, front, border ?? Colors.transparent][layer.index];
+  Color layer(ColorLayers layer) => [back, front, border][layer.index];
 
   Color? maybeLayer(ColorLayers? layer) =>
       layer != null ? this.layer(layer) : null;
@@ -56,22 +55,22 @@ class LayerColor extends _JsonColor {
   LayerColor mirrorBrightness([double factor = 1]) => LayerColor(
       back: back.mirrorBrightness(factor),
       front: front.mirrorBrightness(factor),
-      border: border?.mirrorBrightness(factor));
+      border: border.mirrorBrightness(factor));
 
   /// interpolate between two colors
   /// [factor] = 1 will return the other color, 0 will return the same color
   LayerColor inter(LayerColor other, double factor) => LayerColor(
       back: this.back.inter(other.back, factor),
       front: this.front.inter(other.front, factor),
-      border: this.border?.inter(other.border ?? Colors.transparent, factor));
+      border: this.border.inter(other.border, factor));
 
   /// return a color with the same hue but different saturation
   /// [factor] = 1 will return the same color, 0 will return grey
   LayerColor desaturated([double factor = 1]) => LayerColor(
       back: back.desaturated(factor),
       front: front.desaturated(factor),
-      border: border?.desaturated(factor));
+      border: border.desaturated(factor));
 
   @override
-  get map => {"back": back.map, "front": front.map, "border": border?.map};
+  get map => {"back": back.map, "front": front.map, "border": border.map};
 }

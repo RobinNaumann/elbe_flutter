@@ -46,7 +46,7 @@ class DropDown<T> extends ThemedWidget {
                     softWrap: false,
                     overflow: TextOverflow.fade,
                   )),
-                ].spaced(),
+                ],
               ));
         }).toList(),
       ),

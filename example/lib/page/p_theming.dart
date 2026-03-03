@@ -43,10 +43,11 @@ Text("hello",
 );
 """,
       child: (get, _) =>
-          Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Column(cross: CrossAxisAlignment.stretch, gap: 0, children: [
             for (final s in TypeStyles.values)
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                gap: 0,
+                main: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("${s.name} text",
                       style: s,
@@ -94,15 +95,13 @@ context.rem();
                         padding: RemInsets.all(1),
                         borderRadius: 0,
                         border: Border(width: 0),
-                        child: Spaced.zero),
-                    Spaced.horizontal(),
+                        child: Spacer.zero),
                     Box(
                         scheme: ColorSchemes.inverse,
                         padding: RemInsets.all(1),
                         borderRadius: 0,
                         border: Border(width: 0),
-                        child: Spaced.zero),
-                    Spaced.horizontal(),
+                        child: Spacer.zero),
                     Text("box"),
                   ],
                 )),

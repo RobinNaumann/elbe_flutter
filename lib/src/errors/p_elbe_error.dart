@@ -33,7 +33,7 @@ class ElbeErrorPage extends StatelessWidget {
         Padded.only(top: .5, child: Text.h5(causeLabel)),
         for (final cause in error.causeChain.skip(1))
           _ErrorSnippet(error: cause),
-      ].spaced(),
+      ],
     );
   }
 }
@@ -46,15 +46,14 @@ class _ErrorSnippet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      cross: CrossAxisAlignment.stretch,
       children: [
-        Row(
-            children: [
+        Row(children: [
           Text.code(error.code),
           Expanded(child: Text(error.message, textAlign: TextAlign.end)),
-        ].spaced()),
+        ]),
         if (error.details != null) Text.code(error.details.toString())
-      ].spaced(),
+      ],
     ));
   }
 }

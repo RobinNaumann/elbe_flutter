@@ -115,11 +115,12 @@ class Button extends ThemedWidget {
             horizontal: 0.75,
             child: Row(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: alignment,
+                gap: .75,
+                main: alignment,
                 children: [
                   if (icon != null) Icon(icon!),
                   if (label != null) Text(label!, variant: TypeVariants.bold)
-                ].spaced(amount: 0.75)),
+                ]),
           ),
         ));
   }

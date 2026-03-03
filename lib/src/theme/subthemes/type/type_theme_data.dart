@@ -38,7 +38,7 @@ class TypeThemeData extends JsonModel {
 
   factory TypeThemeData.preset(
       {String? titleFont,
-      TypeVariants titleVariant = TypeVariants.regular,
+      TypeVariants titleVariant = TypeVariants.bold,
       double? iconFactor}) {
     titleFont ??= calistoga;
     final pkg = titleFont == calistoga ? "elbe" : null;

@@ -20,8 +20,8 @@ class HomePage extends StatelessWidget {
         leadingIcon: const LeadingIcon.none(),
         title: 'elbe',
         hero: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            cross: CrossAxisAlignment.center,
+            main: MainAxisAlignment.center,
             children: [
               const Text.h1(
                 "elbe",
@@ -35,19 +35,19 @@ class HomePage extends StatelessWidget {
                   label: "React demo",
                   onTap: () => launchUrlString("https://robbb.in/elbe")),
             ]),
-        body: Padded.all(
+        body: Padded.symmetric(
+          vertical: 2,
+          horizontal: 1,
           child: Center(
             child: Box(
               constraints: const RemConstraints(maxWidth: 40),
               child: Column(
                 children: [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        _PlatformIcon(name: "phone", icon: Icons.smartphone),
-                        _PlatformIcon(name: "pc", icon: Icons.laptop),
-                        _PlatformIcon(name: "web", icon: Icons.globe),
-                      ].spaced()),
+                  const Row(main: MainAxisAlignment.center, children: const [
+                    _PlatformIcon(name: "phone", icon: Icons.smartphone),
+                    _PlatformIcon(name: "pc", icon: Icons.laptop),
+                    _PlatformIcon(name: "web", icon: Icons.globe),
+                  ]),
                   Button.flat(
                       icon: Icons.package,
                       label: "install via pub.dev",
@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                   const Card(
                     scheme: ColorSchemes.secondary,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      cross: CrossAxisAlignment.stretch,
                       children: [
                         Text(
                           "elbe is a UI and state management framework for Flutter.\n"
@@ -64,7 +64,6 @@ class HomePage extends StatelessWidget {
                           "In addition, it provides a way to manage state (called 'bit'). This aims to separate the UI from the logic while keeping a minimal API",
                           //textAlign: TextAlign.justify,
                         ),
-                        Spaced.vertical(1),
                         ThemeEdit(),
                       ],
                     ),
@@ -84,7 +83,7 @@ class HomePage extends StatelessWidget {
                                 : null,
                           ),
                       ]),
-                  const Spaced.vertical(1),
+                  const Spacer.vertical(1),
                   Button.flat(
                       icon: Icons.github,
                       label: "repository",
@@ -94,7 +93,7 @@ class HomePage extends StatelessWidget {
                       icon: Icons.globe,
                       label: "home page",
                       onTap: () => launchUrlString("https://robbb.in")),
-                ].spaced(),
+                ],
               ),
             ),
           ),

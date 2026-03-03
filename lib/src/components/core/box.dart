@@ -159,10 +159,11 @@ double _maxBorder(w.Border border) {
 
 BorderRadius _subtractBorder(BorderRadiusGeometry? a, double borderWidth) {
   if (a == null || a is! BorderRadius) return BorderRadius.zero;
+  final w = borderWidth + .5;
   return BorderRadius.only(
-    topLeft: a.topLeft - Radius.circular(borderWidth),
-    topRight: a.topRight - Radius.circular(borderWidth),
-    bottomLeft: a.bottomLeft - Radius.circular(borderWidth),
-    bottomRight: a.bottomRight - Radius.circular(borderWidth),
+    topLeft: a.topLeft - Radius.circular(w),
+    topRight: a.topRight - Radius.circular(w),
+    bottomLeft: a.bottomLeft - Radius.circular(w),
+    bottomRight: a.bottomRight - Radius.circular(w),
   );
 }

@@ -5,18 +5,18 @@ class ThemeEdit extends StatelessWidget {
   const ThemeEdit({super.key});
 
   Widget _entry({required String label, required Widget child}) => Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        cross: CrossAxisAlignment.center,
         children: [
           SizedBox(width: 100, child: Text("$label:")),
           Expanded(child: child)
-        ].spaced(),
+        ],
       );
 
   @override
   Widget build(BuildContext context) {
     return ThemeSeedBit.builder(onData: (bit, data) {
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        cross: CrossAxisAlignment.stretch,
         children: [
           const Text.h6("Color"),
           _entry(
@@ -49,7 +49,7 @@ class ThemeEdit extends StatelessWidget {
                               child: data.accent == e
                                   ? const Icon(Icons.check, color: Colors.white)
                                   : null))
-                  ].spaced(),
+                  ],
                 ),
               )),
           const Text.h6("Typography"),
@@ -70,7 +70,7 @@ class ThemeEdit extends StatelessWidget {
                               fontFamily: e,
                             )),
                       )
-                  ].spaced(),
+                  ],
                 ),
               )),
           const Text.h6("Geometry"),
@@ -78,15 +78,15 @@ class ThemeEdit extends StatelessWidget {
               label: "roundness",
               child: SliderSelect(
                   value: data.borderRadius,
-                  max: 30,
+                  max: 2,
                   onChanged: (v) => bit.set(borderRadius: v))),
           _entry(
               label: "border width",
               child: SliderSelect(
                   value: data.borderWidth,
-                  max: 5,
+                  max: .5,
                   onChanged: (v) => bit.set(borderWidth: v))),
-        ].spaced(),
+        ],
       );
     });
   }

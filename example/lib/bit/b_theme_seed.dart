@@ -40,8 +40,8 @@ class ThemeSeedBit extends MapMsgBitControl<SeedData> {
       : super.worker((_) async => SeedData(
               accent: accentColors.first,
               mode: ColorModes.light,
-              borderRadius: 10.0,
-              borderWidth: 2.0,
+              borderRadius: .5,
+              borderWidth: .125,
               font: headerFonts.first,
             ));
 

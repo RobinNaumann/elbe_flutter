@@ -64,18 +64,19 @@ class _SectionViewState<T> extends State<SectionView> {
 
   @override
   Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        gap: 0,
+        cross: CrossAxisAlignment.stretch,
         children: [
           Row(
             children: [
               Text.h5(widget.title).expanded,
               if (widget.code != null)
                 IconButton.plain(icon: Icons.code, onTap: toggleCode),
-            ].spaced(),
+            ],
           ),
-          const Spaced.vertical(0.5),
+          const Spacer.vertical(0.5),
           Text(widget.about),
-          const Spaced(),
+          const Spacer(),
           AnimatedSize(
               duration: Duration(milliseconds: 200),
               alignment: Alignment.topCenter,
@@ -102,7 +103,7 @@ class _SectionViewState<T> extends State<SectionView> {
                   runSpacing: context.rem(widget.childrenGap),
                   spacing: context.rem(widget.childrenGap),
                   children: widget.children?.call(get, toggle) ?? []),
-          const Spaced.vertical(3)
+          const Spacer.vertical(3)
         ],
       );
 }

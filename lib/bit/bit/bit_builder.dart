@@ -66,8 +66,9 @@ Widget bitLoadingView(BitControl bit) {
       builder: () => Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              gap: 0,
+              cross: CrossAxisAlignment.center,
+              main: MainAxisAlignment.center,
               children: [
                 const Spinner(),
                 if (bit is MsgBitControl)

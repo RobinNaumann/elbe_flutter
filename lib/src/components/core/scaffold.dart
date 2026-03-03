@@ -106,6 +106,7 @@ class Scaffold extends ThemedWidget {
           backgroundColor: context.theme.color.resolve(scheme: scheme).back,
           appBar: AppBar(
             primary: primary,
+            shadowColor: Colors.black.withAlpha(120),
             //toolbarHeight: 50,
             elevation: 0,
             scrolledUnderElevation: 3,
@@ -126,11 +127,7 @@ class Scaffold extends ThemedWidget {
                 : null,
             actions: actions?.isEmpty ?? true
                 ? null
-                : [
-                    Padded.only(
-                        right: 0.4,
-                        child: Row(children: actions!.spaced(amount: 0.4)))
-                  ],
+                : [Padded.only(right: 0.4, child: Row(children: actions!))],
             title: customTitle ?? Text.h4(title),
           ),
           body: MaybeHero(
@@ -189,13 +186,12 @@ extension Toast on BuildContext {
         border: Border(width: 0),
         kind: kind,
         manner: manner,
-        child: Row(
-            children: [
+        child: Row(gap: .75, children: [
           if (icon != null) Icon(icon),
           Expanded(
             child: Text(message),
           )
-        ].spaced(amount: 0.75)),
+        ]),
       ),
     ));
   }
