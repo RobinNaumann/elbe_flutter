@@ -39,6 +39,7 @@ export 'src/components/core/drop_down.dart';
 // components
 
 export 'src/components/core/elbe_app.dart';
+export 'src/components/core/field.dart';
 export 'src/components/core/flex.dart';
 export 'src/components/core/hero_scaffold.dart';
 export 'src/components/core/icon.dart';

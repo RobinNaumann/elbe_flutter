@@ -17,7 +17,10 @@ class Card extends ThemedWidget {
   final double? width;
 
   final Color? color;
-  final double? borderRadius;
+  final double? radius;
+
+  /// you can also use [radius] for a simple border radius, which will be merged with the theme's geometry settings.
+  final BorderRadius? borderRadius;
 
   final VoidCallback? onTap;
   final VoidCallback? onLongTap;
@@ -47,6 +50,7 @@ class Card extends ThemedWidget {
       this.onTap,
       this.onLongTap,
       this.heroTag,
+      this.radius,
       this.borderRadius,
       required this.child});
 
@@ -65,6 +69,7 @@ class Card extends ThemedWidget {
             constraints: constraints,
             border: border ?? const Border(width: 0),
             color: color,
+            radius: radius,
             borderRadius: borderRadius,
             child: child),
       );

@@ -63,7 +63,7 @@ Box(
                 rawPadding: const EdgeInsets.all(5),
                 decoration:
                     const BoxDecoration(borderRadius: BorderRadius.zero),
-                borderRadius: 0,
+                radius: 0,
                 child: Text("${s.name} box"),
               )
           ]);
@@ -304,31 +304,88 @@ SliderSelect(
   }
 }
 
-class _FieldView extends StatelessWidget {
+class _FieldView extends StatefulWidget {
   const _FieldView();
 
   @override
+  State<_FieldView> createState() => _FieldViewState();
+}
+
+class _FieldViewState extends State<_FieldView> {
+  var text = "";
+  var mltxt = "";
+  var number = 0;
+  @override
   Widget build(BuildContext context) {
     return SectionView(
-        initial: const {},
-        title: "Text Field",
-        about: "widget styles for entering text",
+        initial: const {
+          "message": true,
+          "enabled": true,
+          "hide_label": false,
+          "borderless": false
+        },
+        title: "Field",
+        about: "widgets for entering text, numbers, or passwords.",
         code: (s) => """
-TextField(
-  decoration: 
-    elbeFieldDeco(context, hint: "type"))
+Field.text(
+  label: "name",
+  infoMessage: "this is an info",
+  borderless: true,
+  colorScheme: ColorSchemes.secondary,
+  value: "howdy",
+  onInput: (v) => ...,
+),
+Field.password(
+  label: "password",
+  warningMessage: "this is a warning",
+  value: "secret",
+  onInput: (v) => ...,
+),
 """,
         children: (get, _) => [
-              TextField(
-                  style: TextStyle(color: context.theme.color.selected.front),
-                  cursorColor: context.theme.color.selected.front,
-                  decoration: elbeFieldDeco(context, hint: "type something")),
-              TextField(
-                  minLines: 3,
-                  maxLines: 3,
-                  style: TextStyle(color: context.theme.color.selected.front),
-                  cursorColor: context.theme.color.selected.front,
-                  decoration: elbeFieldDeco(context, hint: "type something"))
+              Text.bodyM("the value is: $text"),
+              Field.text(
+                  hint: "enter your name",
+                  label: get("hide_label") ? null : "name",
+                  borderless: get("borderless"),
+                  colorScheme:
+                      get("borderless") ? ColorSchemes.secondary : null,
+                  infoMessage: get("message") ? "this is an info" : null,
+                  value: text,
+                  onInput: !get("enabled")
+                      ? null
+                      : (v) =>
+                          setState(() => text = v == "hello" ? "ciao" : v)),
+              Field.password(
+                  label: get("hide_label") ? null : "password",
+                  borderless: get("borderless"),
+                  colorScheme:
+                      get("borderless") ? ColorSchemes.secondary : null,
+                  warningMessage: get("message") ? "this is a warning" : null,
+                  value: text,
+                  onInput:
+                      !get("enabled") ? null : (v) => setState(() => text = v)),
+              Field.int(
+                  label: get("hide_label") ? null : "age",
+                  borderless: get("borderless"),
+                  colorScheme:
+                      get("borderless") ? ColorSchemes.secondary : null,
+                  errorMessage: get("message") ? "this is an error" : null,
+                  value: number,
+                  allowNegative: false,
+                  onInput: !get("enabled")
+                      ? null
+                      : (v) => setState(() => number = v)),
+              Field.multiline(
+                  label: get("hide_label") ? null : "message",
+                  borderless: get("borderless"),
+                  colorScheme:
+                      get("borderless") ? ColorSchemes.secondary : null,
+                  successMessage: get("message") ? "this is a success" : null,
+                  value: mltxt,
+                  onInput: !get("enabled")
+                      ? null
+                      : (v) => setState(() => mltxt = v)),
             ]);
   }
 }

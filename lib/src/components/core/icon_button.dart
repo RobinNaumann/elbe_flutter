@@ -99,7 +99,7 @@ class IconButton extends ThemedWidget {
         Card(
             clipBehavior: Clip.hardEdge,
             padding: null,
-            borderRadius: 12,
+            radius: 12,
             constraints: constraints ??
                 const RemConstraints(minHeight: 2.5, minWidth: 2.5),
             border: Border(width: 0),

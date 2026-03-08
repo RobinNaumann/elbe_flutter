@@ -29,7 +29,8 @@ class Box extends ThemedWidget {
   final ColorStates? state;
 
   final Color? color;
-  final double? borderRadius;
+  final double? radius;
+  final BorderRadius? borderRadius;
 
   final RemInsets? padding;
   final RemInsets? margin;
@@ -62,6 +63,7 @@ class Box extends ThemedWidget {
       this.manner,
       this.state,
       this.color,
+      this.radius,
       this.borderRadius,
       this.padding,
       this.margin,
@@ -109,9 +111,10 @@ class Box extends ThemedWidget {
 
     final w.Border border = this.border.resolved(updatedTheme);
 
-    final radius = this.borderRadius != null
-        ? BorderRadius.circular(context.rem(this.borderRadius ?? 0))
-        : null;
+    final radius = this.borderRadius ??
+        (this.radius != null
+            ? BorderRadius.circular(context.rem(this.radius ?? 0))
+            : null);
 
     final resRadius = radius ??
         decoration?.borderRadius ??

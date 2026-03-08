@@ -36,7 +36,7 @@ class ElbeApp extends StatelessWidget {
     return Theme(
         data: t,
         child: Box(
-            borderRadius: 0,
+            radius: 0,
             mode: mode,
             child: m.MaterialApp.router(
                 theme: resTheme,

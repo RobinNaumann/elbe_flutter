@@ -70,7 +70,7 @@ class OptionsButton<T> extends StatelessWidget {
                         ? ColorManners.major
                         : ColorManners.flat,
                     kind: ColorKinds.accent,
-                    borderRadius: 0,
+                    radius: 0,
                     border: Border(width: 0),
                     child: Row(gap: 0, children: [
                       if (e.icon != null)
