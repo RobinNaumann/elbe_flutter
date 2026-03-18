@@ -20,7 +20,7 @@ extension _MergedBoxDecoration on BoxDecoration {
 /// It can have a color scheme, kind, manner, state, or a custom color.
 /// It can have padding, margin, border, decoration, constraints, width, and height.
 /// It can have a child.
-class Box extends ThemedWidget {
+class Box extends StatelessWidget {
   final Clip? clipBehavior;
   final ColorModes? mode;
   final ColorSchemes? scheme;
@@ -39,6 +39,7 @@ class Box extends ThemedWidget {
   final RemConstraints? constraints;
   final double? height;
   final double? width;
+  final int? flex;
 
   // raw elements
   final EdgeInsets? rawPadding;
@@ -75,6 +76,7 @@ class Box extends ThemedWidget {
       this.rawPadding,
       this.rawMargin,
       this.rawConstraints,
+      this.flex,
       required this.child});
 
   /*/// a plain box with no color scheme, kind, manner, state, or custom color
@@ -101,7 +103,7 @@ class Box extends ThemedWidget {
         border = Border.noneRect;*/
 
   @override
-  Widget make(context, theme) {
+  Widget build(BuildContext context) {
     final updatedTheme = context.theme.withColorSelection(
         mode: mode, scheme: scheme, kind: kind, manner: manner, state: state);
 
@@ -120,23 +122,26 @@ class Box extends ThemedWidget {
         decoration?.borderRadius ??
         BorderRadius.circular(context.rem(updatedTheme.geometry.borderRadius));
 
-    return Theme(
-      data: updatedTheme,
-      child: Container(
-          clipBehavior: Clip.none,
-          width: theme.geometry.maybeRem(width),
-          height: theme.geometry.maybeRem(height),
-          margin: rawMargin ?? margin?.toPixel(context),
-          constraints: rawConstraints ?? constraints?.toPixel(context),
-          decoration:
-              BoxDecoration(color: c, border: border, borderRadius: resRadius)
-                  .merged(decoration),
-          child: ClipRRect(
-              clipBehavior: clipBehavior ?? Clip.antiAlias,
-              borderRadius: _subtractBorder(resRadius, _maxBorder(border)),
-              child: Padding(
-                  padding: _minusBorder(_pad ?? EdgeInsets.zero, border),
-                  child: child))),
+    return _MaybeFlex(
+      flex: flex ?? 0,
+      child: Theme(
+        data: updatedTheme,
+        child: Container(
+            clipBehavior: Clip.none,
+            width: context.theme.geometry.maybeRem(width),
+            height: context.theme.geometry.maybeRem(height),
+            margin: rawMargin ?? margin?.toPixel(context),
+            constraints: rawConstraints ?? constraints?.toPixel(context),
+            decoration:
+                BoxDecoration(color: c, border: border, borderRadius: resRadius)
+                    .merged(decoration),
+            child: ClipRRect(
+                clipBehavior: clipBehavior ?? Clip.antiAlias,
+                borderRadius: _subtractBorder(resRadius, _maxBorder(border)),
+                child: Padding(
+                    padding: _minusBorder(_pad ?? EdgeInsets.zero, border),
+                    child: child))),
+      ),
     );
   }
 }
@@ -169,4 +174,25 @@ BorderRadius _subtractBorder(BorderRadiusGeometry? a, double borderWidth) {
     bottomLeft: a.bottomLeft - Radius.circular(w),
     bottomRight: a.bottomRight - Radius.circular(w),
   );
+}
+
+class _MaybeFlex extends StatelessWidget {
+  final int flex;
+  final Widget child;
+  const _MaybeFlex({required this.child, required this.flex});
+
+  @override
+  Widget build(BuildContext context) {
+    // check if the parent is a Row or Column, and if so,
+    // return a Flexible with the child, otherwise return the child directly
+    final parentType = context.findAncestorWidgetOfExactType<Row>() != null
+        ? Row
+        : context.findAncestorWidgetOfExactType<Column>() != null
+            ? Column
+            : null;
+
+    return (parentType != null && flex > 0)
+        ? Expanded(flex: flex, child: child)
+        : child;
+  }
 }

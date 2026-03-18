@@ -22,7 +22,6 @@ class ThemeEdit extends StatelessWidget {
           _entry(
               label: "mode",
               child: OptionsButton(
-                  compact: true,
                   selected: data.mode,
                   items: const [
                     OptionsItem(

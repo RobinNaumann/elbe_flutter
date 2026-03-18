@@ -7,7 +7,7 @@ class StatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Page(
       childrenMaxWidth: 40,
       title: "state",
       actions: [

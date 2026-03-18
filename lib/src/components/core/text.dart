@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart' as w;
 import '../../../elbe.dart';
 
 /// use *WText* to use the default Flutter Text widget
-class Text extends ThemedWidget {
+class Text extends StatelessWidget {
   final String value;
   final Color? color;
   final TypeStyles? style;
@@ -210,14 +210,15 @@ class Text extends ThemedWidget {
       : style = TypeStyles.h1;
 
   @override
-  Widget make(context, theme) {
-    final appliedType =
-        (style != null ? theme.type.get(style!) : theme.type.selected)
-            .copyWith(variant: variant)
-            .merge(resolvedStyle);
+  Widget build(BuildContext context) {
+    final appliedType = (style != null
+            ? context.theme.type.get(style!)
+            : context.theme.type.selected)
+        .copyWith(variant: variant)
+        .merge(resolvedStyle);
 
     final appliedColor = color ??
-        theme.color
+        context.theme.color
             .resolve(kind: colorKind, manner: colorManner, state: colorState)
             .front;
 

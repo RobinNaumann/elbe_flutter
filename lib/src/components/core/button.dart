@@ -2,7 +2,7 @@ import '../../../elbe.dart';
 
 part './icon_button.dart';
 
-class Button extends ThemedWidget {
+class Button extends StatelessWidget {
   final ColorKinds kind;
   final ColorManners manner;
   final IconData? icon;
@@ -99,11 +99,11 @@ class Button extends ThemedWidget {
       : manner = ColorManners.plain;
 
   @override
-  Widget make(context, theme) {
+  Widget build(BuildContext context) {
     return Card(
         clipBehavior: Clip.antiAlias,
         padding: null,
-        constraints: constraints ?? const RemConstraints(minHeight: 3.5),
+        constraints: constraints ?? const RemConstraints(minHeight: 3),
         border: const Border(width: 0),
         kind: kind,
         manner: manner,

@@ -3,9 +3,28 @@ import 'package:flutter/material.dart' as m;
 import '../../../elbe.dart';
 import '../../thirdparty/invisible_header.dart';
 
+class _HeroBase extends StatelessWidget {
+  final Widget child;
+  final bool left;
+  final bool single;
+
+  const _HeroBase(
+      {required this.child, this.left = false, this.single = false});
+
+  @override
+  build(BuildContext context) => Card(
+      constraints: const RemConstraints(minHeight: 3.1),
+      padding: RemInsets.symmetric(
+          vertical: 0.3, horizontal: (single || left) ? 0.3 : 0.6),
+      radius: 12,
+      border: Border(width: 0),
+      margin: RemInsets(left: left ? 0.4 : 0, right: left ? 0 : 0.4),
+      child: child);
+}
+
 /// A scaffold with a hero sliver at the top. This creates a
 /// parallax effect when scrolling.
-class HeroScaffold extends ThemedWidget {
+class HeroScaffold extends StatelessWidget {
   final String title;
   final Widget hero;
   final List<Widget>? actions;
@@ -35,17 +54,9 @@ class HeroScaffold extends ThemedWidget {
       : assert((body != null) ^ (bodyList != null),
             "Provide exactly one of body or bodyList");
 
-  Widget _heroBase(Widget child, bool left, bool single) => Card(
-      constraints: const RemConstraints(minHeight: 3.1),
-      padding: RemInsets.symmetric(
-          vertical: 0.3, horizontal: (single || left) ? 0.3 : 0.6),
-      radius: 12,
-      border: Border(width: 0),
-      margin: RemInsets(left: left ? 0.4 : 0, right: left ? 0 : 0.4),
-      child: child);
-
   @override
-  Widget make(context, theme) {
+  Widget build(BuildContext context) {
+    final theme = context.theme;
     final prim = theme.color.selected;
 
     return m.Scaffold(
@@ -54,20 +65,22 @@ class HeroScaffold extends ThemedWidget {
           SliverAppBar(
               leading: leadingIcon?.icon != null
                   ? Center(
-                      child: _heroBase(
-                          IconButton.plain(
-                              onTap: leadingIcon!.onTap != null
-                                  ? () => leadingIcon!.onTap?.call(context)
-                                  : null,
-                              icon: leadingIcon!.icon!),
-                          true,
-                          false),
+                      child: _HeroBase(
+                        left: true,
+                        child: IconButton.plain(
+                            onTap: leadingIcon!.onTap != null
+                                ? () => leadingIcon!.onTap?.call(context)
+                                : null,
+                            icon: leadingIcon!.icon!),
+                      ),
                     )
                   : null,
               actions: (actions != null && actions!.isNotEmpty)
                   ? [
-                      _heroBase(Row(gap: .4, children: actions!), false,
-                          actions?.length == 1)
+                      _HeroBase(
+                          left: false,
+                          single: actions?.length == 1,
+                          child: Row(gap: .4, children: actions!))
                     ]
                   : null,
               pinned: true,
@@ -84,17 +97,17 @@ class HeroScaffold extends ThemedWidget {
                 fit: StackFit.expand,
                 children: [
                   Container(
-                      color: prim.back.inter(
-                          context.theme.color
-                              .resolve(
-                                  kind: ColorKinds.accent,
-                                  manner: ColorManners.major)
-                              .back,
-                          .1),
-                      //padding: RemInsets(bottom: 2),
+                      color: prim.back,
+                      padding: context.app.layoutMode.isWide
+                          ? EdgeInsets.symmetric(horizontal: context.rem(.5))
+                          : null,
                       child: FlexibleSpaceBar(
                           background: Box(
-                              scheme: ColorSchemes.secondary, child: hero))),
+                              borderRadius: BorderRadius.vertical(
+                                  bottom: Radius.circular(context
+                                      .rem(theme.geometry.borderRadius))),
+                              scheme: ColorSchemes.secondary,
+                              child: hero))),
                   InvisibleExpandedHeader(
                       child: Align(
                     alignment: Alignment.bottomCenter,

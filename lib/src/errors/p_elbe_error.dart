@@ -19,9 +19,9 @@ class ElbeErrorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Page(
       title: title,
-      leadingIcon: LeadingIcon.none(),
+      leading: LeadingIcon.none(),
       actions: [
         IconButton.plain(
           icon: Icons.x,

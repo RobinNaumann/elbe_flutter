@@ -21,7 +21,7 @@ extension ExpandedWidget on Widget {
 }
 
 /// a visual spacer that can be placed between objects to ensure consistent margins
-class Spacer extends ThemedWidget {
+class Spacer extends StatelessWidget {
   static const zero = Spacer(height: 0, width: 0);
 
   final double width;
@@ -37,6 +37,7 @@ class Spacer extends ThemedWidget {
   const Spacer.horizontal([this.width = 1]) : height = 0;
 
   @override
-  Widget make(context, theme) => SizedBox(
-      width: theme.geometry.rem(width), height: theme.geometry.rem(height));
+  Widget build(BuildContext context) => SizedBox(
+      width: context.theme.geometry.rem(width),
+      height: context.theme.geometry.rem(height));
 }

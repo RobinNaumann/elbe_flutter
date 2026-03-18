@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart' as w;
 import '../../../elbe.dart';
 
 /// An icon with optional badge.
-class Icon extends ThemedWidget {
+class Icon extends StatelessWidget {
   final IconData? icon;
   final String? semanticLabel;
   final Color? color;
@@ -34,7 +34,8 @@ class Icon extends ThemedWidget {
           textDirection: TextDirection.ltr);
 
   @override
-  Widget make(context, theme) {
+  Widget build(BuildContext context) {
+    final theme = context.theme;
     final appliedType =
         theme.type.selected.merge(theme.type.get(style)).merge(resolvedStyle);
     final appliedColor = color ?? theme.color.selected.front;

@@ -2,7 +2,7 @@ import '../../../elbe.dart';
 import 'maybe_hero.dart';
 
 /// a card is an interactive box with styling and geometry options
-class Card extends ThemedWidget {
+class Card extends StatelessWidget {
   final Clip? clipBehavior;
   final ColorSchemes? scheme;
   final ColorKinds? kind;
@@ -15,6 +15,7 @@ class Card extends ThemedWidget {
   final Border? border;
   final double? height;
   final double? width;
+  final int? flex;
 
   final Color? color;
   final double? radius;
@@ -52,6 +53,7 @@ class Card extends ThemedWidget {
       this.heroTag,
       this.radius,
       this.borderRadius,
+      this.flex,
       required this.child});
 
   Widget _card(ElbeThemeData theme) => MaybeHero(
@@ -71,12 +73,13 @@ class Card extends ThemedWidget {
             color: color,
             radius: radius,
             borderRadius: borderRadius,
+            flex: flex,
             child: child),
       );
 
   @override
-  Widget make(context, theme) => onTap != null
+  Widget build(BuildContext context) => onTap != null
       ? GestureDetector(
-          onTap: onTap, onLongPress: onLongTap, child: _card(theme))
-      : _card(theme);
+          onTap: onTap, onLongPress: onLongTap, child: _card(context.theme))
+      : _card(context.theme);
 }

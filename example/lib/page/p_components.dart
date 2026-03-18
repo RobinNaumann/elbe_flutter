@@ -7,7 +7,7 @@ class ComponentsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Page(
       title: "components",
       actions: [
         ThemeSeedBit.builder(
@@ -627,7 +627,7 @@ Scaffold(
               padding: RemInsets.zero,
               child: SizedBox(
                   height: 300,
-                  child: Scaffold(
+                  child: Page(
                       title: "title",
                       actions: [
                         IconButton.plain(icon: Icons.leaf, onTap: () {})

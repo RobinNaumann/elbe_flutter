@@ -3,7 +3,7 @@ import 'package:elbe/elbe.dart';
 /// A dropdown menu that allows the user to select a value from a list of
 /// options. The dropdown menu is displayed as a button that, when clicked,
 /// displays a list of options that the user can select from.
-class DropDown<T> extends ThemedWidget {
+class DropDown<T> extends StatelessWidget {
   final List<OptionsItem<T>> items;
   final T? selected;
   final Function(T? v)? onSelect;
@@ -12,7 +12,8 @@ class DropDown<T> extends ThemedWidget {
       {super.key, required this.items, this.selected, this.onSelect});
 
   @override
-  Widget make(context, theme) {
+  Widget build(BuildContext context) {
+    final theme = context.theme;
     final oneHasIcon = items.any((e) => e.icon != null);
 
     return Box(

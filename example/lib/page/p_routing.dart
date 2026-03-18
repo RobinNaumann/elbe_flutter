@@ -7,7 +7,7 @@ class RoutingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Page(
       title: "routing",
       childrenMaxWidth: 40,
       actions: [

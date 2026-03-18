@@ -1,7 +1,7 @@
 part of './button.dart';
 
 /// a custom Button that only contains an icon
-class IconButton extends ThemedWidget {
+class IconButton extends StatelessWidget {
   final ColorKinds kind;
   final ColorManners manner;
   final IconData icon;
@@ -92,16 +92,16 @@ class IconButton extends ThemedWidget {
           : child;
 
   @override
-  Widget make(context, theme) {
+  Widget build(BuildContext context) {
     return _maybeTooltip(
         context,
-        theme,
+        context.theme,
         Card(
             clipBehavior: Clip.hardEdge,
             padding: null,
             radius: 12,
-            constraints: constraints ??
-                const RemConstraints(minHeight: 2.5, minWidth: 2.5),
+            constraints:
+                constraints ?? const RemConstraints(minHeight: 3, minWidth: 3),
             border: Border(width: 0),
             kind: kind,
             manner: manner,

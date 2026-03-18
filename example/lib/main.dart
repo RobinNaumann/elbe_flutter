@@ -8,14 +8,13 @@ void main() => runApp(_App());
 class _App extends StatelessWidget {
   _App({Key? key}) : super(key: key);
 
-  final GoRouter _appRouter = GoRouter(routes: appRoutes);
-
   @override
   Widget build(BuildContext context) => BitProvider(
       create: (_) => ThemeSeedBit(),
       child: ThemeSeedBit.builder(
         onData: (bit, data) => ElbeApp(
-          router: _appRouter,
+          initialRoute: "/home",
+          routes: appRoutes,
           mode: data.mode,
           debugShowCheckedModeBanner: false,
           theme: ElbeThemeData.preset(

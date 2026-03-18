@@ -27,7 +27,6 @@ class OptionsButton<T> extends StatelessWidget {
   final List<OptionsItem<T>> items;
   final Function(T id) onSelect;
   final bool vertical;
-  final bool compact;
 
   /// a button that allows the user to select from a list of options
   ///
@@ -43,7 +42,6 @@ class OptionsButton<T> extends StatelessWidget {
       required this.selected,
       required this.items,
       required this.onSelect,
-      this.compact = false,
       this.vertical = false});
 
   @override
@@ -64,8 +62,8 @@ class OptionsButton<T> extends StatelessWidget {
                   onTap: () => onSelect(e.key),
                   child: Card(
                     clipBehavior: Clip.hardEdge,
-                    padding: RemInsets.symmetric(horizontal: compact ? .7 : 1),
-                    height: compact ? 2.5 : 3.5,
+                    padding: RemInsets.symmetric(horizontal: 1),
+                    height: 3.0,
                     manner: selected == e.key
                         ? ColorManners.major
                         : ColorManners.flat,
@@ -74,8 +72,7 @@ class OptionsButton<T> extends StatelessWidget {
                     border: Border(width: 0),
                     child: Row(gap: 0, children: [
                       if (e.icon != null)
-                        Padded.only(
-                            right: compact ? .4 : 1, child: Icon(e.icon!)),
+                        Padded.only(right: .5, child: Icon(e.icon!)),
                       vertical
                           ? Expanded(
                               child: Text(

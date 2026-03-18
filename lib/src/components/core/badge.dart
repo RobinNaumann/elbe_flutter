@@ -3,14 +3,14 @@ import '../../../elbe.dart';
 /// A badge to display a value or text in a small container.
 /// The badge can have a color scheme to indicate its importance.
 /// The badge can have a value or text.
-class Badge extends ThemedWidget {
+class Badge extends StatelessWidget {
   final int? value;
   final String? text;
   final ColorKinds kind;
   const Badge({super.key, this.value, this.text, this.kind = ColorKinds.info});
 
   @override
-  Widget make(context, theme) {
+  Widget build(BuildContext context) {
     final label =
         text ?? (value != null ? ((value! > 999) ? "999+" : "$value") : null);
     return Box(

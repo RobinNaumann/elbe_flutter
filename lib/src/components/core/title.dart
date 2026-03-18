@@ -1,7 +1,7 @@
 import '../../../elbe.dart';
 
 /// A widget that displays a title with a specific style.
-class Title extends ThemedWidget {
+class Title extends StatelessWidget {
   final String text;
   final TextAlign textAlign;
   final int level;
@@ -57,7 +57,7 @@ class Title extends ThemedWidget {
         style = TypeStyles.h6;
 
   @override
-  Widget make(context, theme) {
+  Widget build(BuildContext context) {
     return Padded.only(
       top: topPadded ? 1.5 + 0.1 * level : 0,
       bottom: 0.6 + 0.1 * level,

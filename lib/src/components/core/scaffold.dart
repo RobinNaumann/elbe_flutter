@@ -5,11 +5,7 @@ import 'package:flutter/material.dart' as m;
 import '../../../elbe.dart';
 import 'maybe_hero.dart';
 
-_popPage(BuildContext context) {
-  final r = GoRouter.maybeOf(context);
-  if (r == null) return m.Navigator.maybeOf(context)?.maybePop();
-  if (r.canPop()) r.pop();
-}
+_popPage(BuildContext context) => context.app.router.goBack();
 
 class LeadingIcon {
   static _noFn(c) {}
@@ -30,11 +26,11 @@ class LeadingIcon {
 }
 
 /// base widget for creating screen filling pages
-class Scaffold extends ThemedWidget {
+class Page extends StatelessWidget {
   final ColorSchemes scheme;
   final String title;
   final List<Widget>? actions;
-  final LeadingIcon? leadingIcon;
+  final LeadingIcon? leading;
   final bool resizeOnKeyboard;
   final String? heroTag;
   final Widget? customTitle;
@@ -53,13 +49,13 @@ class Scaffold extends ThemedWidget {
   /// create a scaffold with a single child or a list of children
   ///
   /// for a parallax effect, you can use `HeroScaffold`
-  const Scaffold(
+  const Page(
       {super.key,
       this.scheme = ColorSchemes.primary,
       required this.title,
       this.customTitle,
       this.actions,
-      this.leadingIcon,
+      this.leading = const LeadingIcon.back(),
       this.resizeOnKeyboard = true,
       this.heroTag,
       this.child,
@@ -70,15 +66,34 @@ class Scaffold extends ThemedWidget {
       : assert(child == null || children == null,
             "provide only one of child, children");
 
-  @override
-  Widget make(context, theme) {
-    final screenWidth = m.MediaQuery.of(context).size.width;
+  Widget? _leadingButton(LeadingIcon? icon, BuildContext context) {
+    final isWide = context.app.layoutMode.isWide;
+    final LeadingIcon? actualIcon = context.app.router.canGoBack
+        ? icon
+        : (!isWide
+            ? LeadingIcon(
+                icon: Icons.menu,
+                onTap: (ctx) =>
+                    context.app.update(menuOpen: !context.app.menuOpen))
+            : null);
 
-    bool implyLeading = GoRouter.maybeOf(context)?.canPop() ?? false;
-    var leading = leadingIcon;
-    if (implyLeading && leading == null) {
-      leading = const LeadingIcon.back();
-    }
+    return actualIcon == null
+        ? null
+        : Padded.only(
+            right: .5,
+            bottom: isWide ? .5 : 0,
+            top: isWide ? .5 : 0,
+            child: IconButton.plain(
+                onTap: actualIcon.onTap != null
+                    ? () => actualIcon.onTap?.call(context)
+                    : null,
+                icon: actualIcon.icon ?? Icons.dot));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    final screenWidth = m.MediaQuery.of(context).size.width;
 
     return AnimatedSwitcher(
         duration: const Duration(milliseconds: 500),
@@ -107,27 +122,21 @@ class Scaffold extends ThemedWidget {
           appBar: AppBar(
             primary: primary,
             shadowColor: Colors.black.withAlpha(120),
-            //toolbarHeight: 50,
+            toolbarHeight: context.rem(context.app.layoutMode.isWide ? 4 : 3),
             elevation: 0,
             scrolledUnderElevation: 3,
             surfaceTintColor: theme.color.resolve(kind: ColorKinds.accent).back,
             backgroundColor: theme.color.selected.back,
             automaticallyImplyLeading: false,
             centerTitle: true,
-            leading: leading != null
-                ? leading.icon != null
-                    ? Padded.all(
-                        value: .5,
-                        child: IconButton.plain(
-                            onTap: leading.onTap != null
-                                ? () => leading!.onTap?.call(context)
-                                : null,
-                            icon: leading.icon!))
-                    : null
-                : null,
+            leading: _leadingButton(leading!, context),
             actions: actions?.isEmpty ?? true
                 ? null
-                : [Padded.only(right: 0.4, child: Row(children: actions!))],
+                : [
+                    Padded.only(
+                        right: context.app.layoutMode.isWide ? .5 : 0,
+                        child: Row(children: actions!))
+                  ],
             title: customTitle ?? Text.h4(title),
           ),
           body: MaybeHero(

@@ -60,16 +60,18 @@ extension ThemeContext on BuildContext {
 
 class ElbeInherited<T extends JsonModel> extends InheritedTheme {
   final T data;
+  final int _dataHashCode;
 
-  const ElbeInherited({
+  ElbeInherited({
     Key? key,
     required this.data,
     required Widget child,
-  }) : super(key: key, child: child);
+  })  : _dataHashCode = data.hashCode,
+        super(key: key, child: child);
 
   @override
   bool updateShouldNotify(covariant ElbeInherited<T> oldWidget) =>
-      oldWidget.data != data;
+      oldWidget._dataHashCode != data.hashCode;
 
   @override
   Widget wrap(context, Widget child) =>

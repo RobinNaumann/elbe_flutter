@@ -20,6 +20,7 @@ export 'package:flutter/material.dart'
         Column,
         Row,
         Spacer,
+        Page,
         Title;
 // EXPORTS
 
@@ -30,15 +31,18 @@ export 'package:package_info_plus/package_info_plus.dart';
 export 'bit/bit.dart';
 export 'services/s_app_info.dart';
 export 'services/s_logger.dart';
+// components
+
+export 'src/components/app/elbe_app.dart';
+export 'src/components/app/elbe_app_context.dart';
+export 'src/components/app/menu.dart';
+export 'src/components/app/route.dart';
 export 'src/components/core/badge.dart';
 export 'src/components/core/box.dart';
 export 'src/components/core/button.dart';
 export 'src/components/core/card.dart';
 export 'src/components/core/center_message.dart';
 export 'src/components/core/drop_down.dart';
-// components
-
-export 'src/components/core/elbe_app.dart';
 export 'src/components/core/field.dart';
 export 'src/components/core/flex.dart';
 export 'src/components/core/hero_scaffold.dart';
@@ -52,7 +56,6 @@ export 'src/components/core/text.dart';
 export 'src/components/core/title.dart';
 export 'src/components/core/toggle_button.dart';
 export 'src/components/field/field_deco.dart';
-export 'src/components/util/elbe_stateless_widget.dart';
 export 'src/components/util/spacer.dart';
 // errors
 export 'src/errors/elbe_error.dart';

@@ -40,21 +40,22 @@ class ToggleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         onTap: () => onChanged(!value),
-        height: 3.5,
+        height: 3,
         kind: ColorKinds.accent,
         manner: value ? ColorManners.minor : ColorManners.flat,
         border: Border(width: 0),
+        padding: RemInsets.symmetric(horizontal: 1),
         child: Row(mainAxisSize: MainAxisSize.min, children: [
           if (icon != null && child == null)
             Padding(
-                padding: const EdgeInsets.only(right: 10), child: Icon(icon!)),
+                padding: const EdgeInsets.only(right: 8), child: Icon(icon!)),
           child ??
               Text(
                 label,
                 variant: TypeVariants.bold,
               ),
           if (value && showCheck)
-            Padded.only(left: 2, child: const Icon(LucideIcons.check))
+            Padded.only(left: 1, child: const Icon(LucideIcons.check))
         ]));
   }
 }

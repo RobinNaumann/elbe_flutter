@@ -9,7 +9,7 @@ class ThemingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Page(
       childrenMaxWidth: 40,
       title: "theming",
       actions: [

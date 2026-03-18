@@ -74,14 +74,11 @@ class HomePage extends StatelessWidget {
                       children: [
                         for (final e in _items)
                           Button.minor(
-                            constraints: const RemConstraints(
-                                minHeight: 3.5, maxWidth: 25),
-                            icon: e.icon,
-                            label: e.label,
-                            onTap: e.route != null
-                                ? () => context.push(e.route)
-                                : null,
-                          ),
+                              constraints: const RemConstraints(
+                                  minHeight: 3.5, maxWidth: 25),
+                              icon: e.icon,
+                              label: e.label,
+                              onTap: () => context.app.router.go(e.route)),
                       ]),
                   const Spacer.vertical(1),
                   Button.flat(
