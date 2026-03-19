@@ -6,14 +6,6 @@ import 'package:url_launcher/url_launcher_string.dart';
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  static const _items = [
-    (icon: Icons.leaf, label: "components", route: "/components"),
-    (icon: Icons.brush, label: "theming", route: "/theming"),
-    (icon: Icons.activity, label: "state", route: "/state"),
-    (icon: Icons.compass, label: "routing", route: "/routing"),
-    (icon: Icons.wrench, label: "utilities", route: "/utils")
-  ];
-
   @override
   Widget build(BuildContext context) => HeroScaffold(
         heroHeight: 14,
@@ -67,18 +59,6 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Wrap(
-                      runSpacing: context.rem(),
-                      spacing: context.rem(),
-                      children: [
-                        for (final e in _items)
-                          Button.minor(
-                              constraints: const RemConstraints(
-                                  minHeight: 3.5, maxWidth: 25),
-                              icon: e.icon,
-                              label: e.label,
-                              onTap: () => context.app.router.push(e.route)),
-                      ]),
                   const Spacer.vertical(1),
                   Button.flat(
                       icon: Icons.github,

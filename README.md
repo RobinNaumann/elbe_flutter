@@ -4,7 +4,10 @@ Elbe is a Flutter UI toolkit and collection of tools that runs on all platforms.
 
 Elbe is designed to provide a collection of reusable UI components and utilities for building beautiful and responsive Flutter applications. It is based on Flutter, a popular cross-platform framework for building mobile, web, and desktop applications.
 
-an online demo/documentation can be accessed here: [**DEMO**](https://robbb.in/elbe)
+an online demo/documentation can be accessed here: [**DEMO**](https://robbb.in/elbe_flutter)
+
+> **NOTE**
+> We aim to build a highly accessible and inclusive UI toolkit. We have however not yet managed to implement all accessibility features present in the [React version](https://robbb.in/elbe) of elbe. If you want to contribute to this effort, please reach out to us or submit a PR.
 
 ## Features
 
@@ -35,15 +38,17 @@ To use Elbe in your Flutter project, follow these steps:
 
 Import the Elbe package in your Flutter project
 
-##### 1. define a router
+##### 1. define your routes
 
 ```dart
-final router = GoRouter(
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => YourHomePage();
-    )]);
+final routes = [
+  MenuRoute(
+      path: '/components',
+      label: 'Components',
+      icon: Icons.layout,
+      builder: (_) => const ComponentsPage()),
+  ElbeRoute(path: '/theming', builder: (_) => const ThemingPage()),
+];
 ```
 
 ##### 2. define the app
@@ -55,17 +60,18 @@ import 'package:elbe/elbe.dart';
 
 void main() async => runApp(const YourApp());
 
-final router = GoRouter(
-    routes: [GoRoute(
-      path: '/',
-      builder: (context, _) => const YourPage())]);
-
 class YourApp extends StatelessWidget {
   const YourApp({super.key});
 
   @override
   Widget build(BuildContext context) =>
-    ElbeApp(router: router);
+   ElbeApp(
+          initialRoute: "/home",
+          routes: appRoutes,
+          theme: ElbeThemeData.preset(
+              type: TypeThemeData.preset(),
+              geometry: GeometryThemeData.preset(),
+              color: ColorThemeData.preset()));
 }
 ```
 

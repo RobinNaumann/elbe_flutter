@@ -17,16 +17,38 @@ final appRoutes = <ElbeRoute>[
       label: 'Components',
       icon: Icons.layout,
       builder: (_) => const ComponentsPage()),
-  ElbeRoute(path: '/theming', builder: (_) => const ThemingPage()),
-  ElbeRoute(path: '/state', builder: (_) => const StatePage()),
-  ElbeRoute(path: '/routing', builder: (_) => const RoutingPage()),
-  ElbeRoute(path: '/utils', builder: (_) => const UtilsPage()),
+  MenuRoute(
+      path: '/theming',
+      label: "Theming",
+      icon: Icons.brush,
+      builder: (_) => const ThemingPage()),
+  MenuRoute(
+      path: '/state',
+      label: "State management",
+      icon: Icons.activity,
+      builder: (_) => const StatePage()),
+  MenuRoute(
+      path: '/routing',
+      label: "Routing",
+      icon: Icons.compass,
+      builder: (_) => const RoutingPage()),
+  MenuRoute(
+      path: '/utils',
+      label: "Utilities",
+      icon: Icons.wrench,
+      builder: (_) => const UtilsPage()),
   MenuRoute(
       path: "/about",
       label: "About",
       icon: Icons.info,
       bottom: true,
-      builder: (_) => Center(
-            child: Text("about"),
+      builder: (_) => const Page(
+            title: "About",
+            child: Center(
+              child: Text(
+                "demo for the\nelbe flutter package",
+                textAlign: TextAlign.center,
+              ),
+            ),
           ))
 ];
