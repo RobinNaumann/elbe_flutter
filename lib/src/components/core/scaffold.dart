@@ -69,7 +69,6 @@ class Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    final screenWidth = m.MediaQuery.of(context).size.width;
 
     return AnimatedSwitcher(
         duration: const Duration(milliseconds: 500),
@@ -92,46 +91,48 @@ class Page extends StatelessWidget {
                                 clipper: CircleClip(animation.value),
                                 child: child))),
         child: m.Scaffold(
-          key: ValueKey(theme.color.selection.mode),
-          resizeToAvoidBottomInset: resizeOnKeyboard,
-          backgroundColor: context.theme.color.resolve(scheme: scheme).back,
-          appBar: AppBar(
-            primary: primary,
-            shadowColor: Colors.black.withAlpha(120),
-            toolbarHeight: context.rem(4),
-            elevation: 0,
-            scrolledUnderElevation: 3,
-            surfaceTintColor: theme.color.resolve(kind: ColorKinds.accent).back,
-            backgroundColor: theme.color.selected.back,
-            automaticallyImplyLeading: false,
-            centerTitle: true,
-            leading: LeadingIconView(icon: leading),
-            actions: actions?.isEmpty ?? true
-                ? null
-                : [
-                    Padded.only(
-                        right: context.app.layoutMode.isWide ? .5 : 0,
-                        child: Row(children: actions!))
-                  ],
-            title: customTitle ?? Text.h4(title),
-          ),
-          body: MaybeHero(
-              tag: heroTag,
-              child: child ??
-                  ListView(
-                      padding: //const RemInsets.all(1).toPixel(context).add(),
-
-                          m.EdgeInsets.symmetric(
-                              vertical: context.rem(1),
-                              horizontal: Math.max(
-                                  context.rem(childrenPadding),
-                                  childrenMaxWidth != null
-                                      ? ((screenWidth -
-                                              context.rem(childrenMaxWidth!)) /
-                                          2)
-                                      : 0)),
-                      children: children ?? [])),
-        ));
+            key: ValueKey(theme.color.selection.mode),
+            resizeToAvoidBottomInset: resizeOnKeyboard,
+            backgroundColor: context.theme.color.resolve(scheme: scheme).back,
+            appBar: AppBar(
+              primary: primary,
+              shadowColor: Colors.black.withAlpha(120),
+              toolbarHeight: context.rem(4),
+              elevation: 0,
+              scrolledUnderElevation: 3,
+              surfaceTintColor:
+                  theme.color.resolve(kind: ColorKinds.accent).back,
+              backgroundColor: theme.color.selected.back,
+              automaticallyImplyLeading: false,
+              centerTitle: true,
+              leading: LeadingIconView(icon: leading),
+              actions: actions?.isEmpty ?? true
+                  ? null
+                  : [
+                      Padded.only(
+                          right: context.app.layoutMode.isWide ? .5 : 0,
+                          child: Row(children: actions!))
+                    ],
+              title: customTitle ?? Text.h4(title),
+            ),
+            body: MaybeHero(
+                tag: heroTag,
+                child: child ??
+                    ListView(
+                      padding: m.EdgeInsets.symmetric(
+                          vertical: context.rem(1),
+                          horizontal: context.rem(childrenPadding)),
+                      children: (children ?? [])
+                          .map((child) => childrenMaxWidth != null
+                              ? Center(
+                                  child: Container(
+                                      constraints: BoxConstraints(
+                                          maxWidth:
+                                              context.rem(childrenMaxWidth!)),
+                                      child: child))
+                              : child)
+                          .toList(),
+                    ))));
   }
 }
 

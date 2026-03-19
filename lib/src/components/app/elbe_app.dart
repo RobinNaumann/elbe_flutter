@@ -77,9 +77,7 @@ class _MatApp extends m.StatelessWidget {
   final m.ThemeData themeData;
   final bool debugShowCheckedModeBanner;
   const _MatApp(
-      {super.key,
-      required this.themeData,
-      required this.debugShowCheckedModeBanner});
+      {required this.themeData, required this.debugShowCheckedModeBanner});
 
   @override
   m.Widget build(m.BuildContext context) {

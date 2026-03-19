@@ -40,7 +40,7 @@ class ElbeErrorPage extends StatelessWidget {
 
 class _ErrorSnippet extends StatelessWidget {
   final ElbeError error;
-  const _ErrorSnippet({super.key, required this.error});
+  const _ErrorSnippet({required this.error});
 
   @override
   Widget build(BuildContext context) {

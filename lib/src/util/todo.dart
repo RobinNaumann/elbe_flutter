@@ -14,9 +14,6 @@ class ToDo extends StatelessWidget {
   const ToDo(this.message, {super.key})
       : shrink = false,
         size = null;
-  const ToDo._shrink(this.message, {super.key})
-      : shrink = true,
-        size = null;
 
   /// creates a visual indicator that a part of the app is still in development
   /// with a pre-determined size

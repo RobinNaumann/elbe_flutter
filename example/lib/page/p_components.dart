@@ -191,7 +191,7 @@ class _ToDoView extends StatelessWidget {
 ToDo("this still needs work")
 """,
         children: (get, _) => const [
-              ToDo("this still needs work"),
+              // ToDo("this still needs work"),
               ToDo.sized(
                   RemConstraints(minHeight: 7, maxWidth: 6), "a sized todo")
             ]);

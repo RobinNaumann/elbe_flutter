@@ -110,10 +110,7 @@ class _MenuItem extends StatelessWidget {
   final bool selected;
   final bool menuOpen;
   const _MenuItem(
-      {super.key,
-      required this.route,
-      required this.selected,
-      this.menuOpen = false});
+      {required this.route, required this.selected, this.menuOpen = false});
 
   @override
   Widget build(BuildContext context) {
