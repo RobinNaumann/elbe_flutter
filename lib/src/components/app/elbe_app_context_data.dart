@@ -1,41 +1,37 @@
 part of 'elbe_app_context.dart';
 
 class _ElbeRouterInterface extends JsonModel {
-  final String? initialRoute;
   final List<ElbeRoute> routes;
   final GoRouter router;
-  _ElbeRouterInterface(
-      this.initialRoute, this.routes, void Function() onChanged)
-      : router = GoRouter(
-            initialLocation: initialRoute ?? routes.firstOrNull?.path ?? "/",
-            routes: routes
-                .map((e) => GoRoute(
-                    path: e.path,
-                    builder: (c, s) => e.builder(c),
-                    pageBuilder: (context, state) =>
-                        NoTransitionPage(child: e.builder(context))))
-                .toList()) {
-    router.routerDelegate.addListener(() => onChanged());
+
+  final String path;
+  final bool canPop;
+
+  _ElbeRouterInterface(this.routes, this.router)
+      : path = router.routeInformationProvider.value.uri.toString(),
+        canPop = router.canPop();
+
+  void push(String path, {Map<String, dynamic>? args}) {
+    router.push(path, extra: args);
   }
 
-  void _dispose() => router.dispose();
-
-  String get path => router.routerDelegate.currentConfiguration.fullPath;
-
-  void go(String path, {Map<String, dynamic>? args, bool replace = false}) {
-    if (replace)
-      router.replace(path, extra: args);
-    else
+  void replace(String path,
+      {Map<String, dynamic>? args, bool clearHistory = false}) {
+    if (clearHistory) {
       router.go(path, extra: args);
+    } else {
+      router.pushReplacement(path, extra: args);
+    }
   }
 
-  void goBack() {
+  void pop() {
     if (router.canPop()) router.pop();
   }
 
-  bool get canGoBack => router.canPop();
-
-  get map => {"path": path};
+  get map => {
+        "path": path,
+        "canPop": canPop,
+      };
 }
 
 enum AppLayoutMode {
@@ -59,26 +55,26 @@ class AppContextData extends JsonModel {
   final String name;
   final bool menuOpen;
   final AppLayoutMode layoutMode;
-  late final _ElbeRouterInterface router;
-  void Function({bool? menuOpen, String? name, AppLayoutMode? layoutMode})
+  final _ElbeRouterInterface router;
+  final void Function({bool? menuOpen, String? name, AppLayoutMode? layoutMode})
       _onUpdated;
 
-  AppContextData(this._onUpdated,
+  const AppContextData(this._onUpdated,
       {required this.menuOpen,
       required this.name,
       required this.layoutMode,
-      required List<ElbeRoute> routes,
-      String? initialRoute}) {
-    router = _ElbeRouterInterface(initialRoute, routes, this.update);
-  }
+      required this.router});
 
   AppContextData._copy(AppContextData other,
-      {bool? menuOpen, String? name, AppLayoutMode? layoutMode})
+      {bool? menuOpen,
+      String? name,
+      AppLayoutMode? layoutMode,
+      _ElbeRouterInterface? router})
       : name = name ?? other.name,
         menuOpen = menuOpen ?? other.menuOpen,
         layoutMode = layoutMode ?? other.layoutMode,
         _onUpdated = other._onUpdated,
-        router = other.router;
+        router = router ?? other.router;
 
   @override
   Map<String, dynamic> get map => {
@@ -90,6 +86,4 @@ class AppContextData extends JsonModel {
 
   void update({bool? menuOpen, String? name, AppLayoutMode? layoutMode}) =>
       _onUpdated.call(menuOpen: menuOpen, name: name, layoutMode: layoutMode);
-
-  void dispose() => router._dispose();
 }

@@ -21,4 +21,12 @@ final appRoutes = <ElbeRoute>[
   ElbeRoute(path: '/state', builder: (_) => const StatePage()),
   ElbeRoute(path: '/routing', builder: (_) => const RoutingPage()),
   ElbeRoute(path: '/utils', builder: (_) => const UtilsPage()),
+  MenuRoute(
+      path: "/about",
+      label: "About",
+      icon: Icons.info,
+      bottom: true,
+      builder: (_) => Center(
+            child: Text("about"),
+          ))
 ];

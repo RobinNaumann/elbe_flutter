@@ -623,7 +623,7 @@ Scaffold(
   child: Text("this is some content")
 );""",
           children: [
-            Card(
+            /*Card(
               padding: RemInsets.zero,
               child: SizedBox(
                   height: 300,
@@ -634,6 +634,6 @@ Scaffold(
                       ],
                       child: Padded.all(
                           child: const Text("this is some content")))),
-            ),
+            ),*/
           ]);
 }

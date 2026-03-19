@@ -9,6 +9,7 @@ class IconButton extends StatelessWidget {
   final RemConstraints? constraints;
   final VoidCallback? onTap;
   final bool splash;
+  final bool transparent;
 
   /// create an icon button with all the options.
   /// IconButtons are automatically styled
@@ -28,7 +29,8 @@ class IconButton extends StatelessWidget {
       this.constraints,
       this.kind = ColorKinds.accent,
       required this.manner,
-      this.splash = true});
+      this.splash = true,
+      this.transparent = false});
 
   /// create an icon button with a major manner.
   /// Major icon buttons signify the main action
@@ -39,7 +41,8 @@ class IconButton extends StatelessWidget {
       this.onTap,
       this.constraints,
       this.kind = ColorKinds.accent,
-      this.splash = true})
+      this.splash = true,
+      this.transparent = false})
       : manner = ColorManners.major;
 
   /// create an icon button with a minor manner.
@@ -51,7 +54,8 @@ class IconButton extends StatelessWidget {
       this.onTap,
       this.constraints,
       this.kind = ColorKinds.accent,
-      this.splash = true})
+      this.splash = true,
+      this.transparent = false})
       : manner = ColorManners.minor;
 
   /// create an icon button with a flat manner.
@@ -63,7 +67,8 @@ class IconButton extends StatelessWidget {
       this.onTap,
       this.constraints,
       this.kind = ColorKinds.accent,
-      this.splash = true})
+      this.splash = true,
+      this.transparent = false})
       : manner = ColorManners.flat;
 
   /// create an icon button with a flat manner and plain color.
@@ -76,7 +81,8 @@ class IconButton extends StatelessWidget {
       this.onTap,
       this.constraints,
       this.kind = ColorKinds.accent,
-      this.splash = true})
+      this.splash = true,
+      this.transparent = true})
       : manner = ColorManners.plain;
 
   Widget _maybeTooltip(
@@ -97,6 +103,7 @@ class IconButton extends StatelessWidget {
         context,
         context.theme,
         Card(
+            color: transparent ? Colors.transparent : null,
             clipBehavior: Clip.hardEdge,
             padding: null,
             radius: 12,

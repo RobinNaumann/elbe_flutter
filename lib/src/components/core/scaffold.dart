@@ -5,7 +5,7 @@ import 'package:flutter/material.dart' as m;
 import '../../../elbe.dart';
 import 'maybe_hero.dart';
 
-_popPage(BuildContext context) => context.app.router.goBack();
+_popPage(BuildContext context) => context.app.router.pop();
 
 class LeadingIcon {
   static _noFn(c) {}
@@ -66,30 +66,6 @@ class Page extends StatelessWidget {
       : assert(child == null || children == null,
             "provide only one of child, children");
 
-  Widget? _leadingButton(LeadingIcon? icon, BuildContext context) {
-    final isWide = context.app.layoutMode.isWide;
-    final LeadingIcon? actualIcon = context.app.router.canGoBack
-        ? icon
-        : (!isWide
-            ? LeadingIcon(
-                icon: Icons.menu,
-                onTap: (ctx) =>
-                    context.app.update(menuOpen: !context.app.menuOpen))
-            : null);
-
-    return actualIcon == null
-        ? null
-        : Padded.only(
-            right: .5,
-            bottom: isWide ? .5 : 0,
-            top: isWide ? .5 : 0,
-            child: IconButton.plain(
-                onTap: actualIcon.onTap != null
-                    ? () => actualIcon.onTap?.call(context)
-                    : null,
-                icon: actualIcon.icon ?? Icons.dot));
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
@@ -122,14 +98,14 @@ class Page extends StatelessWidget {
           appBar: AppBar(
             primary: primary,
             shadowColor: Colors.black.withAlpha(120),
-            toolbarHeight: context.rem(context.app.layoutMode.isWide ? 4 : 3),
+            toolbarHeight: context.rem(4),
             elevation: 0,
             scrolledUnderElevation: 3,
             surfaceTintColor: theme.color.resolve(kind: ColorKinds.accent).back,
             backgroundColor: theme.color.selected.back,
             automaticallyImplyLeading: false,
             centerTitle: true,
-            leading: _leadingButton(leading!, context),
+            leading: LeadingIconView(icon: leading),
             actions: actions?.isEmpty ?? true
                 ? null
                 : [
@@ -203,5 +179,36 @@ extension Toast on BuildContext {
         ]),
       ),
     ));
+  }
+}
+
+class LeadingIconView extends m.StatelessWidget {
+  final LeadingIcon? icon;
+  const LeadingIconView({super.key, this.icon});
+
+  @override
+  m.Widget build(m.BuildContext context) {
+    final isWide = context.app.layoutMode.isWide;
+    final LeadingIcon? actualIcon = context.app.router.canPop
+        ? icon
+        : (!isWide
+            ? LeadingIcon(
+                icon: Icons.menu,
+                onTap: (ctx) =>
+                    context.app.update(menuOpen: !context.app.menuOpen))
+            : null);
+
+    return actualIcon == null
+        ? SizedBox.shrink()
+        : Padded.only(
+            left: .5,
+            bottom: 0.5,
+            top: 0.5,
+            child: IconButton.plain(
+                transparent: true,
+                onTap: actualIcon.onTap != null
+                    ? () => actualIcon.onTap?.call(context)
+                    : null,
+                icon: actualIcon.icon ?? Icons.dot));
   }
 }

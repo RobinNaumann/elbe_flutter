@@ -28,7 +28,7 @@ class HeroScaffold extends StatelessWidget {
   final String title;
   final Widget hero;
   final List<Widget>? actions;
-  final LeadingIcon? leadingIcon;
+  final LeadingIcon? leading;
   final rem heroHeight;
   final Widget? customTitle;
   final bool centerTitle;
@@ -45,7 +45,7 @@ class HeroScaffold extends StatelessWidget {
       required this.hero,
       required this.title,
       this.actions,
-      this.leadingIcon,
+      this.leading = const LeadingIcon.back(),
       this.heroHeight = 18,
       this.body,
       this.bodyList,
@@ -63,18 +63,7 @@ class HeroScaffold extends StatelessWidget {
         backgroundColor: prim.back,
         body: CustomScrollView(slivers: [
           SliverAppBar(
-              leading: leadingIcon?.icon != null
-                  ? Center(
-                      child: _HeroBase(
-                        left: true,
-                        child: IconButton.plain(
-                            onTap: leadingIcon!.onTap != null
-                                ? () => leadingIcon!.onTap?.call(context)
-                                : null,
-                            icon: leadingIcon!.icon!),
-                      ),
-                    )
-                  : null,
+              leading: LeadingIconView(icon: leading),
               actions: (actions != null && actions!.isNotEmpty)
                   ? [
                       _HeroBase(
@@ -84,7 +73,8 @@ class HeroScaffold extends StatelessWidget {
                     ]
                   : null,
               pinned: true,
-              collapsedHeight: context.rem(3.5),
+              collapsedHeight: context.rem(4),
+              toolbarHeight: context.rem(4),
               backgroundColor: prim.back,
               automaticallyImplyLeading: false,
               title: customTitle ??

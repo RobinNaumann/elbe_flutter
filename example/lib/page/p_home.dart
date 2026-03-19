@@ -17,7 +17,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => HeroScaffold(
         heroHeight: 14,
-        leadingIcon: const LeadingIcon.none(),
         title: 'elbe',
         hero: Column(
             cross: CrossAxisAlignment.center,
@@ -78,7 +77,7 @@ class HomePage extends StatelessWidget {
                                   minHeight: 3.5, maxWidth: 25),
                               icon: e.icon,
                               label: e.label,
-                              onTap: () => context.app.router.go(e.route)),
+                              onTap: () => context.app.router.push(e.route)),
                       ]),
                   const Spacer.vertical(1),
                   Button.flat(

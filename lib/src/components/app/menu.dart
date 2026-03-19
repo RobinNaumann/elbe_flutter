@@ -6,7 +6,7 @@ class AppMenuSpacer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!context.app.layoutMode.isWide) return Spacer.zero;
-    return Spacer.horizontal((context.app.menuOpen ? 15 : 3) + .5);
+    return Spacer.horizontal((context.app.menuOpen ? 15 : 4));
   }
 }
 
@@ -15,7 +15,6 @@ class AppMenu extends StatelessWidget {
 
   String _currentMajor(String p) {
     final path = p.split("/");
-    print("Current path: ${path}");
     if (path.length < 2) return "/";
     return "/" + (path[1].isNotEmpty ? path[1] : ""); // Get the first segment
   }
@@ -27,46 +26,82 @@ class AppMenu extends StatelessWidget {
     final isOpen = context.app.menuOpen;
     final isWide = context.app.layoutMode.isWide;
 
-    return !isWide && !isOpen
-        ? Spacer.zero
-        : Row(
-            main: MainAxisAlignment.start,
-            cross: CrossAxisAlignment.stretch,
-            children: [
-              Card(
-                flex: isOpen && !isWide ? 1 : 0,
-                margin:
-                    isWide ? RemInsets.fromLTRB(.5, .5, 0, .5) : RemInsets.zero,
-                padding: RemInsets.zero,
-                scheme: ColorSchemes.secondary,
-                width: isOpen ? 15 : 3,
-                child: Column(
-                  gap: .5,
-                  children: [
-                    Padded.only(
-                      bottom: 1,
-                      child: Button.plain(
-                          alignment: isOpen
-                              ? MainAxisAlignment.start
-                              : MainAxisAlignment.center,
-                          constraints: const RemConstraints(minHeight: 3),
-                          label: isOpen ? context.app.name : null,
-                          icon: Icons.menu,
-                          onTap: () {
-                            context.app.update(menuOpen: !context.app.menuOpen);
-                          }),
+    final menuRoutes = context.app.router.routes.whereType<MenuRoute>();
+    final topRoutes = menuRoutes.where((r) => !r.bottom);
+    final bottomRoutes = menuRoutes.where((r) => r.bottom);
+
+    return AnimatedSwitcher(
+      transitionBuilder: (child, animation) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: Offset(-1, 0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: child,
+        );
+      },
+      duration: Duration(milliseconds: 200),
+      child: !isWide && !isOpen
+          ? Spacer.zero
+          : Row(
+              main: MainAxisAlignment.start,
+              cross: CrossAxisAlignment.stretch,
+              children: [
+                Card(
+                  radius: 0,
+                  flex: isOpen && !isWide ? 1 : 0,
+                  margin: RemInsets.zero,
+                  padding: RemInsets.all(.5),
+                  scheme: ColorSchemes.secondary,
+                  child: SafeArea(
+                    child: AnimatedSize(
+                      duration: Duration(milliseconds: 200),
+                      alignment: AlignmentGeometry.centerLeft,
+                      child: Card(
+                        radius: 0,
+                        margin: RemInsets.zero,
+                        padding: RemInsets.zero,
+                        width: isOpen ? 14 : 3,
+                        child: Column(
+                          gap: .5,
+                          children: [
+                            Padded.only(
+                              bottom: 1,
+                              child: Button.plain(
+                                  alignment: isOpen
+                                      ? MainAxisAlignment.start
+                                      : MainAxisAlignment.center,
+                                  constraints:
+                                      const RemConstraints(minHeight: 3),
+                                  label: isOpen ? context.app.name : null,
+                                  icon: isOpen
+                                      ? (isWide ? Icons.menu : Icons.x)
+                                      : Icons.menu,
+                                  onTap: () {
+                                    context.app.update(
+                                        menuOpen: !context.app.menuOpen);
+                                  }),
+                            ),
+                            for (final route in topRoutes)
+                              _MenuItem(
+                                  route: route,
+                                  selected: route.path == currentSel,
+                                  menuOpen: context.app.menuOpen),
+                            Expanded(child: Container()),
+                            for (final route in bottomRoutes)
+                              _MenuItem(
+                                  route: route,
+                                  selected: route.path == currentSel,
+                                  menuOpen: context.app.menuOpen),
+                          ],
+                        ),
+                      ),
                     ),
-                    for (final route
-                        in context.app.router.routes.whereType<MenuRoute>())
-                      _MenuItem(
-                          route: route,
-                          selected: route.path == currentSel,
-                          menuOpen: context.app.menuOpen),
-                  ],
+                  ),
                 ),
-              ),
-            ],
-          );
+              ],
+            ),
+    );
   }
 }
 
@@ -94,8 +129,8 @@ class _MenuItem extends StatelessWidget {
         onTap: route.disabled
             ? null
             : () {
+                context.app.router.replace(route.path, clearHistory: true);
                 if (!isWide) context.app.update(menuOpen: false);
-                context.app.router.go(route.path, replace: true);
               });
   }
 }
